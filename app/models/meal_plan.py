@@ -13,8 +13,6 @@ class Meal_Plan(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'username': self.username,
-            'email': self.email
+            'name': self.name,
+            'user_id': self.user_id
         }
-
-        

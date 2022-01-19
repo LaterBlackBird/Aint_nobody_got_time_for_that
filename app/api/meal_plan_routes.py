@@ -9,8 +9,8 @@ auth_routes = Blueprint('meal_plans', __name__)
 @user_routes.route('/')
 @login_required
 def get_meal_plans():
-    meal_plans = Meal_Plan.query.all()
-    return {'users': [user.to_dict() for user in users]}
+    meal_plans = Meal_Plan.query.filter(Meal_Plan.user_id == userId).all()
+    return {'meal_plans': [user.to_dict() for user in users]}
 
 
 @user_routes.route('/<int:id>')
