@@ -1,7 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required
-from app.models import User
-from app.meal_plan import Meal_Plan
+from app.models import User, Meal_Plan
 
 user_routes = Blueprint('users', __name__)
 
@@ -20,8 +19,8 @@ def user(id):
     return user.to_dict()
 
 # Get meal plans associated with only one user
-@user_routes.route('/<:userId>/meal_plans')
+@user_routes.route('/<int:userId>/meal_plans')
 @login_required
 def meal_plans_by_user(userId):
     meal_plans = Meal_Plan.query.filter(Meal_Plan.user_id == userId).all()
-    return meal_plans.to_dict
+    return {'meal_plans': [meal_plan.to_dict() for meal_plan in meal_plans]}
