@@ -43,7 +43,7 @@ const LoginForm = () => {
   return (
     <div className='user_auth_page'>
       <div className="user_auth_header">
-        <p>AINT NOBODY GOT TIME FOR THAT</p>
+        <Link to='/'>AINT NOBODY GOT TIME FOR THAT</Link>
       </div>
       <div className="user_auth_container">
         <img src={scrum_board} alt="people planning on a board" className='user_auth_graphic' />
@@ -54,20 +54,20 @@ const LoginForm = () => {
                 <div key={ind}>{error}</div>
               ))}
             </div>
-              <input
-                name='email'
-                type='text'
-                placeholder='Email'
-                value={email}
-                onChange={updateEmail}
-              />
-              <input
-                name='password'
-                type='password'
-                placeholder='Password'
-                value={password}
-                onChange={updatePassword}
-              />
+            <input
+              name='email'
+              type='text'
+              placeholder='Email'
+              value={email}
+              onChange={updateEmail}
+            />
+            <input
+              name='password'
+              type='password'
+              placeholder='Password'
+              value={password}
+              onChange={updatePassword}
+            />
             <button type='submit' className='user_auth_submit'>Login</button>
             <button type='submit' id='demo_login_button' onClick={demoLogin}>Demo Login</button>
             <Link to='/sign-up' className='login_signup_switch_text'>Create An Account</Link>

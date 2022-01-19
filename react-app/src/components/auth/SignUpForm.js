@@ -47,10 +47,10 @@ const SignUpForm = () => {
   return (
     <div className='user_auth_page'>
       <div className="user_auth_header">
-        <p>AINT NOBODY GOT TIME FOR THAT</p>
+        <Link to='/'>AINT NOBODY GOT TIME FOR THAT</Link>
       </div>
       <div className="user_auth_container">
-      <img src={busy_work} alt="busy people at a computer" className='user_auth_graphic' />
+        <img src={busy_work} alt="busy people at a computer" className='user_auth_graphic' />
         <div className="user_auth_form_container">
           <form onSubmit={onSignUp} className='user_auth_form'>
             <div>
