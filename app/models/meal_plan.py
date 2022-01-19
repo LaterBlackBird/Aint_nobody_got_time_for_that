@@ -16,3 +16,5 @@ class Meal_Plan(db.Model):
             'username': self.username,
             'email': self.email
         }
+
+        
