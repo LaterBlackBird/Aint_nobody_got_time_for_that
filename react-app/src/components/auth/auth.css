@@ -26,23 +26,22 @@
   margin: auto;
   display: flex;
   flex-direction: column;
-  align-items: left;
 }
 
-#login_form {
+.user_auth_form {
   width: 40%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-#login_form input,
-#login_form button {
+.user_auth_form input,
+.user_auth_form button {
   width: 100%;
   min-width: 100%;
 }
 
-#user_auth_submit {
+.user_auth_submit {
   margin-top: 30px;
 }
 

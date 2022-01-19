@@ -48,7 +48,7 @@ const LoginForm = () => {
       <div className="user_auth_container">
         <img src={scrum_board} alt="people planning on a board" className='user_auth_graphic' />
         <div className="user_auth_form_container">
-          <form onSubmit={onLogin} id='login_form'>
+          <form onSubmit={onLogin} className='user_auth_form'>
             <div>
               {errors.map((error, ind) => (
                 <div key={ind}>{error}</div>
@@ -68,7 +68,7 @@ const LoginForm = () => {
                 value={password}
                 onChange={updatePassword}
               />
-            <button type='submit' id='user_auth_submit'>Login</button>
+            <button type='submit' className='user_auth_submit'>Login</button>
             <button type='submit' id='demo_login_button' onClick={demoLogin}>Demo Login</button>
             <Link to='/sign-up' className='login_signup_switch_text'>Create An Account</Link>
           </form>
