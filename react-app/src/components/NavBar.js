@@ -21,7 +21,7 @@ const NavBar = () => {
   } else {
     userLinks = (
       <>
-        <span>Welcome {user.username} &nbsp;</span>
+        <span>Welcome, {user.username} &nbsp;</span>
         <span>&nbsp; | &nbsp; &nbsp;</span>
         <LogoutButton />
       </>
