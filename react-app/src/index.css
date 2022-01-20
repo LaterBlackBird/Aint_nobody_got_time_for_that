@@ -60,3 +60,8 @@ button {
   width: 60px;
   margin: auto;
 }
+
+nav {
+  display: flex;
+  align-items: center;
+}

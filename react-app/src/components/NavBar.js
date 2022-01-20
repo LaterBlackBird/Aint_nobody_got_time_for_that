@@ -13,16 +13,16 @@ const NavBar = () => {
   if (!user) {
     userLinks = (
       <>
-        <NavLink to='/login' exact={true} activeClassName='active'>Login</NavLink>
-        <span> | </span>
-        <NavLink to='/sign-up' exact={true} activeClassName='active'>Sign Up</NavLink>
+        <NavLink to='/login' exact={true} activeClassName='active'>Login &nbsp;</NavLink>
+        <span>&nbsp; | &nbsp;</span>
+        <NavLink to='/sign-up' exact={true} activeClassName='active'>&nbsp; Sign Up </NavLink>
       </>
     )
   } else {
     userLinks = (
       <>
-        <span>Welcome {user.username}</span>
-        <span> | </span>
+        <span>Welcome {user.username} &nbsp;</span>
+        <span>&nbsp; | &nbsp; &nbsp;</span>
         <LogoutButton />
       </>
     )
@@ -31,7 +31,6 @@ const NavBar = () => {
   return (
     <div className='navbar'>
       <span>
-
         <Link to='/homepage'>
           <span>AINT NOBODY GOT TIME FOR THAT  </span>
           <img src={logo} alt="logo" id='nav_logo' />
