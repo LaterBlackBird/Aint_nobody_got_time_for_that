@@ -1,0 +1,9 @@
+#homepage_container {
+    width: 90vw;
+    display: flex;
+}
+
+#daily_schedule_workspace {
+    border: 1px solid black;
+    width: 80%;
+}
