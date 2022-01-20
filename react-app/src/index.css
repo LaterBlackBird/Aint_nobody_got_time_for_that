@@ -1,1 +1,67 @@
-/* TODO Add site wide styles */
+@import url('https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap');
+
+* {
+  font-family: 'Sen', sans-serif;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+input {
+  border: none;
+  border-bottom: 1px solid black;
+  margin: 5px;
+  width: 100%;
+}
+
+input:focus {
+  outline: none;
+}
+
+button {
+  border: none;
+  background-color: #00b0ff;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  line-height: 2em;
+  margin: 5px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin-top: 10px;
+}
+
+.navbar a {
+  text-decoration: none;
+  font-weight: inherit;
+  color: inherit;
+  display: flex;
+  align-items: center;
+}
+
+#nav_logo {
+  height: 60px;
+  width: 60px;
+  margin: auto;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
