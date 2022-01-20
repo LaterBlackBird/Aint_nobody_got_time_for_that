@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { Link, useParams } from 'react-router-dom'
 // import { useHistory, Redirect } from 'react-router';
-import { getMealPlans } from '../../store/meal_plan';
+import { getMealPlans, addMealPlan } from '../../store/meal_plan';
 import './meal_plans.css'
 
 function MealPlans() {
@@ -11,7 +11,8 @@ function MealPlans() {
     const plans = useSelector(state => state.mealPlans);
     const plansArray = Object.values(plans);
     const [newPlanFormVisibility, setNewPlanFormVisibility] = useState(false)
-    const [ newPlanName, setNewPlanName ] = useState('')
+    const [newPlanName, setNewPlanName] = useState('')
+    const [errors, setErrors] = useState([]);
 
     useEffect(() => {
         dispatch(getMealPlans(user.id));
@@ -21,32 +22,37 @@ function MealPlans() {
         console.log('you selected ', plans[planId].name);
     }
 
-    const addPlan = () => {
-        console.log(`sudo added ${newPlanName} for now`)
+    const addPlan = async (e) => {
+        e.preventDefault();
+        let userId = user.id;
+        setErrors([]);
+
+        if (newPlanName.length < 1) {
+            setErrors(['Name Cannot Be Empty'])
+        } else {
+            dispatch(addMealPlan({ userId, newPlanName }))
+            setNewPlanFormVisibility(false);
+            setNewPlanName('')
+        }
     }
 
     let newPlanForm;
     if (newPlanFormVisibility) {
         newPlanForm = (
-            <form onSubmit={addPlan} className=''>
-                {/* <div>
-                    {errors.map((error, ind) => (
-                        <div key={ind}>{error}</div>
-                    ))}
-                </div> */}
+            <form onSubmit={addPlan} className='flex_col_center'>
                 <input
                     name='newPlanName'
-                    ref={(input) => {input && input.focus() }}
+                    ref={(input) => { input && input.focus() }}
                     type='text'
-                    placeholder='New Plan Name'
+                    placeholder={errors.length ? errors[0] : 'New Plan Name'}
                     value={newPlanName}
                     onChange={(e) => setNewPlanName(e.target.value)}
+                    className="meal_plan_card flex_col_center"
                 />
+                <p onClick={() => setNewPlanFormVisibility(false)}>Cancel</p>
             </form>
         )
     }
-
-
 
     return (
         <div id="meal_plan_container" className='flex_col_center'>

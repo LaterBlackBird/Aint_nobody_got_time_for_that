@@ -8,6 +8,17 @@ export const getMealPlans = userId => async (dispatch) => {
     }
 }
 
+//Add a new meal plan to the database
+export const addMealPlan = planInfo => async (dispatch) => {
+    const { userId, newPlanName } = planInfo
+    console.log(userId, newPlanName)
+    // const response = await fetch(`/api/users/${userId}/meal_plans`);
+    // if (response.ok) {
+    //     const data = await response.json();
+    //     dispatch(loadMealPlans(data));
+    // }
+}
+
 
 // Action types
 // To help prevent errors

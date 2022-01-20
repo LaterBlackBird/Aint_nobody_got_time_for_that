@@ -8,7 +8,7 @@
 }
 
 #meal_plan_list {
-    width: 100%;
+  width: 100%;
 }
 
 #meal_plan_header {
@@ -28,25 +28,42 @@
 }
 
 .meal_plan_card:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .meal_plan_card p {
-    margin: auto;
+  margin: auto;
 }
 
 #add_plan {
-    justify-self: flex-end;
+  justify-self: flex-end;
 }
 
 #add_plan:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-#add_plan p{
-    margin: 0;
+#add_plan p {
+  margin: 0;
 }
 
 #add_plan .plus {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+#meal_plan_list form {
+  width: 100%;
+}
+
+#meal_plan_list form input {
+  text-align: center;
+}
+
+#meal_plan_list form p {
+  font-size: 0.5em;
+  margin: 0;
+}
+
+#meal_plan_list form p:hover {
+  cursor: pointer;
 }
