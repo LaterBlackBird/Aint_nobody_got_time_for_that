@@ -14,6 +14,8 @@ body {
 #root {
   display: flex;
   height: 100%;
+  flex-direction: column;
+  align-items: center;
 }
 
 input {
@@ -35,4 +37,26 @@ button {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   line-height: 2em;
   margin: 5px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin-top: 10px;
+}
+
+.navbar a {
+  text-decoration: none;
+  font-weight: inherit;
+  color: inherit;
+  display: flex;
+  align-items: center;
+}
+
+#nav_logo {
+  height: 60px;
+  width: 60px;
+  margin: auto;
 }
