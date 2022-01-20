@@ -3,10 +3,12 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
   width: 15%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   height: 90vh;
+  justify-content: space-between;
+}
+
+#meal_plan_list {
+    width: 100%;
 }
 
 #meal_plan_header {
@@ -23,9 +25,28 @@
   width: 80%;
   height: 40px;
   margin: 7px 0;
-  display: flex;
+}
+
+.meal_plan_card:hover {
+    cursor: pointer;
 }
 
 .meal_plan_card p {
     margin: auto;
+}
+
+#add_plan {
+    justify-self: flex-end;
+}
+
+#add_plan:hover {
+    cursor: pointer;
+}
+
+#add_plan p{
+    margin: 0;
+}
+
+#add_plan .plus {
+    margin-bottom: 15px;
 }
