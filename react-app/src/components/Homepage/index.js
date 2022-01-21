@@ -18,6 +18,10 @@ function Homepage() {
         dispatch(getMealPlans(user.id));
     }, [dispatch])
 
+    useEffect(() => {
+
+    })
+
     const editPlan = async (e) => {
         e.preventDefault();
         setErrors([]);
@@ -59,14 +63,20 @@ function Homepage() {
         <div id="homepage_container">
             <MealPlans />
             <div id="daily_schedule_workspace">
+                {!selectedPlan &&
+                    <span className='workspace_name_header'>Select or Create A Meal Plan</span>
+                }
                 {selectedPlan && !editPlanNameVisibility &&
-                    <span id='workspace_name_header'>
+                    <span className='workspace_name_header'>
                         {selectedPlan.name}
                         <i className="far fa-edit workspace_name_icon" onClick={() => setEditPlanNameVisibility(true)}></i>
                         <i className="far fa-trash-alt workspace_name_icon" onClick={() => deletePlan()}></i>
                     </span>
                 }
                 {editPlanNameVisibility && editPlanForm}
+                <div id="daily_schedule_container">
+
+                </div>
             </div>
         </div>
     );
