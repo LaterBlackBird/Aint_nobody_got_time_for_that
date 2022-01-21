@@ -26,6 +26,23 @@ export const addDailySchedule = dayInfo => async (dispatch) => {
 }
 
 
+//Edit a daily schedule
+export const editDailySchedule = ( dailyScheduleId, editedDayName ) => async (dispatch) => {
+    const response = await fetch(`/api/daily_schedules/${dailyScheduleId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ editedDayName })
+    });
+    if (response.ok) {
+        const day = await response.json();
+        dispatch(editThisDay(day));
+        return day;
+    }
+}
+
+
 // Action types
 // To help prevent errors
 const GET_DAILY_SCHEDULES = 'meal_plans/GET_DAILY_SCHEDULES'
@@ -41,10 +58,17 @@ const loadDialySchedules = (dailySchedules) => {
     }
 }
 
-const createDay = (newDailySchedule) => {
+const createDay = (dailyScheduleInfo) => {
     return {
         type: ADD_EDIT_DAILY_SCHEDULE,
-        newDailySchedule
+        dailyScheduleInfo
+    }
+}
+
+const editThisDay = (dailyScheduleInfo) => {
+    return {
+        type: ADD_EDIT_DAILY_SCHEDULE,
+        dailyScheduleInfo
     }
 }
 
@@ -64,7 +88,7 @@ export default function dailyScheduleReducer(state = {}, action) {
             };
         case ADD_EDIT_DAILY_SCHEDULE:
             let addState = { ...state };
-            addState[action.newDailySchedule.id] = action.newDailySchedule;
+            addState[action.dailyScheduleInfo.id] = action.dailyScheduleInfo;
             return addState;
         default:
             return state;

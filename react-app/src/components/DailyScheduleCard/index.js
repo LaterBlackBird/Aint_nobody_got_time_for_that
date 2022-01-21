@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { editDailySchedule } from '../../store/daily_schedule';
 import './daily_schedule.css'
 
 function DailyScheduleCard({ dailySchedule }) {
@@ -17,7 +18,7 @@ function DailyScheduleCard({ dailySchedule }) {
         if (editedDayName.length < 1) {
             setErrors(['Name Cannot Be Empty'])
         } else {
-            // dispatch(editDailySchedule(selectedPlan.id, editedPlanName))
+            dispatch(editDailySchedule(dailySchedule.id, editedDayName))
             setEditDayNameFormVisibility(false);
             setEditedDayName('')
         }
