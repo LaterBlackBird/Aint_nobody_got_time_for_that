@@ -64,9 +64,9 @@ const selectedPlan = (plan) => {
 export default function mealPlanReducer(state = { all_plans: {} }, action) {
     switch (action.type) {
         case GET_MEAL_PLANS:
-            // normalize data
             const allMealPlans = {};
             action.userMealPlans.meal_plans.forEach(mealPlan => {
+                // normalize data
                 allMealPlans[mealPlan.id] = mealPlan;
             });
             return {

@@ -1,9 +1,26 @@
 #homepage_container {
-    width: 90vw;
-    display: flex;
+  width: 90vw;
+  display: flex;
 }
 
 #daily_schedule_workspace {
-    border: 1px solid black;
-    width: 80%;
+  border: 1px solid black;
+  width: 80%;
+}
+
+#workspace_name_header {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 0px 0 0 20px;
+  display: flex;
+  align-items: center;
+}
+
+.workspace_name_icon {
+  font-size: 15px;
+  margin: 0 10px;
+}
+
+.fa-edit.workspace_name_icon{
+    margin-left: 20px;
 }
