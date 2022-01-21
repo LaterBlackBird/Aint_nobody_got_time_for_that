@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MealPlans from '../MealPlans';
+import DailyScheduleCard from '../DailyScheduleCard';
 import { getMealPlans, editMealPlan, deleteMealPlan } from '../../store/meal_plan';
 import './homepage.css'
 
@@ -10,6 +11,7 @@ function Homepage() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
     const selectedPlan = useSelector(state => state.mealPlans.selected);
+    const dailySchedulesArray = useSelector(state => Object.values(state.dailySchedules));
     const [editPlanNameVisibility, setEditPlanNameVisibility] = useState(false);
     const [editedPlanName, setEditedPlanName] = useState('')
     const [errors, setErrors] = useState([]);
@@ -72,7 +74,17 @@ function Homepage() {
                 }
                 {editPlanNameVisibility && editPlanForm}
                 <div id="daily_schedule_container">
-
+                    {dailySchedulesArray &&
+                        dailySchedulesArray.map(dailySchedule => (
+                            <DailyScheduleCard key={dailySchedule.id} dailySchedule={dailySchedule} />
+                        ))
+                    }
+                    <div id="add_daily_schedule_card" className='flex_col_center'>
+                        <div id='add_day_button' className='flex_col_center'>
+                            <p>Add A Day</p>
+                            <p className='plus'>+</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

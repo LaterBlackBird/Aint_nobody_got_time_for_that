@@ -14,7 +14,7 @@
 .workspace_name_header {
   font-size: 2em;
   font-weight: bold;
-  margin: 0;
+  margin-left: 8px;
   display: flex;
   align-items: center;
 }
@@ -48,6 +48,20 @@
 }
 
 #daily_schedule_container {
-  border: 1px solid black;
+  display: flex;
   height: 91%;
+}
+
+#add_daily_schedule_card {
+  width: 22%;
+  height: 48%;
+  margin: 10px;
+}
+
+#add_day_button {
+  margin: auto;
+}
+
+#add_day_button p {
+  margin: 0;
 }
