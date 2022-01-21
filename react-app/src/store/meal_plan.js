@@ -123,7 +123,7 @@ export default function mealPlanReducer(state = { all_plans: {} }, action) {
         case DELETE_MEAL_PLAN:
             let deleteState = { ...state };
             delete deleteState.all_plans[action.planId];
-            deleteState.selected = {};
+            delete deleteState.selected;
             return deleteState
         default:
             return state;

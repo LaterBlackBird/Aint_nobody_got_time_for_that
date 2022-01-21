@@ -28,7 +28,6 @@ function Homepage() {
 
     const deletePlan = async () => {
         dispatch(deleteMealPlan(selectedPlan.id))
-        setEditPlanNameVisibility(false);
     }
 
     let editPlanForm;
