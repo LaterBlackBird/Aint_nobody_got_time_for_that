@@ -24,3 +24,23 @@
 .fa-edit.workspace_name_icon{
     margin-left: 20px;
 }
+
+#edit_plan_form {
+    margin-left: 20px;
+    display: flex;
+}
+
+#edit_plan_form div{
+    width: 30%;
+}
+
+#edit_plan_form input{
+    font-size: 2em;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+#edit_plan_form p{
+    font-size: .75em;
+    margin-top: 3px;
+}
