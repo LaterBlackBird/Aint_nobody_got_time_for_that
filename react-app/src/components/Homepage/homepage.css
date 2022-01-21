@@ -1,0 +1,46 @@
+#homepage_container {
+  width: 90vw;
+  display: flex;
+}
+
+#daily_schedule_workspace {
+  border: 1px solid black;
+  width: 80%;
+}
+
+#workspace_name_header {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 0px 0 0 20px;
+  display: flex;
+  align-items: center;
+}
+
+.workspace_name_icon {
+  font-size: 15px;
+  margin: 0 10px;
+}
+
+.fa-edit.workspace_name_icon{
+    margin-left: 20px;
+}
+
+#edit_plan_form {
+    margin-left: 20px;
+    display: flex;
+}
+
+#edit_plan_form div{
+    width: 30%;
+}
+
+#edit_plan_form input{
+    font-size: 2em;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+#edit_plan_form p{
+    font-size: .75em;
+    margin-top: 3px;
+}

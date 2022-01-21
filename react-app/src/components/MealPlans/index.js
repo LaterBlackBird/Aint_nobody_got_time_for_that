@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { Link, useParams } from 'react-router-dom'
 // import { useHistory, Redirect } from 'react-router';
-import { getMealPlans, addMealPlan } from '../../store/meal_plan';
+import { getMealPlans, addMealPlan, selectThisPlan } from '../../store/meal_plan';
 import './meal_plans.css'
 
 function MealPlans() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
-    const plans = useSelector(state => state.mealPlans);
+    const plans = useSelector(state => state.mealPlans.all_plans);
     const plansArray = Object.values(plans);
     const [newPlanFormVisibility, setNewPlanFormVisibility] = useState(false)
     const [newPlanName, setNewPlanName] = useState('')
@@ -16,10 +16,10 @@ function MealPlans() {
 
     useEffect(() => {
         dispatch(getMealPlans(user.id));
-    }, [dispatch, user])
+    }, [dispatch, user, newPlanFormVisibility])
 
-    const selectMealPlan = (planId) => {
-        console.log('you selected ', plans[planId].name);
+    const selectMealPlan = (plan) => {
+        dispatch(selectThisPlan(plan))
     }
 
     const addPlan = async (e) => {
@@ -61,7 +61,7 @@ function MealPlans() {
                     <p>MEAL PLANS</p>
                 </div>
                 {plansArray.map(plan => (
-                    <div className="meal_plan_card flex_col_center" key={plan.id} onClick={() => selectMealPlan(plan.id)}>
+                    <div className="meal_plan_card flex_col_center" key={plan.id} onClick={(e) => selectMealPlan(plan)}>
                         <p>{plan.name}</p>
                     </div>
                 ))}
