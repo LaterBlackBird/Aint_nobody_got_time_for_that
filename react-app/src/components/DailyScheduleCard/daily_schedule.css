@@ -12,3 +12,28 @@
     text-align: center;
     height: 50px;
   }
+
+.daily_schedule_delete {
+    position: relative;
+    height: 0px;
+    width: 0px;
+    left: 40%;
+    top: 2%;
+}
+
+.daily_schedule_delete:hover {
+    cursor: pointer;
+}
+
+.edit_daily_schedule_header {
+    width: 80%;
+    text-align: center;
+    height: 50px;
+    border: none;
+    margin-top: 16px;
+    font-size: 1em;
+}
+
+.edit_daily_schedule_header::placeholder {
+    color: lightgray;
+}
