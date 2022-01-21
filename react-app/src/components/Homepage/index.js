@@ -18,9 +18,6 @@ function Homepage() {
         dispatch(getMealPlans(user.id));
     }, [dispatch])
 
-    useEffect(() => {
-
-    })
 
     const editPlan = async (e) => {
         e.preventDefault();

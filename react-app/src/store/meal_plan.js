@@ -25,11 +25,12 @@ export const addMealPlan = planInfo => async (dispatch) => {
     }
 }
 
+// user has made a meal plan selection
 export const selectThisPlan = planInfo => async (dispatch) => {
     dispatch(selectedPlan(planInfo));
 }
 
-
+// edit the name of a meal plan
 export const editMealPlan = (selectedPlanId, editedPlanName) => async (dispatch) => {
     const response = await fetch(`/api/meal_plans/${selectedPlanId}`, {
         method: 'PUT',
@@ -45,7 +46,7 @@ export const editMealPlan = (selectedPlanId, editedPlanName) => async (dispatch)
     }
 }
 
-
+// delete a meal plan
 export const deleteMealPlan = (selectedPlanId) => async (dispatch) => {
     const response = await fetch(`/api/meal_plans/${selectedPlanId}`, {
         method: 'DELETE',

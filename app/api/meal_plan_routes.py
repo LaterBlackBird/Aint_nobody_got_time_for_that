@@ -51,4 +51,4 @@ def delete_meal_plan(id):
 @login_required
 def daily_schedules_by_meal_plan(meal_plan_id):
     daily_schedules = Day.query.filter(Day.meal_plan_id == meal_plan_id).all()
-    return {'daily_schedules': [daily_schedules.to_dict() for daily_schedule in daily_schedules]}
+    return {'daily_schedules': [daily_schedule.to_dict() for daily_schedule in daily_schedules]}
