@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import { Link, useParams } from 'react-router-dom'
 // import { useHistory, Redirect } from 'react-router';
-import { getMealPlans, addMealPlan, selectThisPlan } from '../../store/meal_plan';
+import { addMealPlan, selectThisPlan } from '../../store/meal_plan';
 import './meal_plans.css'
 
 function MealPlans() {
@@ -13,10 +13,6 @@ function MealPlans() {
     const [newPlanFormVisibility, setNewPlanFormVisibility] = useState(false)
     const [newPlanName, setNewPlanName] = useState('')
     const [errors, setErrors] = useState([]);
-
-    useEffect(() => {
-        dispatch(getMealPlans(user.id));
-    }, [dispatch, user, newPlanFormVisibility])
 
     const selectMealPlan = (plan) => {
         dispatch(selectThisPlan(plan))
