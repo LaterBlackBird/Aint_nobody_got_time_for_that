@@ -9,6 +9,7 @@ from .models import db, User, Meal_Plan
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.meal_plan_routes import meal_routes
+from .api.daily_schedule_routes import day_routes
 
 from .seeds import seed_commands
 
@@ -33,6 +34,7 @@ app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(meal_routes, url_prefix='/api/meal_plans')
+app.register_blueprint(day_routes, url_prefix='/api/daily_schedules')
 db.init_app(app)
 Migrate(app, db)
 

@@ -8,11 +8,28 @@ export const getDialySchedules = mealPlanId => async (dispatch) => {
     }
 }
 
+//Add a new daily schedule to the database
+export const addDailySchedule = dayInfo => async (dispatch) => {
+    const { planId, newDayName } = dayInfo
+    const response = await fetch(`/api/daily_schedules`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ newDayName, planId })
+    });
+    if (response.ok) {
+        const day = await response.json();
+        dispatch(createDay(day));
+        return day;
+    }
+}
 
 
 // Action types
 // To help prevent errors
 const GET_DAILY_SCHEDULES = 'meal_plans/GET_DAILY_SCHEDULES'
+const ADD_EDIT_DAILY_SCHEDULE = 'daily_schedules/ADD_EDIT_DAILY_SCHEDULE'
 
 
 
@@ -24,10 +41,17 @@ const loadDialySchedules = (dailySchedules) => {
     }
 }
 
+const createDay = (newDailySchedule) => {
+    return {
+        type: ADD_EDIT_DAILY_SCHEDULE,
+        newDailySchedule
+    }
+}
+
 
 // Reducer
 // Replace state with database information from thunk
-export default function dailyScheduleReducer(state = { }, action) {
+export default function dailyScheduleReducer(state = {}, action) {
     switch (action.type) {
         case GET_DAILY_SCHEDULES:
             const allDailySchedules = {};
@@ -38,6 +62,10 @@ export default function dailyScheduleReducer(state = { }, action) {
             return {
                 ...allDailySchedules
             };
+        case ADD_EDIT_DAILY_SCHEDULE:
+            let addState = { ...state };
+            addState[action.newDailySchedule.id] = action.newDailySchedule;
+            return addState;
         default:
             return state;
     }

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import MealPlans from '../MealPlans';
 import DailyScheduleCard from '../DailyScheduleCard';
 import { getMealPlans, editMealPlan, deleteMealPlan } from '../../store/meal_plan';
-import { getDialySchedules } from '../../store/daily_schedule';
+import { getDialySchedules, addDailySchedule } from '../../store/daily_schedule';
 import './homepage.css'
 
 
@@ -19,16 +19,19 @@ function Homepage() {
     const [newDayName, setNewDayName] = useState('')
     const [errors, setErrors] = useState([]);
 
+    //retrieve and update meal plans associated with the user
     useEffect(() => {
         dispatch(getMealPlans(user.id));
     }, [dispatch])
 
+    //reset daily schedules when the user selects different meal plans
     useEffect(() => {
         if (selectedPlan) dispatch(getDialySchedules(selectedPlan.id));
     }, [dispatch, selectedPlan])
 
 
-     const editPlan = async (e) => {
+    //edit the meal plan name
+    const editPlan = async (e) => {
         e.preventDefault();
         setErrors([]);
 
@@ -41,19 +44,43 @@ function Homepage() {
         }
     }
 
+    let editPlanForm;
+    if (editPlanNameVisibility) {
+        editPlanForm = (
+            <form onSubmit={editPlan} id='edit_plan_form' className=''>
+                <div className='flex_col_center'>
+                    <input
+                        name='editedPlanName'
+                        ref={(input) => { input && input.focus() }}
+                        type='text'
+                        placeholder={errors.length ? errors[0] : `${selectedPlan.name}`}
+                        value={editedPlanName}
+                        onChange={(e) => setEditedPlanName(e.target.value)}
+                        className="flex_col_center"
+                    />
+                    <p onClick={() => setEditPlanNameVisibility(false)}>Cancel</p>
+                </div>
+            </form>
+        )
+    }
+
+
+    //delete the meal plan
     const deletePlan = async () => {
         dispatch(deleteMealPlan(selectedPlan.id))
     }
 
+
+    //create a new daily schedule
     const addDay = async (e) => {
         e.preventDefault();
-        let mealId = selectedPlan.id;
+        let planId = selectedPlan.id;
         setErrors([]);
 
         if (newDayName.length < 1) {
             setErrors(['Name Cannot Be Empty'])
         } else {
-            dispatch(addDailySchedule({ mealId, newDayName }));
+            dispatch(addDailySchedule({ planId, newDayName }));
             setNewDayFormVisibility(false);
             setNewDayName('')
         }
@@ -73,27 +100,6 @@ function Homepage() {
                     className="meal_plan_card flex_col_center"
                 />
                 <p onClick={() => setNewDayFormVisibility(false)}>Cancel</p>
-            </form>
-        )
-    }
-
-
-    let editPlanForm;
-    if (editPlanNameVisibility) {
-        editPlanForm = (
-            <form onSubmit={editPlan} id='edit_plan_form' className=''>
-                <div className='flex_col_center'>
-                    <input
-                        name='editedPlanName'
-                        ref={(input) => { input && input.focus() }}
-                        type='text'
-                        placeholder={errors.length ? errors[0] : `${selectedPlan.name}`}
-                        value={editedPlanName}
-                        onChange={(e) => setEditedPlanName(e.target.value)}
-                        className="flex_col_center"
-                    />
-                    <p onClick={() => setEditPlanNameVisibility(false)}>Cancel</p>
-                </div>
             </form>
         )
     }
