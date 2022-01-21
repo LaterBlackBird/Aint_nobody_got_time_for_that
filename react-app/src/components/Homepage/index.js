@@ -15,6 +15,8 @@ function Homepage() {
     const dailySchedulesArray = useSelector(state => Object.values(state.dailySchedules));
     const [editPlanNameVisibility, setEditPlanNameVisibility] = useState(false);
     const [editedPlanName, setEditedPlanName] = useState('')
+    const [newDayFormVisibility, setNewDayFormVisibility] = useState(false)
+    const [newDayName, setNewDayName] = useState('')
     const [errors, setErrors] = useState([]);
 
     useEffect(() => {
@@ -42,6 +44,39 @@ function Homepage() {
     const deletePlan = async () => {
         dispatch(deleteMealPlan(selectedPlan.id))
     }
+
+    const addDay = async (e) => {
+        e.preventDefault();
+        let mealId = selectedPlan.id;
+        setErrors([]);
+
+        if (newDayName.length < 1) {
+            setErrors(['Name Cannot Be Empty'])
+        } else {
+            dispatch(addDailySchedule({ mealId, newDayName }));
+            setNewDayFormVisibility(false);
+            setNewDayName('')
+        }
+    }
+
+    let newDayForm;
+    if (newDayFormVisibility) {
+        newDayForm = (
+            <form onSubmit={addDay} className='flex_col_center'>
+                <input
+                    name='newDayName'
+                    ref={(input) => { input && input.focus() }}
+                    type='text'
+                    placeholder={errors.length ? errors[0] : 'New Plan Name'}
+                    value={newDayName}
+                    onChange={(e) => setNewDayName(e.target.value)}
+                    className="meal_plan_card flex_col_center"
+                />
+                <p onClick={() => setNewDayFormVisibility(false)}>Cancel</p>
+            </form>
+        )
+    }
+
 
     let editPlanForm;
     if (editPlanNameVisibility) {

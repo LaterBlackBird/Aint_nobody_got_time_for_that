@@ -66,6 +66,10 @@
   margin: auto;
 }
 
+#add_day_button:hover {
+  cursor: pointer;;
+}
+
 #add_day_button p {
   margin: 0;
 }
