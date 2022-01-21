@@ -115,6 +115,7 @@ export default function mealPlanReducer(state = { all_plans: {} }, action) {
         case ADD_MEAL_PLANS:
             let addState = { ...state };
             addState.all_plans[action.newMealPlan.id] = action.newMealPlan;
+            addState['selected'] = action.newMealPlan;
             return addState;
         case SET_MEAL_PLAN:
             let setState = { ...state };
@@ -124,7 +125,7 @@ export default function mealPlanReducer(state = { all_plans: {} }, action) {
             let deleteState = { ...state };
             delete deleteState.all_plans[action.planId];
             delete deleteState.selected;
-            return deleteState
+            return deleteState;
         default:
             return state;
     }

@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MealPlans from '../MealPlans';
-import { editMealPlan, deleteMealPlan } from '../../store/meal_plan';
+import { getMealPlans, editMealPlan, deleteMealPlan } from '../../store/meal_plan';
 import './homepage.css'
 
 
 
 function Homepage() {
     const dispatch = useDispatch();
+    const user = useSelector(state => state.session.user);
     const selectedPlan = useSelector(state => state.mealPlans.selected);
     const [editPlanNameVisibility, setEditPlanNameVisibility] = useState(false);
     const [editedPlanName, setEditedPlanName] = useState('')
     const [errors, setErrors] = useState([]);
+
+    useEffect(() => {
+        dispatch(getMealPlans(user.id));
+    }, [dispatch])
 
     const editPlan = async (e) => {
         e.preventDefault();
