@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import MealPlans from '../MealPlans';
+import { editMealPlan } from '../../store/meal_plan';
 import './homepage.css'
 
 
 
 function Homepage() {
+    const dispatch = useDispatch();
     const selectedPlan = useSelector(state => state.mealPlans.selected);
     const [editPlanNameVisibility, setEditPlanNameVisibility] = useState(false);
     const [editedPlanName, setEditedPlanName] = useState('')
@@ -18,7 +20,7 @@ function Homepage() {
         if (editedPlanName.length < 1) {
             setErrors(['Name Cannot Be Empty'])
         } else {
-            // dispatch(editMealPlan({ editedPlanName }))
+            dispatch(editMealPlan(selectedPlan.id, editedPlanName))
             setEditPlanNameVisibility(false);
             setEditedPlanName('')
         }

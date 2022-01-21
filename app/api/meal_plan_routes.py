@@ -1,10 +1,11 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required
 from app.models import Meal_Plan, db
-from app.forms import NewMealPlanForm
+from app.forms import NewMealPlanForm, EditMealPlanForm
 
 meal_routes = Blueprint('meal_plans', __name__)
 
+#create a new meal plan
 @meal_routes.route('', methods = ['POST'])
 @login_required
 def add_meal_plan():
@@ -21,8 +22,15 @@ def add_meal_plan():
     return new_meal_plan.to_dict()
 
 
-@meal_routes.route('/<int:id>')
+#update an existing meal plan name
+@meal_routes.route('/<int:id>', methods=['PUT'])
 @login_required
-def user(id):
-    user = User.query.get(id)
-    return user.to_dict()
+def edit_meal_plan(id):
+    plan = Meal_Plan.query.get(id)
+    form = EditMealPlanForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        plan.name = form.data['editedPlanName'],
+        db.session.commit()
+
+    return plan.to_dict()

@@ -29,6 +29,22 @@ export const selectThisPlan = planInfo => async (dispatch) => {
     dispatch(selectedPlan(planInfo));
 }
 
+
+export const editMealPlan = (selectedPlanId, editedPlanName) => async (dispatch) => {
+    const response = await fetch(`/api/meal_plans/${selectedPlanId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ editedPlanName })
+    });
+    if (response.ok) {
+        const plan = await response.json();
+        dispatch(editThisMealPlan(plan));
+        return plan;
+    }
+}
+
 // Action types
 // To help prevent errors
 const GET_MEAL_PLANS = 'user/GET_MEAL_PLANS'
@@ -55,6 +71,13 @@ const selectedPlan = (plan) => {
     return {
         type: SET_MEAL_PLAN,
         plan
+    }
+}
+
+const editThisMealPlan = (newMealPlan) => {
+    return {
+        type: ADD_MEAL_PLANS,
+        newMealPlan
     }
 }
 
