@@ -34,3 +34,12 @@ def edit_meal_plan(id):
         db.session.commit()
 
     return plan.to_dict()
+
+
+@meal_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_meal_plan(id):
+    plan = Meal_Plan.query.get(id)
+    db.session.delete(plan)
+    db.session.commit()
+    return jsonify(f"successfully deleted meal plan {plan.name}")

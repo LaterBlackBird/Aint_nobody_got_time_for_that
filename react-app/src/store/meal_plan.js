@@ -45,11 +45,23 @@ export const editMealPlan = (selectedPlanId, editedPlanName) => async (dispatch)
     }
 }
 
+
+export const deleteMealPlan = (selectedPlanId) => async (dispatch) => {
+    const response = await fetch(`/api/meal_plans/${selectedPlanId}`, {
+        method: 'DELETE',
+
+    });
+    if (response.ok) {
+        dispatch(deleteThisMealPlan(selectedPlanId));
+    }
+}
+
 // Action types
 // To help prevent errors
 const GET_MEAL_PLANS = 'user/GET_MEAL_PLANS'
 const ADD_MEAL_PLANS = 'meal_plans/ADD_MEAL_PLANS'
 const SET_MEAL_PLAN = 'meal_plans/SET_MEAL_PLAN'
+const DELETE_MEAL_PLAN = 'meal_plans/DELETE_MEAL_PLAN'
 
 
 // Actions
@@ -81,7 +93,12 @@ const editThisMealPlan = (newMealPlan) => {
     }
 }
 
-
+const deleteThisMealPlan = (planId) => {
+    return {
+        type: DELETE_MEAL_PLAN,
+        planId
+    }
+}
 // Reducer
 // Replace state with database information from thunk
 export default function mealPlanReducer(state = { all_plans: {} }, action) {
@@ -98,11 +115,16 @@ export default function mealPlanReducer(state = { all_plans: {} }, action) {
         case ADD_MEAL_PLANS:
             let addState = { ...state };
             addState.all_plans[action.newMealPlan.id] = action.newMealPlan;
-            return addState
+            return addState;
         case SET_MEAL_PLAN:
             let setState = { ...state };
             setState['selected'] = action.plan;
-            return setState
+            return setState;
+        case DELETE_MEAL_PLAN:
+            let deleteState = { ...state };
+            delete deleteState.all_plans[action.planId];
+            delete deleteState.selected;
+            return deleteState
         default:
             return state;
     }
