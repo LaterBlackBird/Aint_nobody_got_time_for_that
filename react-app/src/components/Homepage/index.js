@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MealPlans from '../MealPlans';
-import { editMealPlan } from '../../store/meal_plan';
+import { editMealPlan, deleteMealPlan } from '../../store/meal_plan';
 import './homepage.css'
 
 
@@ -24,6 +24,11 @@ function Homepage() {
             setEditPlanNameVisibility(false);
             setEditedPlanName('')
         }
+    }
+
+    const deletePlan = async () => {
+        dispatch(deleteMealPlan(selectedPlan.id))
+        setEditPlanNameVisibility(false);
     }
 
     let editPlanForm;
@@ -54,7 +59,7 @@ function Homepage() {
                     <span id='workspace_name_header'>
                         {selectedPlan.name}
                         <i className="far fa-edit workspace_name_icon" onClick={() => setEditPlanNameVisibility(true)}></i>
-                        <i className="far fa-trash-alt workspace_name_icon"></i>
+                        <i className="far fa-trash-alt workspace_name_icon" onClick={() => deletePlan()}></i>
                     </span>
                 }
                 {editPlanNameVisibility && editPlanForm}
