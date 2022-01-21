@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required
 from app.models import  db, Day
-from app.forms import NewDayForm
+from app.forms import NewDayForm, EditDayForm
 
 day_routes = Blueprint('daily_schedules', __name__)
 
@@ -20,3 +20,18 @@ def add_day_plan():
         db.session.add(new_day)
         db.session.commit()
     return new_day.to_dict()
+
+
+
+# update an existing daily schedule name
+@day_routes.route('/<int:id>', methods=['PUT'])
+@login_required
+def edit_meal_plan(id):
+    day = Day.query.get(id)
+    form = EditDayForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        day.name = form.data['editedDayName'],
+        db.session.commit()
+
+    return day.to_dict()
