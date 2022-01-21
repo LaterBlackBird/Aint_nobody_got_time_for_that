@@ -6,4 +6,4 @@ from app.models import Day
 
 class NewDayForm(FlaskForm):
     newDayName = StringField('newDayName', validators=[DataRequired()])
-    mealId = IntegerField('planId')
+    planId = IntegerField('planId')

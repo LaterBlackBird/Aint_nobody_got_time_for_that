@@ -89,7 +89,7 @@ function Homepage() {
     let newDayForm;
     if (newDayFormVisibility) {
         newDayForm = (
-            <form onSubmit={addDay} className='flex_col_center'>
+            <form onSubmit={addDay} className='daily_schedule_card flex_col_center'>
                 <input
                     name='newDayName'
                     ref={(input) => { input && input.focus() }}
@@ -97,7 +97,7 @@ function Homepage() {
                     placeholder={errors.length ? errors[0] : 'New Plan Name'}
                     value={newDayName}
                     onChange={(e) => setNewDayName(e.target.value)}
-                    className="meal_plan_card flex_col_center"
+                    className="daily_schedule_header flex_col_center"
                 />
                 <p onClick={() => setNewDayFormVisibility(false)}>Cancel</p>
             </form>
@@ -125,12 +125,17 @@ function Homepage() {
                             <DailyScheduleCard key={dailySchedule.id} dailySchedule={dailySchedule} />
                         ))
                     }
-                    <div id="add_daily_schedule_card" className='flex_col_center'>
-                        <div id='add_day_button' className='flex_col_center'>
-                            <p>Add A Day</p>
-                            <p className='plus'>+</p>
+
+                    {newDayFormVisibility && newDayForm}
+
+                    {selectedPlan && !newDayFormVisibility &&
+                        <div id="add_daily_schedule_card" className='flex_col_center'>
+                            <div id='add_day_button' className='flex_col_center' onClick={() => setNewDayFormVisibility(true)}>
+                                <p>Add A Day</p>
+                                <p className='plus'>+</p>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
