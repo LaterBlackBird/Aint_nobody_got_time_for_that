@@ -23,6 +23,11 @@ const NavBar = () => {
       <>
         <span>Welcome, {user.username} &nbsp;</span>
         <span>&nbsp; | &nbsp; &nbsp;</span>
+        {!window.location.href.endsWith('homepage') &&
+        <>
+        <NavLink to='/homepage'>My Meal Plans &nbsp;</NavLink>
+        <span>&nbsp; | &nbsp; &nbsp;</span>
+        </>  }
         <LogoutButton />
       </>
     )
