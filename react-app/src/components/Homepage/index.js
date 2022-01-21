@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import MealPlans from '../MealPlans';
 import DailyScheduleCard from '../DailyScheduleCard';
 import { getMealPlans, editMealPlan, deleteMealPlan } from '../../store/meal_plan';
+import { getDialySchedules } from '../../store/daily_schedule';
 import './homepage.css'
 
 
@@ -20,8 +21,12 @@ function Homepage() {
         dispatch(getMealPlans(user.id));
     }, [dispatch])
 
+    useEffect(() => {
+        if (selectedPlan) dispatch(getDialySchedules(selectedPlan.id));
+    }, [dispatch, selectedPlan])
 
-    const editPlan = async (e) => {
+
+     const editPlan = async (e) => {
         e.preventDefault();
         setErrors([]);
 

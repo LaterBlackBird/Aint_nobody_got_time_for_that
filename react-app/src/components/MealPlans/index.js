@@ -26,7 +26,7 @@ function MealPlans() {
         if (newPlanName.length < 1) {
             setErrors(['Name Cannot Be Empty'])
         } else {
-            dispatch(addMealPlan({ userId, newPlanName }))
+            dispatch(addMealPlan({ userId, newPlanName }));
             setNewPlanFormVisibility(false);
             setNewPlanName('')
         }

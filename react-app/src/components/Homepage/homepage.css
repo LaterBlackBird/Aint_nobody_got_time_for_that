@@ -47,6 +47,10 @@
     margin: 3px 0;
 }
 
+#edit_plan_form p:hover{
+  cursor: pointer;
+}
+
 #daily_schedule_container {
   display: flex;
   height: 91%;
