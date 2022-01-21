@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import MealPlans from '../MealPlans';
 import DailyScheduleCard from '../DailyScheduleCard';
 import { getMealPlans, editMealPlan, deleteMealPlan } from '../../store/meal_plan';
-import { getDialySchedules } from '../../store/daily_schedule';
+import { getDialySchedules, addDailySchedule } from '../../store/daily_schedule';
 import './homepage.css'
 
 
@@ -15,18 +15,23 @@ function Homepage() {
     const dailySchedulesArray = useSelector(state => Object.values(state.dailySchedules));
     const [editPlanNameVisibility, setEditPlanNameVisibility] = useState(false);
     const [editedPlanName, setEditedPlanName] = useState('')
+    const [newDayFormVisibility, setNewDayFormVisibility] = useState(false)
+    const [newDayName, setNewDayName] = useState('')
     const [errors, setErrors] = useState([]);
 
+    //retrieve and update meal plans associated with the user
     useEffect(() => {
         dispatch(getMealPlans(user.id));
     }, [dispatch])
 
+    //reset daily schedules when the user selects different meal plans
     useEffect(() => {
         if (selectedPlan) dispatch(getDialySchedules(selectedPlan.id));
     }, [dispatch, selectedPlan])
 
 
-     const editPlan = async (e) => {
+    //edit the meal plan name
+    const editPlan = async (e) => {
         e.preventDefault();
         setErrors([]);
 
@@ -37,10 +42,6 @@ function Homepage() {
             setEditPlanNameVisibility(false);
             setEditedPlanName('')
         }
-    }
-
-    const deletePlan = async () => {
-        dispatch(deleteMealPlan(selectedPlan.id))
     }
 
     let editPlanForm;
@@ -59,6 +60,46 @@ function Homepage() {
                     />
                     <p onClick={() => setEditPlanNameVisibility(false)}>Cancel</p>
                 </div>
+            </form>
+        )
+    }
+
+
+    //delete the meal plan
+    const deletePlan = async () => {
+        dispatch(deleteMealPlan(selectedPlan.id))
+    }
+
+
+    //create a new daily schedule
+    const addDay = async (e) => {
+        e.preventDefault();
+        let planId = selectedPlan.id;
+        setErrors([]);
+
+        if (newDayName.length < 1) {
+            setErrors(['Name Cannot Be Empty'])
+        } else {
+            dispatch(addDailySchedule({ planId, newDayName }));
+            setNewDayFormVisibility(false);
+            setNewDayName('')
+        }
+    }
+
+    let newDayForm;
+    if (newDayFormVisibility) {
+        newDayForm = (
+            <form onSubmit={addDay} className='daily_schedule_card flex_col_center'>
+                <input
+                    name='newDayName'
+                    ref={(input) => { input && input.focus() }}
+                    type='text'
+                    placeholder={errors.length ? errors[0] : 'New Plan Name'}
+                    value={newDayName}
+                    onChange={(e) => setNewDayName(e.target.value)}
+                    className="daily_schedule_header flex_col_center"
+                />
+                <p onClick={() => setNewDayFormVisibility(false)}>Cancel</p>
             </form>
         )
     }
@@ -84,12 +125,17 @@ function Homepage() {
                             <DailyScheduleCard key={dailySchedule.id} dailySchedule={dailySchedule} />
                         ))
                     }
-                    <div id="add_daily_schedule_card" className='flex_col_center'>
-                        <div id='add_day_button' className='flex_col_center'>
-                            <p>Add A Day</p>
-                            <p className='plus'>+</p>
+
+                    {newDayFormVisibility && newDayForm}
+
+                    {selectedPlan && !newDayFormVisibility &&
+                        <div id="add_daily_schedule_card" className='flex_col_center'>
+                            <div id='add_day_button' className='flex_col_center' onClick={() => setNewDayFormVisibility(true)}>
+                                <p>Add A Day</p>
+                                <p className='plus'>+</p>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
