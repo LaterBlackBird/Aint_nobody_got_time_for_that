@@ -4,14 +4,17 @@
 }
 
 #daily_schedule_workspace {
-  border: 1px solid black;
   width: 80%;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-#workspace_name_header {
+.workspace_name_header {
   font-size: 2em;
   font-weight: bold;
-  margin: 0px 0 0 20px;
+  margin-left: 8px;
   display: flex;
   align-items: center;
 }
@@ -26,7 +29,6 @@
 }
 
 #edit_plan_form {
-    margin-left: 20px;
     display: flex;
 }
 
@@ -42,5 +44,28 @@
 
 #edit_plan_form p{
     font-size: .75em;
-    margin-top: 3px;
+    margin: 3px 0;
+}
+
+#edit_plan_form p:hover{
+  cursor: pointer;
+}
+
+#daily_schedule_container {
+  display: flex;
+  height: 91%;
+}
+
+#add_daily_schedule_card {
+  width: 22%;
+  height: 48%;
+  margin: 10px;
+}
+
+#add_day_button {
+  margin: auto;
+}
+
+#add_day_button p {
+  margin: 0;
 }

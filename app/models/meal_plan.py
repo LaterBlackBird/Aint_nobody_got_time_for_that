@@ -9,6 +9,7 @@ class Meal_Plan(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
     user = db.relationship('User', back_populates='meal_plans')
+    daily_schedule = db.relationship('Day', back_populates='meal_plan')
 
     def to_dict(self):
         return {

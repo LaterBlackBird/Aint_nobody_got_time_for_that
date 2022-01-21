@@ -1,0 +1,14 @@
+.daily_schedule_card {
+    border: 1px solid black;
+    border-radius: 15px;
+    width: 22%;
+    height: 48%;
+    margin: 10px;
+}
+
+.daily_schedule_header {
+    width: 80%;
+    border-bottom: 2px solid black;
+    text-align: center;
+    height: 50px;
+  }

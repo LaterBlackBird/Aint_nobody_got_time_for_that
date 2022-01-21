@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { Link, useParams } from 'react-router-dom'
-// import { useHistory, Redirect } from 'react-router';
 import { addMealPlan, selectThisPlan } from '../../store/meal_plan';
+import { getDialySchedules } from '../../store/daily_schedule';
 import './meal_plans.css'
 
 function MealPlans() {
@@ -16,6 +15,7 @@ function MealPlans() {
 
     const selectMealPlan = (plan) => {
         dispatch(selectThisPlan(plan))
+        dispatch(getDialySchedules(plan.id))
     }
 
     const addPlan = async (e) => {
@@ -26,7 +26,7 @@ function MealPlans() {
         if (newPlanName.length < 1) {
             setErrors(['Name Cannot Be Empty'])
         } else {
-            dispatch(addMealPlan({ userId, newPlanName }))
+            dispatch(addMealPlan({ userId, newPlanName }));
             setNewPlanFormVisibility(false);
             setNewPlanName('')
         }
