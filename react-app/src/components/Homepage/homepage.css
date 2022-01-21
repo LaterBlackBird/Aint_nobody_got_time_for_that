@@ -53,6 +53,7 @@
 
 #daily_schedule_container {
   display: flex;
+  flex-flow: row wrap;
   height: 91%;
 }
 

@@ -26,7 +26,7 @@
 }
 
 .edit_daily_schedule_header {
-    width: 80%;
+    width: 100%;
     text-align: center;
     height: 50px;
     border: none;
@@ -36,4 +36,8 @@
 
 .edit_daily_schedule_header::placeholder {
     color: lightgray;
+}
+
+.daily_schedule_header form {
+    width: 100%;
 }
