@@ -11,17 +11,28 @@
   width: 80%;
   border-bottom: 2px solid black;
   text-align: center;
-  height: 30px;
+  height: 50px;
 }
 
-.daily_schedule_header p {
+input.daily_schedule_header {
   margin: 0;
+  font-size: 16px;
+}
+
+input.daily_schedule_header+p {
+  margin: 5px;
+}
+
+input+p:hover {
+  cursor: pointer;
 }
 
 .daily_schedule_delete {
   position: relative;
   left: 40%;
   top: 2%;
+  height: 0;
+  width: 0;
 }
 
 .daily_schedule_delete:hover {
@@ -31,16 +42,17 @@
 .edit_daily_schedule_header {
   width: 100%;
   text-align: center;
-  height: 30px;
+  height: 50px;
   border: none;
   font-size: 1em;
-  margin: 0;
+  margin-top: 16px;
 }
 
 .edit_daily_schedule_header::placeholder {
   color: lightgray;
 }
 
+.daily_schedule_header + p,
 .edit_daily_schedule_header + p {
     margin-top: 15px;
   font-size: 0.75em;
