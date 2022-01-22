@@ -11,17 +11,15 @@
   width: 80%;
   border-bottom: 2px solid black;
   text-align: center;
-  height: 30px;
-}
-
-.daily_schedule_header p {
-  margin: 0;
+  height: 50px;
 }
 
 .daily_schedule_delete {
   position: relative;
   left: 40%;
   top: 2%;
+  height: 0;
+  width: 0;
 }
 
 .daily_schedule_delete:hover {
@@ -31,10 +29,10 @@
 .edit_daily_schedule_header {
   width: 100%;
   text-align: center;
-  height: 30px;
+  height: 50px;
   border: none;
   font-size: 1em;
-  margin: 0;
+  margin-top: 16px;
 }
 
 .edit_daily_schedule_header::placeholder {

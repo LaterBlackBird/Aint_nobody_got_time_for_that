@@ -45,7 +45,6 @@ function DailyScheduleCard({ dailySchedule }) {
 
     //delete the daily schedule
     const deleteDay = () => {
-        console.log('click')
         dispatch(deleteDailySchedule(dailySchedule.id))
     }
 
