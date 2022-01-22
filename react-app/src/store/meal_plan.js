@@ -57,12 +57,19 @@ export const deleteMealPlan = (selectedPlanId) => async (dispatch) => {
     }
 }
 
+// delete the selected meal plan
+export const deleteSelectedPlan = () => async (dispatch) => {
+    dispatch(deleteSelection());
+
+}
+
 // Action types
 // To help prevent errors
 const GET_MEAL_PLANS = 'user/GET_MEAL_PLANS'
 const ADD_MEAL_PLANS = 'meal_plans/ADD_MEAL_PLANS'
 const SET_MEAL_PLAN = 'meal_plans/SET_MEAL_PLAN'
 const DELETE_MEAL_PLAN = 'meal_plans/DELETE_MEAL_PLAN'
+const DELETE_SELECTION = 'meal_plans/DELETE_SELECTION'
 
 
 // Actions
@@ -101,6 +108,13 @@ const deleteThisMealPlan = (planId) => {
     }
 }
 
+const deleteSelection = () => {
+    return {
+        type: DELETE_SELECTION,
+        payload: null
+    }
+}
+
 
 // Reducer
 // Replace state with database information from thunk
@@ -129,6 +143,10 @@ export default function mealPlanReducer(state = { all_plans: {} }, action) {
             delete deleteState.all_plans[action.planId];
             delete deleteState.selected;
             return deleteState;
+        case DELETE_SELECTION:
+            let deleteSelectionState = { ...state };
+            delete deleteSelectionState.selected;
+            return deleteSelectionState;
         default:
             return state;
     }

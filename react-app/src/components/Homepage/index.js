@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MealPlans from '../MealPlans';
 import DailyScheduleCard from '../DailyScheduleCard';
-import { getMealPlans, editMealPlan, deleteMealPlan } from '../../store/meal_plan';
-import { getDialySchedules, addDailySchedule } from '../../store/daily_schedule';
+import { getMealPlans, editMealPlan, deleteMealPlan, deleteSelectedPlan } from '../../store/meal_plan';
+import { getDialySchedules, addDailySchedule, resetDialySchedules } from '../../store/daily_schedule';
 import './homepage.css'
 
 
@@ -19,18 +19,21 @@ function Homepage() {
     const [newDayName, setNewDayName] = useState('')
     const [errors, setErrors] = useState([]);
 
-    //retrieve and update meal plans associated with the user
+
+    // Retrieve and update meal plans associated with the user
     useEffect(() => {
         dispatch(getMealPlans(user.id));
     }, [dispatch])
 
-    //reset daily schedules when the user selects different meal plans
+
+    // Reset daily schedules when the user selects or deletes a meal plan
     useEffect(() => {
         if (selectedPlan) dispatch(getDialySchedules(selectedPlan.id));
+        else if (!selectedPlan) dispatch(resetDialySchedules())
     }, [dispatch, selectedPlan])
 
 
-    //edit the meal plan name
+    // Edit the meal plan name
     const editPlan = async (e) => {
         e.preventDefault();
         setErrors([]);
@@ -65,13 +68,14 @@ function Homepage() {
     }
 
 
-    //delete the meal plan
+    // Delete the meal plan
     const deletePlan = async () => {
-        dispatch(deleteMealPlan(selectedPlan.id))
+        await dispatch(deleteMealPlan(selectedPlan.id));
+        dispatch(deleteSelectedPlan());
     }
 
 
-    //create a new daily schedule
+    // Create a new daily schedule
     const addDay = async (e) => {
         e.preventDefault();
         let planId = selectedPlan.id;
@@ -103,6 +107,7 @@ function Homepage() {
             </form>
         )
     }
+
 
     return (
         <div id="homepage_container">

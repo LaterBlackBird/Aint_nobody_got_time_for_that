@@ -13,11 +13,14 @@ function MealPlans() {
     const [newPlanName, setNewPlanName] = useState('')
     const [errors, setErrors] = useState([]);
 
+
+    // Select a meal plan, create selection store
     const selectMealPlan = (plan) => {
         dispatch(selectThisPlan(plan))
         dispatch(getDialySchedules(plan.id))
     }
 
+    // Create a new meal plan
     const addPlan = async (e) => {
         e.preventDefault();
         let userId = user.id;
@@ -49,6 +52,7 @@ function MealPlans() {
             </form>
         )
     }
+
 
     return (
         <div id="meal_plan_container" className='flex_col_center'>
