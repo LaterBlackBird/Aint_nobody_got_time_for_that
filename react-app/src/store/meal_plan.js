@@ -100,6 +100,8 @@ const deleteThisMealPlan = (planId) => {
         planId
     }
 }
+
+
 // Reducer
 // Replace state with database information from thunk
 export default function mealPlanReducer(state = { all_plans: {} }, action) {
