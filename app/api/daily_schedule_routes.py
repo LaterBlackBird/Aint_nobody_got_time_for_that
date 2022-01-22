@@ -42,6 +42,6 @@ def edit_daily_schedule(id):
 @login_required
 def delete_daily_schedule(id):
     day = Day.query.get(id)
-    db.session.delete(plan)
+    db.session.delete(day)
     db.session.commit()
     return jsonify(f"successfully deleted daily schedule{day.name}")
