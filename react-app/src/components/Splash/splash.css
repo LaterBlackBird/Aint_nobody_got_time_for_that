@@ -41,6 +41,11 @@
     width: 30%;
 }
 
-.splash img {
+#hero_image {
     width: 50%;
+}
+
+.sign_up {
+    text-decoration: none;
+    color:inherit
 }
