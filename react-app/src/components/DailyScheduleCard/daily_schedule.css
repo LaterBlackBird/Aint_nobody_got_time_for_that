@@ -1,43 +1,51 @@
 .daily_schedule_card {
-    border: 1px solid black;
-    border-radius: 15px;
-    width: 22%;
-    height: 48%;
-    margin: 10px;
+  border: 1px solid black;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  width: 22%;
+  height: 48%;
+  margin: 10px;
 }
 
 .daily_schedule_header {
-    width: 80%;
-    border-bottom: 2px solid black;
-    text-align: center;
-    height: 50px;
-  }
+  width: 80%;
+  border-bottom: 2px solid black;
+  text-align: center;
+  height: 30px;
+}
+
+.daily_schedule_header p {
+  margin: 0;
+}
 
 .daily_schedule_delete {
-    position: relative;
-    height: 0px;
-    width: 0px;
-    left: 40%;
-    top: 2%;
+  position: relative;
+  left: 40%;
+  top: 2%;
 }
 
 .daily_schedule_delete:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .edit_daily_schedule_header {
-    width: 100%;
-    text-align: center;
-    height: 50px;
-    border: none;
-    margin-top: 16px;
-    font-size: 1em;
+  width: 100%;
+  text-align: center;
+  height: 30px;
+  border: none;
+  font-size: 1em;
+  margin: 0;
 }
 
 .edit_daily_schedule_header::placeholder {
-    color: lightgray;
+  color: lightgray;
+}
+
+.edit_daily_schedule_header + p {
+    margin-top: 15px;
+  font-size: 0.75em;
 }
 
 .daily_schedule_header form {
-    width: 100%;
+  width: 100%;
 }

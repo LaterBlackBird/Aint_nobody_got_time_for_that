@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { editDailySchedule } from '../../store/daily_schedule';
+import { editDailySchedule, deleteDailySchedule } from '../../store/daily_schedule';
 import './daily_schedule.css'
 
 function DailyScheduleCard({ dailySchedule }) {
@@ -43,9 +43,16 @@ function DailyScheduleCard({ dailySchedule }) {
     }
 
 
+    //delete the daily schedule
+    const deleteDay = () => {
+        console.log('click')
+        dispatch(deleteDailySchedule(dailySchedule.id))
+    }
+
+
     return (
         <div className="daily_schedule_card flex_col_center">
-            <i className="fas fa-times daily_schedule_delete"></i>
+            <i className="fas fa-times daily_schedule_delete" onClick={() => deleteDay()}></i>
             <div className='daily_schedule_header flex_col_center'>
                 {editDayNameFormVisibility ? editDayForm :
                     <p onClick={() => setEditDayNameFormVisibility(true)}>{dailySchedule.name}</p>

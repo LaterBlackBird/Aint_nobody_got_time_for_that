@@ -27,7 +27,7 @@ export const addDailySchedule = dayInfo => async (dispatch) => {
 
 
 //Edit a daily schedule
-export const editDailySchedule = ( dailyScheduleId, editedDayName ) => async (dispatch) => {
+export const editDailySchedule = (dailyScheduleId, editedDayName) => async (dispatch) => {
     const response = await fetch(`/api/daily_schedules/${dailyScheduleId}`, {
         method: 'PUT',
         headers: {
@@ -42,12 +42,22 @@ export const editDailySchedule = ( dailyScheduleId, editedDayName ) => async (di
     }
 }
 
+//Delete a daily schedule
+export const deleteDailySchedule = (dayId) => async (dispatch) => {
+    const response = await fetch(`/api/daily_schedules/${dayId}`, {
+        method: 'DELETE',
+    });
+    if (response.ok) {
+        dispatch(deleteThisDay(dayId));
+    }
+}
+
 
 // Action types
 // To help prevent errors
 const GET_DAILY_SCHEDULES = 'meal_plans/GET_DAILY_SCHEDULES'
 const ADD_EDIT_DAILY_SCHEDULE = 'daily_schedules/ADD_EDIT_DAILY_SCHEDULE'
-
+const DELETE_DAILY_SCHEDULE = 'meal_plans/DELETE_DAILY_SCHEDULE'
 
 
 // Actions
@@ -72,6 +82,13 @@ const editThisDay = (dailyScheduleInfo) => {
     }
 }
 
+const deleteThisDay = (dayId) => {
+    return {
+        type: DELETE_DAILY_SCHEDULE,
+        dayId
+    }
+}
+
 
 // Reducer
 // Replace state with database information from thunk
@@ -90,6 +107,10 @@ export default function dailyScheduleReducer(state = {}, action) {
             let addState = { ...state };
             addState[action.dailyScheduleInfo.id] = action.dailyScheduleInfo;
             return addState;
+        case DELETE_DAILY_SCHEDULE:
+            let deleteState = { ...state };
+            delete deleteState[action.dayId];
+            return deleteState;
         default:
             return state;
     }

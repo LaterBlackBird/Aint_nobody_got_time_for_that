@@ -26,7 +26,7 @@ def add_day_plan():
 # update an existing daily schedule name
 @day_routes.route('/<int:id>', methods=['PUT'])
 @login_required
-def edit_meal_plan(id):
+def edit_daily_schedule(id):
     day = Day.query.get(id)
     form = EditDayForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -35,3 +35,13 @@ def edit_meal_plan(id):
         db.session.commit()
 
     return day.to_dict()
+
+
+# delete a daily schedule
+@day_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_daily_schedule(id):
+    day = Day.query.get(id)
+    db.session.delete(day)
+    db.session.commit()
+    return jsonify(f"successfully deleted daily schedule{day.name}")
