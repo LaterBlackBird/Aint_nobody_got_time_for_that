@@ -1,0 +1,46 @@
+.splash {
+    width: 90%;
+    display: flex;
+}
+
+#hero_bar {
+    display: flex;
+}
+
+#hero_bar_branding {
+    display: flex;
+    width: 60%;
+    align-items: center;
+    justify-content: center;
+}
+
+#hero_bar_branding .copy {
+    margin: 50px 0;
+    font-size: 1.25em;
+}
+
+#hero_bar_branding button {
+    height: 50px;
+    font-size: 1.5em;
+}
+
+#brand {
+    display: flex;
+    align-items: center;
+    height: 170px;
+    width: 400px;
+}
+
+#brand p{
+ text-align: center;
+ font-size: 2.25em;
+ width: 95%;
+}
+
+#brand img {
+    width: 30%;
+}
+
+.splash img {
+    width: 50%;
+}
