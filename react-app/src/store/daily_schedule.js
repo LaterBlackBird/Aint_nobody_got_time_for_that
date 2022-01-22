@@ -43,10 +43,9 @@ export const editDailySchedule = (dailyScheduleId, editedDayName) => async (disp
 }
 
 //Delete a daily schedule
-export const deleteDay = (dayId) => async (dispatch) => {
-    const response = await fetch(`/api/meal_plans/${dayId}`, {
+export const deleteDailySchedule = (dayId) => async (dispatch) => {
+    const response = await fetch(`/api/daily_schedules/${dayId}`, {
         method: 'DELETE',
-
     });
     if (response.ok) {
         dispatch(deleteThisDay(dayId));
