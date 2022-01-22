@@ -52,12 +52,19 @@ export const deleteDailySchedule = (dayId) => async (dispatch) => {
     }
 }
 
+//Rest daily schedules
+export const resetDialySchedules = (dayId) => async (dispatch) => {
+    dispatch(resetAllDays());
+}
+
+
 
 // Action types
 // To help prevent errors
 const GET_DAILY_SCHEDULES = 'meal_plans/GET_DAILY_SCHEDULES'
 const ADD_EDIT_DAILY_SCHEDULE = 'daily_schedules/ADD_EDIT_DAILY_SCHEDULE'
 const DELETE_DAILY_SCHEDULE = 'meal_plans/DELETE_DAILY_SCHEDULE'
+const RESET_DAILY_SCHEDULE = 'meal_plans/RESET_DAILY_SCHEDULE'
 
 
 // Actions
@@ -89,6 +96,13 @@ const deleteThisDay = (dayId) => {
     }
 }
 
+const resetAllDays = () => {
+    return {
+        type: RESET_DAILY_SCHEDULE,
+        payload: null
+    }
+}
+
 
 // Reducer
 // Replace state with database information from thunk
@@ -111,6 +125,9 @@ export default function dailyScheduleReducer(state = {}, action) {
             let deleteState = { ...state };
             delete deleteState[action.dayId];
             return deleteState;
+        case RESET_DAILY_SCHEDULE:
+            let resetState = {};
+            return resetState;
         default:
             return state;
     }
