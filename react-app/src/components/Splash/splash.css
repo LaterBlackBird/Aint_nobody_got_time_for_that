@@ -1,0 +1,113 @@
+.splash {
+  width: 100vw;
+  display: flex;
+  margin-top: 50px;
+}
+
+#hero_bar {
+  display: flex;
+  margin: 0 5%;
+}
+
+#hero_bar_branding {
+  display: flex;
+  width: 60%;
+  align-items: center;
+  justify-content: center;
+}
+
+#hero_bar_branding .copy {
+  margin: 50px 0;
+  font-size: 1.25em;
+}
+
+#hero_bar_branding button,
+.splash button {
+  height: 50px;
+  font-size: 1.5em;
+}
+
+#brand {
+  display: flex;
+  align-items: center;
+  height: 170px;
+  width: 400px;
+}
+
+#brand p {
+  text-align: center;
+  font-size: 2.25em;
+  width: 95%;
+}
+
+#brand img {
+  width: 30%;
+}
+
+#hero_image {
+  width: 50%;
+}
+
+.sign_up {
+  text-decoration: none;
+  color: inherit;
+}
+
+.blue_background {
+  background-color: rgba(0, 176, 255, 0.08);
+}
+
+.features {
+  width: 100%;
+}
+
+.feature_container {
+  margin: 50px 5%;
+  height: 10%;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.feature_container img {
+  height: 100%;
+}
+
+.feature_card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  height: 400px;
+  width: 400px;
+}
+
+.feature_card p {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.25em;
+}
+
+#feature_2 .feature_card {
+  width: 80%;
+  height: 300px;
+}
+
+#feature_2 img {
+  width: 80%;
+  height: 55%;
+}
+
+#shopping_img,
+#schedule_img {
+  width: 50%;
+}
+
+#about {
+  display: flex;
+  flex-direction: column;
+}
+
+.splash button {
+  margin-bottom: 50px;
+}
