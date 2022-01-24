@@ -9,7 +9,6 @@ class Measurement(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
 
-    user = db.relationship('User', back_populates='recipes')
     measurement_recipe = db.relationship('Recipe', secondary=ingredient_to_recipe, back_populates='recipe_measurement')
 
     def to_dict(self):

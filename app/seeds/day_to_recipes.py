@@ -3,10 +3,10 @@ from app.models import db, day_to_recipe
 
 # Adds a demo user, you can add other users here if you want
 def seed_daily_recipes():
-    daily_recipe_1 = day_to_recipe(
+    daily_recipe_1 = day_to_recipe.insert().values(
         day_id=1, recipe_id=1)
 
-    db.session.add(daily_recipe_1)
+    db.session.execute(daily_recipe_1)
 
     db.session.commit()
 

@@ -3,7 +3,7 @@ from app.models import db, Recipe
 
 # Adds a demo user, you can add other users here if you want
 def seed_recipes():
-    recipe_1 = Day(
+    recipe_1 = Recipe(
         name='Grilled Cheese',
         author=1,
         instructions='Spread 1/2 tablespoon of butter on one side of each piece of bread. Lie the slices of Cheddar on one of the slices of bread on the unbuttered side. Sprinkle the parsley, basil, oregano, rosemary, and dill on the other slice of bread on its unbuttered side. Sandwich the two slices of bread together with the buttered sides facing outwards.  Heat a skillet over medium heat. When skillet is hot, gently lie the sandwich in the skillet; cook on each side for 3 minutes until cheese has melted.',

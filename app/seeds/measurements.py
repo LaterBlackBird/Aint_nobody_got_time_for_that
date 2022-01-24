@@ -46,6 +46,7 @@ def seed_measurements():
     db.session.add(measurement_11)
     db.session.add(measurement_12)
     db.session.add(measurement_13)
+    db.session.add(measurement_14)
 
     db.session.commit()
 

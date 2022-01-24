@@ -8,7 +8,6 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
 
-    user = db.relationship('User', back_populates='recipes')
     tag_recipe = db.relationship('Recipe', secondary=tag_to_recipe, back_populates='recipe_tag')
 
     def to_dict(self):
