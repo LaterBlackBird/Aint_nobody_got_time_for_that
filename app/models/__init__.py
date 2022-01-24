@@ -2,3 +2,10 @@ from .db import db
 from .user import User
 from .meal_plan import Meal_Plan
 from .day import Day
+from .recipe import Recipe
+from .tag import Tag
+from .ingredient import Ingredient
+from .measurement import Measurement
+from .day_to_recipe import day_to_recipe
+from .tag_to_recipe import tag_to_recipe
+from .ingredient_to_recipe import ingredient_to_recipe
