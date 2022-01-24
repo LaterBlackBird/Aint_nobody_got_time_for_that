@@ -52,7 +52,7 @@ function Splash() {
                         <img src={meal_plan_preview} alt="preview of recipe search" />
                     </div>
                 </div>
-                    <button><Link to='/sign-up' className='sign_up'> Get Started For Free </Link></button>
+                <button><Link to='/sign-up' className='sign_up'> Get Started For Free </Link></button>
             </div>
             <div id="about">
                 <h2>About</h2>
