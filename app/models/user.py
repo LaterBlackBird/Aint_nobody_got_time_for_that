@@ -12,6 +12,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     meal_plans = db.relationship('Meal_Plan', back_populates='user')
+    recipes = db.relationship('Recipe', back_populates='user')
 
 
     @property
