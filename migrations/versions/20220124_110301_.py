@@ -49,7 +49,6 @@ def upgrade():
     sa.Column('ingredient_id', sa.Integer(), nullable=False),
     sa.Column('amount', sa.Float(asdecimal=True), nullable=True),
     sa.Column('measurement_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['amount'], ['recipes.id'], ),
     sa.ForeignKeyConstraint(['ingredient_id'], ['ingredients.id'], ),
     sa.ForeignKeyConstraint(['measurement_id'], ['measurements.id'], ),
     sa.ForeignKeyConstraint(['recipe_id'], ['recipes.id'], ),
