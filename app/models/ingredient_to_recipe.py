@@ -12,7 +12,7 @@ ingredient_to_recipe = db.Table(
             db.ForeignKey('ingredients.id'),
             primary_key=True),
     db.Column('amount',
-            db.Integer,
+            db.Float(asdecimal=True),
             db.ForeignKey('recipes.id')
             ),
     db.Column('measurement_id',
