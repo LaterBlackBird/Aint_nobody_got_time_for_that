@@ -1,7 +1,7 @@
 .splash {
-  width: 100%;
+  width: 100vw;
   display: flex;
-  margin-top: 50px
+  margin-top: 50px;
 }
 
 #hero_bar {
@@ -21,7 +21,8 @@
   font-size: 1.25em;
 }
 
-#hero_bar_branding button {
+#hero_bar_branding button,
+.splash button {
   height: 50px;
   font-size: 1.5em;
 }
@@ -60,7 +61,7 @@
   width: 100%;
 }
 
-#feature_1 {
+.feature_container {
   margin: 50px 5%;
   height: 10%;
   width: 80%;
@@ -69,8 +70,8 @@
   align-items: center;
 }
 
-#feature_1 img {
-    height: 100%;
+.feature_container img {
+  height: 100%;
 }
 
 .feature_card {
@@ -85,4 +86,29 @@
   text-align: center;
   font-weight: bold;
   font-size: 1.25em;
+}
+
+#feature_2 .feature_card {
+  width: 80%;
+  height: 300px;
+}
+
+#feature_2 img {
+  width: 80%;
+  height: 55%;
+}
+
+#shopping_img,
+#schedule_img {
+  width: 50%;
+}
+
+#about {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.splash button{
+  margin-bottom: 50px;
 }
