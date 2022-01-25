@@ -43,6 +43,10 @@
 
 .meal_plan_card p {
   margin: auto;
+  text-align: center;
+  width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #add_plan {

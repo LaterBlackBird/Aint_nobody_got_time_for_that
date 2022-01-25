@@ -135,7 +135,7 @@ function Homepage() {
 
                     {selectedPlan && !newDayFormVisibility &&
                         <div id="add_daily_schedule_card" className='flex_col_center'>
-                            <div id='add_day_button' className='flex_col_center' onClick={() => setNewDayFormVisibility(true)}>
+                            <div id='add_button' className='flex_col_center' onClick={() => setNewDayFormVisibility(true)}>
                                 <p>Add A Day</p>
                                 <p className='plus'>+</p>
                             </div>

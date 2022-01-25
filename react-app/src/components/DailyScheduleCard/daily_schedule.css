@@ -61,3 +61,8 @@ input+p:hover {
 .daily_schedule_header form {
   width: 100%;
 }
+
+.recipes_container {
+  height: 72%;
+  width: 80%;
+}

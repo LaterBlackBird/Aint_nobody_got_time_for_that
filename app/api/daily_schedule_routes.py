@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required
-from app.models import  db, Day
+from app.models import  db, Day, Recipe, day_to_recipe
 from app.forms import NewDayForm, EditDayForm
 
 day_routes = Blueprint('daily_schedules', __name__)
@@ -33,7 +33,6 @@ def edit_daily_schedule(id):
     if form.validate_on_submit():
         day.name = form.data['editedDayName'],
         db.session.commit()
-
     return day.to_dict()
 
 
@@ -45,3 +44,12 @@ def delete_daily_schedule(id):
     db.session.delete(day)
     db.session.commit()
     return jsonify(f"successfully deleted daily schedule{day.name}")
+
+
+# Get recipes associated with only one daily schedule
+@day_routes.route('/<int:daily_schedule_id>/recipes')
+@login_required
+def daily_schedules_by_meal_plan(daily_schedule_id):
+    recipes = Recipe.query.join(day_to_recipe).join(Day).filter(day_to_recipe.c.day_id == daily_schedule_id).all()
+    return {daily_schedule_id: [recipe.to_dict() for recipe in recipes]}
+

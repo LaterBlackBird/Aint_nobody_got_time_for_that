@@ -1,13 +1,28 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { editDailySchedule, deleteDailySchedule } from '../../store/daily_schedule';
+import { getRecipesForToday } from '../../store/recipe';
+import Recipe from '../Recipe';
 import './daily_schedule.css'
 
 function DailyScheduleCard({ dailySchedule }) {
     const dispatch = useDispatch();
     const [editDayNameFormVisibility, setEditDayNameFormVisibility] = useState(false)
     const [editedDayName, setEditedDayName] = useState('')
+    const dayId = (dailySchedule.id).toString();
+    const todaysRecipes = useSelector(state => state.recipes[dayId])
     const [errors, setErrors] = useState([]);
+    let recipeArr = [];
+
+
+    useEffect(() => {
+        dispatch(getRecipesForToday(dailySchedule.id))
+    }, [])
+
+    // if there are recipes available after loading the card, create a an array for mapping
+    if (todaysRecipes) {
+        recipeArr = Object.values(todaysRecipes);
+    }
 
 
     //edit the daily schedule name
@@ -56,7 +71,17 @@ function DailyScheduleCard({ dailySchedule }) {
                 {editDayNameFormVisibility ? editDayForm :
                     <p onClick={() => setEditDayNameFormVisibility(true)}>{dailySchedule.name}</p>
                 }
-
+            </div>
+            <div className="recipes_container flex_col_center">
+                {recipeArr &&
+                    recipeArr.map(recipe => (
+                        <Recipe key={recipe.id} recipe={recipe} />
+                    ))
+                }
+            </div>
+            <div id='add_button' className='flex_col_center'>
+                <p>Add A Recipe</p>
+                <p className='plus'>+</p>
             </div>
         </div>
     );
