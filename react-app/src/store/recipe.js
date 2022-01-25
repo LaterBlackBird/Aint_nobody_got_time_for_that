@@ -31,11 +31,12 @@ const loadRecipes = (recipes) => {
 export default function recipeReducer(state = { }, action) {
     switch (action.type) {
         case GET_RECIPES_BY_DAY:
-            const recipesForToday = {};
-            action.recipes.daily_recipes.forEach(recipe => {
-                // normalize data
-                recipesForToday[recipe.id] = recipe;
-            });
+            const recipesForToday = { ...state, ...action.recipes };
+            // recipesForToday[action.recipes.day_id] = action.recipes.daily_recipes
+            // action.recipes.daily_recipes.forEach(recipe => {
+            //     // normalize data
+            //     recipesForToday[recipe.id] = recipe;
+            // });
             return {
                 ...recipesForToday
             };

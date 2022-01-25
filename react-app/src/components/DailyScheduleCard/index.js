@@ -9,7 +9,8 @@ function DailyScheduleCard({ dailySchedule }) {
     const dispatch = useDispatch();
     const [editDayNameFormVisibility, setEditDayNameFormVisibility] = useState(false)
     const [editedDayName, setEditedDayName] = useState('')
-    const recipeArr = useSelector(state => Object.values(state.recipes));
+    const dayId = (dailySchedule.id).toString();
+    const recipeArr = useSelector(state => Object.values(state.recipes[dayId]));
     const [errors, setErrors] = useState([]);
 
     useEffect(() => {
