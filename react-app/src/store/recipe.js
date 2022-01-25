@@ -12,7 +12,7 @@ export const getRecipesForToday = dayId => async (dispatch) => {
 
 // Action types
 // To help prevent errors
-const GET_RECIPES_BY_DAY = 'user/GET_RECIPES_BY_DAY'
+const GET_RECIPES_BY_DAY = 'daily_schedules/GET_RECIPES_BY_DAY'
 
 
 
@@ -32,11 +32,6 @@ export default function recipeReducer(state = { }, action) {
     switch (action.type) {
         case GET_RECIPES_BY_DAY:
             const recipesForToday = { ...state, ...action.recipes };
-            // recipesForToday[action.recipes.day_id] = action.recipes.daily_recipes
-            // action.recipes.daily_recipes.forEach(recipe => {
-            //     // normalize data
-            //     recipesForToday[recipe.id] = recipe;
-            // });
             return {
                 ...recipesForToday
             };
