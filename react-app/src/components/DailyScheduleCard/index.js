@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { editDailySchedule, deleteDailySchedule } from '../../store/daily_schedule';
 import { getRecipesForToday } from '../../store/recipe';
 import Recipe from '../Recipe';
+import RecipeSearchModal from '../RecipeSearchModal';
 import './daily_schedule.css'
 
 function DailyScheduleCard({ dailySchedule }) {
@@ -11,6 +12,7 @@ function DailyScheduleCard({ dailySchedule }) {
     const [editedDayName, setEditedDayName] = useState('')
     const dayId = (dailySchedule.id).toString();
     const todaysRecipes = useSelector(state => state.recipes[dayId])
+    const [showRecipeSearch, setShowRecipeSearch] = useState(false)
     const [errors, setErrors] = useState([]);
     let recipeArr = [];
 
@@ -64,6 +66,7 @@ function DailyScheduleCard({ dailySchedule }) {
     }
 
 
+
     return (
         <div className="daily_schedule_card flex_col_center">
             <i className="fas fa-times daily_schedule_delete" onClick={() => deleteDay()}></i>
@@ -79,10 +82,11 @@ function DailyScheduleCard({ dailySchedule }) {
                     ))
                 }
             </div>
-            <div id='add_button' className='flex_col_center'>
+            <div id='add_button' className='flex_col_center' onClick={() => setShowRecipeSearch(true)}>
                 <p>Add A Recipe</p>
                 <p className='plus'>+</p>
             </div>
+            {showRecipeSearch && <RecipeSearchModal setShowRecipeSearch={setShowRecipeSearch} dayId={dailySchedule.id}/>}
         </div>
     );
 }

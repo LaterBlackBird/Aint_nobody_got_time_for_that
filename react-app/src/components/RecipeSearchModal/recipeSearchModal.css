@@ -1,0 +1,30 @@
+.modal_background {
+  background: rgba(202, 202, 202, 0.9);
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.search_container {
+  background-color: white;
+  margin: auto;
+  height: 40%;
+  width: 45%;
+  border-radius: 15px;
+}
+
+.recipe_search_close {
+  position: relative;
+  right: -45%;
+  top: 2%;
+  height: 0;
+  width: 0;
+}
+
+.recipe_search_close:hover {
+    cursor: pointer;
+}
