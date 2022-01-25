@@ -63,14 +63,15 @@
   margin: 10px;
 }
 
-#add_day_button {
+#add_button {
   margin: auto;
 }
 
-#add_day_button:hover {
+#add_button:hover {
   cursor: pointer;;
 }
 
-#add_day_button p {
+#add_button p {
   margin: 0;
 }
+
