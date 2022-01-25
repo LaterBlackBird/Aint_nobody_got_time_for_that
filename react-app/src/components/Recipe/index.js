@@ -1,10 +1,13 @@
 import React from 'react';
+import './recipe.css'
 
-function Recipe({recipe}) {
+
+function Recipe({ recipe }) {
   return (
-  <div>
+    <div className='recipe_card flex_col_center'>
+      <i className="fas fa-times recipe_remove_button hide"></i>
       <p>{recipe.name}</p>
-  </div>);
+    </div>);
 }
 
 export default Recipe;

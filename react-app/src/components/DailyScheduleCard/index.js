@@ -19,7 +19,7 @@ function DailyScheduleCard({ dailySchedule }) {
         dispatch(getRecipesForToday(dailySchedule.id))
     }, [])
 
-
+    // if there are recipes available after loading the card, create a an array for mapping
     if (todaysRecipes) {
         recipeArr = Object.values(todaysRecipes);
     }
@@ -72,7 +72,7 @@ function DailyScheduleCard({ dailySchedule }) {
                     <p onClick={() => setEditDayNameFormVisibility(true)}>{dailySchedule.name}</p>
                 }
             </div>
-            <div className="recipes_container">
+            <div className="recipes_container flex_col_center">
                 {recipeArr &&
                     recipeArr.map(recipe => (
                         <Recipe key={recipe.id} recipe={recipe} />
