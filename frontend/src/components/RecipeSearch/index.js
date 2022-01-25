@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { searchRecipes } from '../../store/recipe';
 import './recipeSearch.css'
 
-function RecipeSearch({ setShowRecipeSearch, dayId }) {
+function RecipeSearch({ dayId }) {
+    const dispatch = useDispatch();
     const [searchText, setSearchText] = useState('');
-    const [errors, setErrors] = useState([]);
 
     useEffect(() => {
-        
-    })
+        if (searchText) dispatch(searchRecipes(searchText));
+    },[dispatch, searchText])
 
-    const search = () => { }
 
     return (
         <div className="search_container">
@@ -20,7 +20,7 @@ function RecipeSearch({ setShowRecipeSearch, dayId }) {
                     name='searchRecipes'
                     ref={(input) => { input && input.focus() }}
                     type='search'
-                    placeholder={errors.length ? errors[0] : `Search by name or tag`}
+                    placeholder='Search by name or tag'
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
                     className="search_input"
