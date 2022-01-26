@@ -1,13 +1,31 @@
-# Flask React Project
+# Aint Nobody Got Time For That
 
-This is the starter for the Flask React project.
+A meal planning app with functionality in mind.  The goal is to have a simple and intuitive
+layout that offers easy maniuplation of a weekly meal plan.  Meal planning can take a long time,
+so Aint Nobody Got Time For That aims to make this as quick of a process as possible.
 
-## Getting started
+
+## Demo
+
+https://angtft-sh.herokuapp.com/
+
+## Screenshots
+
+### Landing Page
+![App Screenshot](https://res.cloudinary.com/dd1ndszow/image/upload/v1643235037/Aint%20Nobody%20Got%20Time%20For%20That/landing_page_hzdqaq.png)
+
+
+### Login/Signup/and General Form Design
+![App Screenshot](https://res.cloudinary.com/dd1ndszow/image/upload/v1643235037/Aint%20Nobody%20Got%20Time%20For%20That/login_and_general_form_design_wdh41a.png)
+
+### Homepage & Daily Schedule Workspace
+![App Screenshot](https://res.cloudinary.com/dd1ndszow/image/upload/v1643235037/Aint%20Nobody%20Got%20Time%20For%20That/homepage_layout_v565of.png)
+## Deployment
 
 1. Clone this repository (only this branch)
 
    ```bash
-   git clone https://github.com/appacademy-starters/python-project-starter.git
+   git clone git@github.com:LaterBlackBird/Aint_nobody_got_time_for_that.git
    ```
 
 2. Install dependencies
@@ -38,21 +56,6 @@ This is the starter for the Flask React project.
    flask run
    ```
 
-6. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
-
-***
-*IMPORTANT!*
-   If you add any python dependencies to your pipfiles, you'll need to regenerate your requirements.txt before deployment.
-   You can do this by running:
-
-   ```bash
-   pipenv lock -r > requirements.txt
-   ```
-
-*ALSO IMPORTANT!*
-   psycopg2-binary MUST remain a dev dependency because you can't install it on apline-linux.
-   There is a layer in the Dockerfile that will install psycopg2 (not binary) for us.
-***
 
 ## Deploy to Heroku
 
@@ -82,7 +85,7 @@ hurt to run it again.
    ```
 
 7. Update the `REACT_APP_BASE_URL` variable in the Dockerfile.
-   This should be the full URL of your Heroku app: i.e. "https://flask-react-aa.herokuapp.com"
+   This should be the full URL of your Heroku app: i.e. "https://angtft-sh.herokuapp.com/"
 8. Push your docker container to heroku from the root directory of your project.
    (If you are using an M1 mac, follow [these steps below](#for-m1-mac-users) instead, then continue on to step 9.)
    This will build the Dockerfile and push the image to your heroku container registry.
@@ -104,10 +107,8 @@ hurt to run it again.
       heroku run -a {NAME_OF_HEROKU_APP} flask seed all
       ```
 
-11. Under Settings find "Config Vars" and add any additional/secret .env
-variables.
+11. Under Settings find "Config Vars" and add any additional/secret .env variables.
 
-12. profit
 
 ### For M1 Mac users
 
@@ -132,3 +133,18 @@ of your Heroku app in the url and tag name:
    ```bash=3
    docker push registry.heroku.com/{NAME_OF_HEROKU_APP}/web
    ```
+
+## Tech Stack
+
+**Client:** JavaScript, NodeJS, React, Redux
+
+**Server:** PostgreSQL, Python, Flask, SQLAlchemy
+
+
+## Roadmap
+
+- Drag & Drop of recipe cards
+  - within the same daily schedule & across separate schedules
+- Implement recipe CRUD
+- Integrate nutrition statistics
+- Auto-generate meal plan
