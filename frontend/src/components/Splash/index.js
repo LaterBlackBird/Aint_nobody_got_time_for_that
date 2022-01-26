@@ -5,8 +5,8 @@ import logo from '../images/logo.svg'
 import schedule from '../images/undraw_date_picker_re_r0p8.svg'
 import meal_plan_preview from '../images/meal_plan_preview.png'
 import daily_schedule_preview from '../images/daily_schedule_preview.png'
+import recipes_preview from '../images/recipes_preview.png'
 import shopping from '../images/undraw_empty_cart_co35.svg'
-import me from '../images/Seth_2.jpg'
 import './splash.css'
 
 function Splash() {
@@ -50,17 +50,17 @@ function Splash() {
                     <img src={shopping} alt="a person scheduling on a calendar" id='shopping_img' />
                     <div className="feature_card flex_col_center">
                         <p>SEARCH FOR YOUR<br />FAVORITE MEALS</p>
-                        <img src={meal_plan_preview} alt="preview of recipe search" />
+                        <img src={recipes_preview} alt="preview of recipe search" />
                     </div>
                 </div>
                 <button><Link to='/sign-up' className='sign_up'> Get Started For Free </Link></button>
             </div>
             <div id="about">
-                <h2>About</h2>
+                <h3>About</h3>
                 <div className="info">
                     <img id='selfie' src="https://avatars.githubusercontent.com/u/14840521?v=4" alt="" />
                     <div className='links flex_col_center'>
-                        <h3 className='name'>Seth Holland</h3>
+                        <h2 className='name'>Seth Holland</h2>
                         <div className="author_links">
                             <a href='https://www.linkedin.com/in/seth-holland/' target="_blank" rel="noopener noreferrer"><i className="fab fa-linkedin-in splash_text"></i></a>
                             <a href='https://github.com/LaterBlackBird' target="_blank" rel="noopener noreferrer"><i className="fab fa-github splash_text"></i></a>
