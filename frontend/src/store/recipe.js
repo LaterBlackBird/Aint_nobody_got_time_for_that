@@ -18,13 +18,29 @@ export const searchRecipes = searchTerm => async (dispatch) => {
     }
 }
 
+// Add searched recipe to day card
+export const addSearchedRecipe = data => async (dispatch) => {
+    const {dayId, recipe} = data;
+    const recipeId = recipe.id;
+    const response = await fetch(`/api/recipes/day_recipes`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ dayId, recipeId })
+    });
+    if (response.ok) {
+        dispatch(searchedRecipeToState(data));
+    }
+}
+
 
 
 // Action types
 // To help prevent errors
 const GET_RECIPES_BY_DAY = 'daily_schedules/GET_RECIPES_BY_DAY'
 const LOAD_SEARCHED_RECIPES = 'recipes/LOAD_SEARCHED_RECIPES'
-
+const ADD_SEARCHED_RECIPE = 'recipes/ADD_SEARCHED_RECIPES'
 
 
 // Actions
@@ -38,6 +54,13 @@ const loadRecipes = (recipes) => {
 const loadSearchResults = (recipes) => {
     return {
         type: LOAD_SEARCHED_RECIPES,
+        recipes
+    }
+}
+
+const searchedRecipeToState = (recipes) => {
+    return {
+        type: ADD_SEARCHED_RECIPE,
         recipes
     }
 }
@@ -62,6 +85,16 @@ export default function recipeReducer(state = { daily: {} }, action) {
             return {
                 ...searchState
             };
+        case ADD_SEARCHED_RECIPE:
+            const {dayId, recipe} = action.recipes;
+            const addSearchState = {...state};
+            console.log(addSearchState)
+            console.log(addSearchState.daily[dayId]?true:false)
+            if (!addSearchState.daily[dayId]) {
+                addSearchState.daily[dayId] = {};
+            }
+            addSearchState.daily[dayId][recipe.id] = recipe;
+            return addSearchState;
         default:
             return state;
     }

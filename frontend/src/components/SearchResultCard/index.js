@@ -1,10 +1,16 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { addSearchedRecipe } from '../../store/recipe';
 import './searchResultCard.css'
 
 
+
 function SearchResultCard({recipe, dayId}) {
+  const dispatch = useDispatch();
+
   const addRecipe = () => {
-    console.log('click')
+    // console.log(recipe)
+    dispatch(addSearchedRecipe({dayId, recipe}))
   }
 
   return (
