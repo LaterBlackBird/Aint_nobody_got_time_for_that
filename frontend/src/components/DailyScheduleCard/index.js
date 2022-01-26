@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { editDailySchedule, deleteDailySchedule } from '../../store/daily_schedule';
 import { getRecipesForToday } from '../../store/recipe';
 import Recipe from '../Recipe';
+import { RecipeSearchModal } from '../../context/recipeSearchModal';
+import RecipeSearch from '../RecipeSearch';
 import './daily_schedule.css'
 
 function DailyScheduleCard({ dailySchedule }) {
@@ -10,7 +12,8 @@ function DailyScheduleCard({ dailySchedule }) {
     const [editDayNameFormVisibility, setEditDayNameFormVisibility] = useState(false)
     const [editedDayName, setEditedDayName] = useState('')
     const dayId = (dailySchedule.id).toString();
-    const todaysRecipes = useSelector(state => state.recipes[dayId])
+    const todaysRecipes = useSelector(state => state.recipes.daily[dayId])
+    const [showRecipeSearchModal, setShowRecipeSearchModal] = useState(false)
     const [errors, setErrors] = useState([]);
     let recipeArr = [];
 
@@ -18,6 +21,7 @@ function DailyScheduleCard({ dailySchedule }) {
     useEffect(() => {
         dispatch(getRecipesForToday(dailySchedule.id))
     }, [])
+
 
     // if there are recipes available after loading the card, create a an array for mapping
     if (todaysRecipes) {
@@ -64,6 +68,7 @@ function DailyScheduleCard({ dailySchedule }) {
     }
 
 
+
     return (
         <div className="daily_schedule_card flex_col_center">
             <i className="fas fa-times daily_schedule_delete" onClick={() => deleteDay()}></i>
@@ -79,10 +84,15 @@ function DailyScheduleCard({ dailySchedule }) {
                     ))
                 }
             </div>
-            <div id='add_button' className='flex_col_center'>
+            <div id='add_button' className='flex_col_center' onClick={() => setShowRecipeSearchModal(true)}>
                 <p>Add A Recipe</p>
                 <p className='plus'>+</p>
             </div>
+            {showRecipeSearchModal && (
+                <RecipeSearchModal onClose={() => setShowRecipeSearchModal(false)}>
+                    <RecipeSearch dayId={dailySchedule.id} />
+                </RecipeSearchModal>
+            )}
         </div>
     );
 }

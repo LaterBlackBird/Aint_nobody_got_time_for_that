@@ -51,5 +51,6 @@ def delete_daily_schedule(id):
 @login_required
 def daily_schedules_by_meal_plan(daily_schedule_id):
     recipes = Recipe.query.join(day_to_recipe).join(Day).filter(day_to_recipe.c.day_id == daily_schedule_id).all()
-    return {daily_schedule_id: [recipe.to_dict() for recipe in recipes]}
-
+    data = {'recipes': [recipe.to_dict() for recipe in recipes]}
+    data['dayId']=daily_schedule_id
+    return data
