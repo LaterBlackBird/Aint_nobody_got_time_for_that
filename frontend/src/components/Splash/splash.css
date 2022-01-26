@@ -1,5 +1,5 @@
 .splash {
-  width: 100vw;
+  width: 100%;
   display: flex;
   margin-top: 50px;
 }
@@ -103,11 +103,50 @@
   width: 50%;
 }
 
+.splash button {
+  margin-bottom: 50px;
+}
+
 #about {
+  width: 90%;
+  height: 250px;
   display: flex;
+  justify-content: flex-start;
   flex-direction: column;
 }
 
-.splash button {
-  margin-bottom: 50px;
+#selfie {
+  object-fit: cover;
+  box-sizing: border-box;
+  height: 10rem;
+  width: 10rem;
+  border-radius: 50%;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+}
+
+.links {
+  margin: 20px;
+}
+
+.author_links .fa-linkedin-in,
+.author_links .fa-github,
+.author_links .fa-angellist {
+  font-size: 2.5em;
+  color: #00B0FF;
+  margin: 0 5px;
+}
+
+#built_with {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.badge {
+  margin: 1px;
+  height: 25px;
 }
