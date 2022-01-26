@@ -80,7 +80,7 @@ function DailyScheduleCard({ dailySchedule }) {
             <div className="recipes_container flex_col_center">
                 {recipeArr &&
                     recipeArr.map(recipe => (
-                        <Recipe key={recipe.id} recipe={recipe} />
+                        <Recipe key={recipe.id} recipe={recipe} dayId={dailySchedule.id}/>
                     ))
                 }
             </div>
