@@ -46,18 +46,22 @@ const loadSearchResults = (recipes) => {
 
 // Reducer
 // Replace state with database information from thunk
-export default function recipeReducer(state = { daily:{ } }, action) {
+export default function recipeReducer(state = { daily: {} }, action) {
     switch (action.type) {
         case GET_RECIPES_BY_DAY:
-            const recipesForToday = { ...state, ...action.recipes };
-            return {
-                ...recipesForToday
-            };
+            const updateState = { ...state };
+            updateState.daily[action.recipes.dayId] = {}
+            //normalize data
+            action.recipes.recipes.forEach(recipe => {
+                updateState.daily[action.recipes.dayId][recipe.id] = recipe
+            });
+            return updateState;
         case LOAD_SEARCHED_RECIPES:
-                const searchResults = { ...action.recipes };
-                return {
-                    ...searchResults
-                };
+            const searchState = { ...state };
+            searchState['searchResults'] = {...action.recipes.search_results}
+            return {
+                ...searchState
+            };
         default:
             return state;
     }

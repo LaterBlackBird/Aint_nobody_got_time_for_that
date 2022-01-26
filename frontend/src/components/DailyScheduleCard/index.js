@@ -12,7 +12,7 @@ function DailyScheduleCard({ dailySchedule }) {
     const [editDayNameFormVisibility, setEditDayNameFormVisibility] = useState(false)
     const [editedDayName, setEditedDayName] = useState('')
     const dayId = (dailySchedule.id).toString();
-    const todaysRecipes = useSelector(state => state.recipes[dayId])
+    const todaysRecipes = useSelector(state => state.recipes.daily[dayId])
     const [showRecipeSearchModal, setShowRecipeSearchModal] = useState(false)
     const [errors, setErrors] = useState([]);
     let recipeArr = [];

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { searchRecipes } from '../../store/recipe';
+import SearchResultCard from '../SearchResultCard';
 import './recipeSearch.css'
 
 function RecipeSearch({ dayId }) {
     const dispatch = useDispatch();
     const [searchText, setSearchText] = useState('');
+    const searchResultsArr = useSelector(state => Object.values(state.recipes.searchResults))
 
     useEffect(() => {
         if (searchText) dispatch(searchRecipes(searchText));
@@ -26,6 +28,13 @@ function RecipeSearch({ dayId }) {
                     className="search_input"
                 />
             </form>
+            <div className="search_results_container">
+                {/* {searchResultsArr &&
+                    searchResultsArr.map(result => {
+                        <SearchResultCard key={result.id} recipe={result} dayId={dayId}/>
+                    })
+                } */}
+            </div>
 
         </div>
     );
