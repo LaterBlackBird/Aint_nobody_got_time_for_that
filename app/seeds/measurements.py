@@ -31,6 +31,8 @@ def seed_measurements():
         name="fluid ounces (fl oz)")
     measurement_14 = Measurement(
         name="slices")
+    measurement_15 = Measurement(
+        name="cans")
 
 
     db.session.add(measurement_1)
@@ -47,6 +49,8 @@ def seed_measurements():
     db.session.add(measurement_12)
     db.session.add(measurement_13)
     db.session.add(measurement_14)
+    db.session.add(measurement_15)
+
 
     db.session.commit()
 

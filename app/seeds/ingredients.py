@@ -17,6 +17,42 @@ def seed_ingredients():
         name="Oatmeal")
     ingredient_7 = Ingredient(
         name="Water")
+    ingredient_8 = Ingredient(
+        name="Spanish Style Rice")
+    ingredient_9 = Ingredient(
+        name="Poblano Peppers")
+    ingredient_10 = Ingredient(
+        name="Ground Beef")
+    ingredient_11 = Ingredient(
+        name="Black Pepper")
+    ingredient_12 = Ingredient(
+        name="Chili Powder")
+    ingredient_13 = Ingredient(
+        name="Ground Cumin")
+    ingredient_14 = Ingredient(
+        name="Onion Powder")
+    ingredient_15 = Ingredient(
+        name="Garlic Powder")
+    ingredient_16 = Ingredient(
+        name="Cayenne Pepper")
+    ingredient_17 = Ingredient(
+        name="Condensed Tomato Soup")
+    ingredient_18 = Ingredient(
+        name="Mozzarella Cheese")
+    ingredient_19 = Ingredient(
+        name="Ground Beef")
+    ingredient_20 = Ingredient(
+        name="Black Pepper")
+    ingredient_21 = Ingredient(
+        name="Chili Powder")
+    ingredient_22 = Ingredient(
+        name="Ground Cumin")
+    ingredient_23 = Ingredient(
+        name="Onion Powder")
+    ingredient_24 = Ingredient(
+        name="Garlic Powder")
+    ingredient_25 = Ingredient(
+        name="Cayenne Pepper")
 
 
     db.session.add(ingredient_1)
