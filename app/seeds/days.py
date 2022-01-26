@@ -8,7 +8,7 @@ def seed_days():
     daily_schedule_2 = Day(
         name='Tuesday', meal_plan_id=1)
     daily_schedule_3 = Day(
-        name="Don't Show", meal_plan_id=2)
+        name="Cutting Day 1", meal_plan_id=2)
 
     db.session.add(daily_schedule_1)
     db.session.add(daily_schedule_2)

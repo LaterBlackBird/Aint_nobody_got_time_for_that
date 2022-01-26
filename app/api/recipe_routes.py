@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required
-from app.models import  db, Recipe, day_to_recipe
+from app.models import  db, Recipe, day_to_recipe, Tag, tag_to_recipe
 from app.forms import RecipeSearchForm
-from sqlalchemy import and_, delete
+from sqlalchemy import and_, or_, delete
 
 recipe_routes = Blueprint('recipes', __name__)
 
@@ -11,7 +11,12 @@ recipe_routes = Blueprint('recipes', __name__)
 @recipe_routes.route('/search/<term>')
 @login_required
 def recipes_search(term):
-    recipes = Recipe.query.filter(Recipe.name.ilike(f'%{term}%')).all()
+    recipes = Recipe.query.join(tag_to_recipe).join(Tag).filter(
+        or_(
+            Recipe.name.ilike(f'%{term}%'),
+            Tag.name.ilike(f'%{term}%')
+            )
+        ).all()
     return {'search_results': [recipe.to_dict() for recipe in recipes]}
 
 
