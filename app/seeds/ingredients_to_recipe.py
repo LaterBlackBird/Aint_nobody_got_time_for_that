@@ -18,7 +18,47 @@ def seed_recipe_ingredients():
         ingredient_id=4,
         amount=2,
         measurement_id=2)
-
+    recipe_ingredient_3 = ingredient_to_recipe.insert().values(
+        recipe_id=1,
+        ingredient_id=4,
+        amount=2,
+        measurement_id=2)
+    recipe_ingredient_3 = ingredient_to_recipe.insert().values(
+        recipe_id=1,
+        ingredient_id=4,
+        amount=2,
+        measurement_id=2)
+    recipe_ingredient_3 = ingredient_to_recipe.insert().values(
+        recipe_id=1,
+        ingredient_id=4,
+        amount=2,
+        measurement_id=2)
+    recipe_ingredient_3 = ingredient_to_recipe.insert().values(
+        recipe_id=1,
+        ingredient_id=4,
+        amount=2,
+        measurement_id=2)
+    recipe_ingredient_3 = ingredient_to_recipe.insert().values(
+        recipe_id=1,
+        ingredient_id=4,
+        amount=2,
+        measurement_id=2)
+    recipe_ingredient_3 = ingredient_to_recipe.insert().values(
+        recipe_id=1,
+        ingredient_id=4,
+        amount=2,
+        measurement_id=2)
+    recipe_ingredient_3 = ingredient_to_recipe.insert().values(
+        recipe_id=1,
+        ingredient_id=4,
+        amount=2,
+        measurement_id=2)
+    recipe_ingredient_3 = ingredient_to_recipe.insert().values(
+        recipe_id=1,
+        ingredient_id=4,
+        amount=2,
+        measurement_id=2)
+        
     db.session.execute(recipe_ingredient_1)
     db.session.execute(recipe_ingredient_2)
     db.session.execute(recipe_ingredient_3)
