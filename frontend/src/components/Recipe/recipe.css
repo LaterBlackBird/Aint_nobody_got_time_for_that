@@ -23,8 +23,8 @@
 
 .recipe_remove_button {
     position: relative;
-    left: 40%;
-    top: 28%;
+    right: -40%;
+    top: -70%;
     height: 0;
     width: 0;
   }
