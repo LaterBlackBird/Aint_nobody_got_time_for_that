@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { editDailySchedule, deleteDailySchedule } from '../../store/daily_schedule';
-import { getRecipesForToday, searchRecipes } from '../../store/recipe';
+import { getRecipesForToday } from '../../store/recipe';
 import Recipe from '../Recipe';
 import { RecipeSearchModal } from '../../context/recipeSearchModal';
 import RecipeSearch from '../RecipeSearch';

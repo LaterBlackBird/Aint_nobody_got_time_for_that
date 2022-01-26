@@ -14,7 +14,7 @@ function RecipeSearch({ dayId }) {
         if (searchText) dispatch(searchRecipes(searchText));
     }, [dispatch, searchText])
 
-
+    // if there are search results, create a an array for mapping
     if (searchResults) {
         searchResultsArray = Object.values(searchResults);
     }
