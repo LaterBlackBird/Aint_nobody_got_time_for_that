@@ -70,8 +70,11 @@ function Homepage() {
 
     // Delete the meal plan
     const deletePlan = async () => {
-        await dispatch(deleteMealPlan(selectedPlan.id));
-        dispatch(deleteSelectedPlan());
+        let confirm = window.confirm('This will permanently delete this meal plan')
+        if (confirm) {
+            await dispatch(deleteMealPlan(selectedPlan.id));
+            dispatch(deleteSelectedPlan());
+        }
     }
 
 

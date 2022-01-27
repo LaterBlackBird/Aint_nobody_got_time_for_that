@@ -51,10 +51,8 @@
 }
 
 .selected_plan {
-  border: 1px solid #00B0FF;
+  border: 1px solid #00b0ff;
 }
-
-
 
 #add_plan {
   justify-self: flex-end;
