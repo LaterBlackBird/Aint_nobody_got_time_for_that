@@ -60,6 +60,7 @@ function Homepage() {
                         value={editedPlanName}
                         onChange={(e) => setEditedPlanName(e.target.value)}
                         className="flex_col_center"
+                        maxLength={40}
                     />
                     <p onClick={() => setEditPlanNameVisibility(false)}>Cancel</p>
                 </div>
@@ -105,6 +106,7 @@ function Homepage() {
                     value={newDayName}
                     onChange={(e) => setNewDayName(e.target.value)}
                     className="daily_schedule_header flex_col_center"
+                    maxLength={40}
                 />
                 <p onClick={() => setNewDayFormVisibility(false)}>Cancel</p>
             </form>

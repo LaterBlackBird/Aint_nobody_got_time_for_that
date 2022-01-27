@@ -48,7 +48,7 @@ function MealPlans() {
                     value={newPlanName}
                     onChange={(e) => setNewPlanName(e.target.value)}
                     className="meal_plan_card flex_col_center"
-                    maxlength="40"
+                    maxlength={40}
                 />
                 <p onClick={() => setNewPlanFormVisibility(false)}>Cancel</p>
             </form>

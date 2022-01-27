@@ -55,7 +55,7 @@ function DailyScheduleCard({ dailySchedule }) {
                     value={editedDayName}
                     onChange={(e) => setEditedDayName(e.target.value)}
                     className="edit_daily_schedule_header flex_col_center"
-                    maxlength="40"
+                    maxlength={40}
                 />
                 <p onClick={() => setEditDayNameFormVisibility(false)}>Cancel</p>
             </form>
