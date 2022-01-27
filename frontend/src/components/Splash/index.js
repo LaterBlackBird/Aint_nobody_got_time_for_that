@@ -20,7 +20,7 @@ function Splash() {
                             <img src={logo} alt="logo" />
                         </div>
                         <div className='copy'>
-                            <span>Eating a healthy diet is more important that ever, but it doesn’t happen by accident. <br />
+                            <span>Eating a healthy diet is more important than ever, but it doesn’t happen by accident. <br />
                                 <br />
                                 That’s where Aint Nobody Got Time For That comes in. <br />
                                 <br />

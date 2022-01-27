@@ -42,6 +42,7 @@ function DailyScheduleCard({ dailySchedule }) {
             setEditedDayName('')
         }
     }
+    
 
     let editDayForm;
     if (editDayNameFormVisibility) {
