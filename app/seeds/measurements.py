@@ -33,7 +33,12 @@ def seed_measurements():
         name="slices")
     measurement_15 = Measurement(
         name="cans")
-
+    measurement_16 = Measurement(
+        name="large")
+    measurement_17 = Measurement(
+        name="package")
+    measurement_18 = Measurement(
+        name="count")
 
     db.session.add(measurement_1)
     db.session.add(measurement_2)
@@ -50,7 +55,9 @@ def seed_measurements():
     db.session.add(measurement_13)
     db.session.add(measurement_14)
     db.session.add(measurement_15)
-
+    db.session.add(measurement_16)
+    db.session.add(measurement_17)
+    db.session.add(measurement_18)
 
     db.session.commit()
 
