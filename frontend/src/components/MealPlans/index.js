@@ -8,6 +8,7 @@ function MealPlans() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.session.user);
     const plans = useSelector(state => state.mealPlans.all_plans);
+    const selectedPlan = useSelector(state => state.mealPlans.selected)
     const plansArray = Object.values(plans);
     const [newPlanFormVisibility, setNewPlanFormVisibility] = useState(false)
     const [newPlanName, setNewPlanName] = useState('')
@@ -61,7 +62,7 @@ function MealPlans() {
                     <p>MEAL PLANS</p>
                 </div>
                 {plansArray.map(plan => (
-                    <div className="meal_plan_card flex_col_center" key={plan.id} onClick={(e) => selectMealPlan(plan)}>
+                    <div className={`meal_plan_card flex_col_center ${selectedPlan && selectedPlan.id === plan.id?"selected_plan":""}`} key={plan.id} onClick={(e) => selectMealPlan(plan)}>
                         <p>{plan.name}</p>
                     </div>
                 ))}

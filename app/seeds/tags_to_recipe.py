@@ -10,7 +10,7 @@ def seed_receipe_tags():
     recipe_tag_3 = tag_to_recipe.insert().values(
         recipe_id=2, tag_id=3)
     recipe_tag_4 = tag_to_recipe.insert().values(
-        recipe_id=2, tag_id=6)
+        recipe_id=2, tag_id=5)
     recipe_tag_5 = tag_to_recipe.insert().values(
         recipe_id=3, tag_id=1)
     recipe_tag_6 = tag_to_recipe.insert().values(
