@@ -34,7 +34,7 @@ export default function ingredientReducer(state = { }, action) {
             const loadState = { };
             //normalize data
             action.ingredients.ingredients.forEach(ingredient => {
-                loadState[action.ingredient.id] = ingredient
+                loadState[ingredient.id] = ingredient
             });
             return loadState;
         default:

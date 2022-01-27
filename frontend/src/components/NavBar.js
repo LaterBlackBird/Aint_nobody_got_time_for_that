@@ -8,6 +8,14 @@ import logo from './images/logo.svg'
 
 const NavBar = () => {
 
+
+  const scrollToAbout = () => {
+    window.scrollTo({
+      top: 10000,
+      behavior: 'smooth'
+    })
+  }
+
   let userLinks;
   const user = useSelector(state => state.session.user);
   if (!user) {
@@ -24,10 +32,12 @@ const NavBar = () => {
         <span>Welcome, {user.username} &nbsp;</span>
         <span>&nbsp; | &nbsp; &nbsp;</span>
         {!window.location.href.endsWith('homepage') &&
-        <>
-        <NavLink to='/homepage'>My Meal Plans &nbsp;</NavLink>
-        <span>&nbsp; | &nbsp; &nbsp;</span>
-        </>  }
+          <>
+            <NavLink to='/homepage'>My Meal Plans &nbsp;</NavLink>
+            <span>&nbsp; | &nbsp; &nbsp;</span>
+            <p id='about_link' onClick={() => scrollToAbout()}>About &nbsp;</p>
+            <span>&nbsp; | &nbsp; &nbsp;</span>
+          </>}
         <LogoutButton />
       </>
     )

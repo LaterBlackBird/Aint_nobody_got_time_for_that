@@ -10,7 +10,7 @@ function RecipeRead({ recipe }) {
 
     useEffect(() => {
         dispatch(loadIngredients(recipe.id));
-    })
+    }, [dispatch])
 
     return (
         <div className="recipe_container">
