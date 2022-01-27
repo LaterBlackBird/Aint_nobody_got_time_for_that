@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchRecipes } from '../../store/recipe';
 import SearchResultCard from '../SearchResultCard';
-import './recipeSearch.css'
+import './recipeRead.css'
 
-function RecipeSearch({ dayId }) {
+function RecipeRead({ dayId }) {
     const dispatch = useDispatch();
     const [searchText, setSearchText] = useState('');
     const searchResults = useSelector(state => state.recipes.searchResults);
@@ -46,4 +46,4 @@ function RecipeSearch({ dayId }) {
     );
 }
 
-export default RecipeSearch;
+export default RecipeRead;
