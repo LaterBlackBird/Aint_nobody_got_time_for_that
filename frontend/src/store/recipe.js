@@ -48,6 +48,11 @@ export const removeRecipe = data => async (dispatch) => {
     dispatch(removeThisRecipe({ removeDayId, removeRecipe }));
 }
 
+// reset state
+export const resetRecipeState = () => async (dispatch) => {
+    dispatch(resetState());
+}
+
 
 // Action types
 // To help prevent errors
@@ -55,6 +60,7 @@ const GET_RECIPES_BY_DAY = 'daily_schedules/GET_RECIPES_BY_DAY'
 const LOAD_SEARCHED_RECIPES = 'recipes/LOAD_SEARCHED_RECIPES'
 const ADD_SEARCHED_RECIPE = 'recipes/ADD_SEARCHED_RECIPES'
 const REMOVE_RECIPE_FROM_DAY = 'recipes/REMOVE_RECIPE_FROM_DAY'
+const RESET_STATE = 'recipes/RESET_STATE'
 
 
 // Actions
@@ -86,6 +92,12 @@ const removeThisRecipe = (recipe) => {
     }
 }
 
+const resetState = () => {
+    return {
+        type: RESET_STATE,
+        payload: null
+    }
+}
 
 
 // Reducer
@@ -119,6 +131,9 @@ export default function recipeReducer(state = { daily: {} }, action) {
             const removeFromDayState = { ...state };
             delete removeFromDayState.daily[removeDayId][removeRecipe]
             return removeFromDayState;
+        case RESET_STATE:
+            const resetState = { daily: {} };
+            return resetState;
         default:
             return state;
     }
