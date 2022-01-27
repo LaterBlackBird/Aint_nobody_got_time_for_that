@@ -117,7 +117,6 @@
 
 #selfie {
   object-fit: cover;
-  box-sizing: border-box;
   height: 10rem;
   width: 10rem;
   border-radius: 50%;
