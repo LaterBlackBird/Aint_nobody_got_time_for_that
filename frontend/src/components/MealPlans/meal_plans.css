@@ -35,6 +35,7 @@
   height: 40px;
   min-height: 40px;
   margin: 7px 0;
+  transition: border 1s ease-in;
 }
 
 .meal_plan_card:hover {
@@ -47,6 +48,10 @@
   width: 90%;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.selected_plan {
+  border: 1px solid #00b0ff;
 }
 
 #add_plan {

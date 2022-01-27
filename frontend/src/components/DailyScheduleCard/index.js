@@ -55,6 +55,7 @@ function DailyScheduleCard({ dailySchedule }) {
                     value={editedDayName}
                     onChange={(e) => setEditedDayName(e.target.value)}
                     className="edit_daily_schedule_header flex_col_center"
+                    maxlength={40}
                 />
                 <p onClick={() => setEditDayNameFormVisibility(false)}>Cancel</p>
             </form>
@@ -64,7 +65,10 @@ function DailyScheduleCard({ dailySchedule }) {
 
     //delete the daily schedule
     const deleteDay = () => {
-        dispatch(deleteDailySchedule(dailySchedule.id))
+        let confirm = window.confirm('This will permanently delete this day')
+        if (confirm) {
+            dispatch(deleteDailySchedule(dailySchedule.id))
+        }
     }
 
 
@@ -80,7 +84,7 @@ function DailyScheduleCard({ dailySchedule }) {
             <div className="recipes_container flex_col_center">
                 {recipeArr &&
                     recipeArr.map(recipe => (
-                        <Recipe key={recipe.id} recipe={recipe} dayId={dailySchedule.id}/>
+                        <Recipe key={recipe.id} recipe={recipe} dayId={dailySchedule.id} />
                     ))
                 }
             </div>

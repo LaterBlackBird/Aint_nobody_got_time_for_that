@@ -52,8 +52,8 @@ export const deleteDailySchedule = (dayId) => async (dispatch) => {
     }
 }
 
-//Rest daily schedules
-export const resetDialySchedules = (dayId) => async (dispatch) => {
+//Reset daily schedules
+export const resetDialySchedules = () => async (dispatch) => {
     dispatch(resetAllDays());
 }
 
