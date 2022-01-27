@@ -23,7 +23,7 @@ function Homepage() {
     // Retrieve and update meal plans associated with the user
     useEffect(() => {
         dispatch(getMealPlans(user.id));
-    }, [dispatch])
+    }, [dispatch, user])
 
 
     // Reset daily schedules when the user selects or deletes a meal plan
