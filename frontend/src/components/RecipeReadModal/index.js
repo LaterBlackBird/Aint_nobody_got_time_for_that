@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { loadIngredients } from '../../store/ingredient';
 import './recipeRead.css'
+
 
 
 function RecipeRead({ recipe }) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        
+        dispatch(loadIngredients(recipe.id));
     })
 
     return (

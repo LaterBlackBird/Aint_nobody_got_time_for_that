@@ -1,7 +1,7 @@
 // Thunk action creators
 // Retrieve information from the database
-export const getRecipesForToday = dayId => async (dispatch) => {
-    const response = await fetch(`/api/daily_schedules/${dayId}/recipes`);
+export const loadIngredients = recipeId => async (dispatch) => {
+    const response = await fetch(`/api/recipes/${recipeId}/ingredients`);
     if (response.ok) {
         const data = await response.json();
         dispatch(loadRecipes(data));
@@ -10,22 +10,19 @@ export const getRecipesForToday = dayId => async (dispatch) => {
 
 
 
-
-
 // Action types
 // To help prevent errors
-const GET_RECIPES = 'daily_schedules/GET_RECIPES'
+const GET_INGREDIENTS = 'recipes/GET_INGREDIENTS'
 
 
 
 // Actions
-const loadRecipes = (recipes) => {
+const loadRecipes = (ingredients) => {
     return {
-        type: GET_RECIPES,
-        recipes
+        type: GET_INGREDIENTS,
+        ingredients
     }
 }
-
 
 
 
@@ -33,14 +30,13 @@ const loadRecipes = (recipes) => {
 // Replace state with database information from thunk
 export default function ingredientReducer(state = { }, action) {
     switch (action.type) {
-        case GET_RECIPES:
-            const updateState = { ...state };
-            updateState.daily[action.recipes.dayId] = {}
+        case GET_INGREDIENTS:
+            const loadState = { };
             //normalize data
-            action.recipes.recipes.forEach(recipe => {
-                updateState.daily[action.recipes.dayId][recipe.id] = recipe
+            action.ingredients.ingredients.forEach(ingredient => {
+                loadState[action.ingredient.id] = ingredient
             });
-            return updateState;
+            return loadState;
         default:
             return state;
     }
