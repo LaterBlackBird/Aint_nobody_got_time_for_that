@@ -35,7 +35,7 @@
   height: 40px;
   min-height: 40px;
   margin: 7px 0;
-  transition: border 1s ease-in;
+  transition: background-color .5s, color .5s, font-weight .5s;
 }
 
 .meal_plan_card:hover {
@@ -51,7 +51,10 @@
 }
 
 .selected_plan {
-  border: 1px solid #00b0ff;
+  border: none;
+  background-color: #00b0ff;
+  color: white;
+  font-weight: bolder;
 }
 
 #add_plan {

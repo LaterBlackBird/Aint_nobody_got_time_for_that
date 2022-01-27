@@ -143,8 +143,12 @@ of your Heroku app in the url and tag name:
 
 ## Roadmap
 
-- Drag & Drop of recipe cards
+- [] Drag & Drop of recipe cards
   - within the same daily schedule & across separate schedules
 - Implement recipe CRUD
 - Integrate nutrition statistics
 - Auto-generate meal plan
+
+## Other Resources
+- Illustrations https://undraw.co/
+- Wireframes https://figma.com
