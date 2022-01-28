@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loadIngredients } from '../../store/ingredient';
 import './recipeRead.css'
 
@@ -7,6 +7,12 @@ import './recipeRead.css'
 
 function RecipeRead({ recipe }) {
     const dispatch = useDispatch();
+    const ingredientState = useSelector(state => state.ingredients)
+
+    let ingredientArray = [];
+    if (ingredientState) {
+        ingredientArray = Object.values(ingredientState);
+    }
 
     useEffect(() => {
         dispatch(loadIngredients(recipe.id));
@@ -27,7 +33,14 @@ function RecipeRead({ recipe }) {
                     <div className="modal_ingredients">
                         <h2>Ingredients</h2>
                         <ul>
-
+                            {ingredientArray &&
+                                ingredientArray.map(ingredient => (
+                                    <li key={ingredient.id}>
+                                        {ingredient.amount} &nbsp;
+                                        {ingredient.measurement} &nbsp;
+                                        {ingredient.name} &nbsp;
+                                    </li>
+                                ))}
                         </ul>
                     </div>
                 </div>

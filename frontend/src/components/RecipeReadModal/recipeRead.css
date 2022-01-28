@@ -27,11 +27,19 @@
 }
 
 #recipe_modal_pic_ing{
+  width: 90%;
+  margin: 10px;
   display: flex;
+  justify-content: space-between;
 }
 
 #food_image {
   object-fit: cover;
   width: 40%;
+  height: 40%;
   border-radius: 15px;
+}
+
+.modal_ingredients {
+  width: 50%;
 }
