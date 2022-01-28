@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required
-from app.models import  db, Recipe, day_to_recipe, Tag, tag_to_recipe, Ingredient, ingredient_to_recipe
+from app.models import  db, Recipe, day_to_recipe, Tag, tag_to_recipe, Ingredient, ingredient_to_recipe, Measurement
 from app.forms import RecipeSearchForm
-from sqlalchemy import and_, or_, delete
+from sqlalchemy import and_, or_, delete, func
 
 recipe_routes = Blueprint('recipes', __name__)
 
@@ -54,5 +54,10 @@ def remove_from_day(dayId, recipeId):
 @recipe_routes.route('/<int:recipe_id>/ingredients')
 @login_required
 def ingredients_for_recipe(recipe_id):
-    ingredients = Ingredient.query.join(ingredient_to_recipe).join(Recipe).filter(ingredient_to_recipe.c.recipe_id == recipe_id).all()
-    return {'ingredients': [ingredient.to_dict() for ingredient in ingredients]}
+    ingredients = db.session.query(Ingredient.name, Ingredient.id, ingredient_to_recipe.c.amount, Measurement.name.label('measurement')).select_from(Ingredient).join(ingredient_to_recipe).join(Measurement).filter(ingredient_to_recipe.c.recipe_id == recipe_id).all()
+
+    data = [dict(ingredient) for ingredient in ingredients]
+    for query in data:
+        query['amount'] = float(query['amount'])
+
+    return {'ingredients': data}
