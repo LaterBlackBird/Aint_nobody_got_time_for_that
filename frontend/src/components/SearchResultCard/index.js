@@ -1,24 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addSearchedRecipe } from '../../store/recipe';
+import { Modal } from '../../context/modals';
+import RecipeRead from '../RecipeReadModal';
 import './searchResultCard.css'
 
 
 
-function SearchResultCard({recipe, dayId}) {
+function SearchResultCard({ recipe, dayId }) {
   const dispatch = useDispatch();
+  const [showRecipeModal, setShowRecipeModal] = useState(false)
 
-  const addRecipe = () => {
-    // console.log(recipe)
-    dispatch(addSearchedRecipe({dayId, recipe}))
+  const addRecipe = (e) => {
+    e.stopPropagation();
+    dispatch(addSearchedRecipe({ dayId, recipe }))
   }
 
   return (
-    <div className="search_result_card">
+    <>
+      <div className="search_result_card" onClick={() => setShowRecipeModal(true)}>
         <p>{recipe.name}</p>
-        <p className='plus' onClick={() => addRecipe()}>+</p>
-    </div>
-    );
+        <p className='plus' onClick={(e) => addRecipe(e)}>+</p>
+      </div>
+      {
+        showRecipeModal && (
+          <Modal onClose={() => setShowRecipeModal(false)}>
+            <RecipeRead recipe={recipe} />
+          </Modal>
+        )
+      }
+    </>
+  );
 }
 
 export default SearchResultCard;
