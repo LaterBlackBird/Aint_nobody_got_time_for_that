@@ -18,11 +18,4 @@
   background-color: rgba(202, 202, 202, 0.9);
 }
 
-#modal-content {
-  position: absolute;
-  background-color: white;
-  height: 30%;
-  width: 40%;
-  border-radius: 20px;
-  display: flex;
-}
+

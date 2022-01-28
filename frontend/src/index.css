@@ -29,7 +29,8 @@ input:focus {
   outline: none;
 }
 
-button {
+button,
+.button {
   border: none;
   background-color: #00b0ff;
   color: white;
@@ -64,6 +65,10 @@ button {
 nav {
   display: flex;
   align-items: center;
+}
+
+#about_link:hover {
+  cursor: pointer;
 }
 
 .plus {

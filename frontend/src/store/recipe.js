@@ -53,6 +53,15 @@ export const resetRecipeState = () => async (dispatch) => {
     dispatch(resetState());
 }
 
+// Load tags for a selected recipe
+export const getRecipeTags = recipe_id => async (dispatch) => {
+    const response = await fetch(`/api/recipes/${recipe_id}/tags`);
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(loadRecipeTags(data));
+    }
+}
+
 
 // Action types
 // To help prevent errors
@@ -61,6 +70,8 @@ const LOAD_SEARCHED_RECIPES = 'recipes/LOAD_SEARCHED_RECIPES'
 const ADD_SEARCHED_RECIPE = 'recipes/ADD_SEARCHED_RECIPES'
 const REMOVE_RECIPE_FROM_DAY = 'recipes/REMOVE_RECIPE_FROM_DAY'
 const RESET_STATE = 'recipes/RESET_STATE'
+const LOAD_RECIPE_TAGS = 'recipes/LOAD_RECIPE_TAGS'
+
 
 
 // Actions
@@ -99,10 +110,17 @@ const resetState = () => {
     }
 }
 
+const loadRecipeTags = (tags) => {
+    return {
+        type: LOAD_RECIPE_TAGS,
+        tags
+    }
+}
+
 
 // Reducer
 // Replace state with database information from thunk
-export default function recipeReducer(state = { daily: {} }, action) {
+export default function recipeReducer(state = { daily: {}, tags: [] }, action) {
     switch (action.type) {
         case GET_RECIPES_BY_DAY:
             const updateState = { ...state };
@@ -134,6 +152,13 @@ export default function recipeReducer(state = { daily: {} }, action) {
         case RESET_STATE:
             const resetState = { daily: {} };
             return resetState;
+        case LOAD_RECIPE_TAGS:
+            const addTagState = {...state};
+            addTagState.tags = [];
+            action.tags.tags.forEach(tag => {
+                addTagState.tags.push(tag.name)
+            })
+            return addTagState
         default:
             return state;
     }

@@ -40,19 +40,41 @@ def seed_ingredients():
     ingredient_18 = Ingredient(
         name="Mozzarella Cheese")
     ingredient_19 = Ingredient(
-        name="Ground Beef")
+        name="White Sugar")
     ingredient_20 = Ingredient(
-        name="Black Pepper")
+        name="Ground Cinnamon")
     ingredient_21 = Ingredient(
-        name="Chili Powder")
+        name="Brown Sugar")
     ingredient_22 = Ingredient(
-        name="Ground Cumin")
+        name="Vanilla Extract")
     ingredient_23 = Ingredient(
-        name="Onion Powder")
+        name=" Confectioners' Sugar")
     ingredient_24 = Ingredient(
-        name="Garlic Powder")
+        name="Milk")
     ingredient_25 = Ingredient(
-        name="Cayenne Pepper")
+        name="Egg")
+    ingredient_26 = Ingredient(
+        name="Olive Oil")
+    ingredient_27 = Ingredient(
+        name=" Jalapeno Pepper")
+    ingredient_28 = Ingredient(
+        name="Applewood-Smoked Ham")
+    ingredient_29 = Ingredient(
+        name="Soy Sauce")
+    ingredient_30 = Ingredient(
+        name="Lime Juice")
+    ingredient_31 = Ingredient(
+        name="Orange Juice")
+    ingredient_32 = Ingredient(
+        name="Thai-Style Sweet Chili Sauce")
+    ingredient_33 = Ingredient(
+        name="Chile-Garlic Sauce (ex Sriracha)")
+    ingredient_34 = Ingredient(
+        name="Cloves Garlic")
+    ingredient_35 = Ingredient(
+        name="Curry Powder")
+    ingredient_36 = Ingredient(
+        name="Boneless Chicken Thighs")
 
 
     db.session.add(ingredient_1)
@@ -62,6 +84,35 @@ def seed_ingredients():
     db.session.add(ingredient_5)
     db.session.add(ingredient_6)
     db.session.add(ingredient_7)
+    db.session.add(ingredient_8)
+    db.session.add(ingredient_9)
+    db.session.add(ingredient_10)
+    db.session.add(ingredient_11)
+    db.session.add(ingredient_12)
+    db.session.add(ingredient_13)
+    db.session.add(ingredient_14)
+    db.session.add(ingredient_15)
+    db.session.add(ingredient_16)
+    db.session.add(ingredient_17)
+    db.session.add(ingredient_18)
+    db.session.add(ingredient_19)
+    db.session.add(ingredient_20)
+    db.session.add(ingredient_21)
+    db.session.add(ingredient_22)
+    db.session.add(ingredient_23)
+    db.session.add(ingredient_24)
+    db.session.add(ingredient_25)
+    db.session.add(ingredient_26)
+    db.session.add(ingredient_27)
+    db.session.add(ingredient_28)
+    db.session.add(ingredient_29)
+    db.session.add(ingredient_30)
+    db.session.add(ingredient_31)
+    db.session.add(ingredient_32)
+    db.session.add(ingredient_33)
+    db.session.add(ingredient_34)
+    db.session.add(ingredient_35)
+    db.session.add(ingredient_36)
 
     db.session.commit()
 

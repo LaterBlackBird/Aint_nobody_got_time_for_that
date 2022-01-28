@@ -8,6 +8,11 @@
   margin: 7px 0;
 }
 
+.recipe_card:hover {
+  cursor: pointer;
+  border: 1px solid #00b0ff;
+}
+
 .recipe_card:hover .hide {
     display: inherit;
   }
@@ -15,7 +20,7 @@
 .recipe_card p {
     margin: auto;
     text-align: center;
-    width: 90%;
+    width: 80%;
     overflow: hidden;
     text-overflow: ellipsis;
 }

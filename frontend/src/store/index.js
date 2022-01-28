@@ -4,12 +4,14 @@ import session from './session'
 import mealPlans from './meal_plan'
 import dailySchedules from './daily_schedule'
 import recipes from './recipe'
+import ingredients from './ingredient'
 
 const rootReducer = combineReducers({
   session,
   mealPlans,
   dailySchedules,
-  recipes
+  recipes,
+  ingredients
 });
 
 

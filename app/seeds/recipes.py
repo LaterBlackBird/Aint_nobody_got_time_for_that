@@ -47,7 +47,7 @@ def seed_recipes():
                         Bake in the preheated oven until biscuit portion on top of rolls begins to brown, about 15 minutes. Remove from the oven and glaze.''',
         source='https://www.allrecipes.com/recipe/275745/biscuit-cinnamon-rolls/',
         picture='https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F7058306.jpg&w=596&h=596&c=sc&poi=face&q=85',
-        servings=3)
+        servings=20)
 
     recipe_4 = Recipe(
         name='Egg and Ham Scramble',

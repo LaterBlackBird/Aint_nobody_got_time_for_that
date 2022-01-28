@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required
-from app.models import  db, Recipe, day_to_recipe, Tag, tag_to_recipe
+from app.models import  db, Recipe, day_to_recipe, Tag, tag_to_recipe, Ingredient, ingredient_to_recipe, Measurement
 from app.forms import RecipeSearchForm
-from sqlalchemy import and_, or_, delete
+from sqlalchemy import and_, or_, delete, func
 
 recipe_routes = Blueprint('recipes', __name__)
 
@@ -48,3 +48,23 @@ def remove_from_day(dayId, recipeId):
     db.session.execute(remove_this)
     db.session.commit()
     return jsonify('removed')
+
+
+# Get ingredients associated with only one recipe
+@recipe_routes.route('/<int:recipe_id>/ingredients')
+@login_required
+def ingredients_for_recipe(recipe_id):
+    ingredients = db.session.query(Ingredient.name, Ingredient.id, ingredient_to_recipe.c.amount, Measurement.name.label('measurement')).select_from(Ingredient).join(ingredient_to_recipe).join(Measurement).filter(ingredient_to_recipe.c.recipe_id == recipe_id).all()
+
+    data = [dict(ingredient) for ingredient in ingredients]
+    for query in data:
+        query['amount'] = float(query['amount'])
+
+    return {'ingredients': data}
+
+# Get tags associated with a recipe
+@recipe_routes.route('/<int:recipe_id>/tags')
+@login_required
+def get_tags_for_recipe(recipe_id):
+    tags = Tag.query.join(tag_to_recipe).join(Recipe).filter(Recipe.id == recipe_id).all()
+    return {'tags': [tag.to_dict() for tag in tags]}

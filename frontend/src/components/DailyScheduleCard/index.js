@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { editDailySchedule, deleteDailySchedule } from '../../store/daily_schedule';
 import { getRecipesForToday } from '../../store/recipe';
 import Recipe from '../Recipe';
-import { RecipeSearchModal } from '../../context/recipeSearchModal';
+import { Modal } from '../../context/modals';
 import RecipeSearch from '../RecipeSearch';
 import './daily_schedule.css'
 
@@ -42,7 +42,7 @@ function DailyScheduleCard({ dailySchedule }) {
             setEditedDayName('')
         }
     }
-    
+
 
     let editDayForm;
     if (editDayNameFormVisibility) {
@@ -94,9 +94,9 @@ function DailyScheduleCard({ dailySchedule }) {
                 <p className='plus'>+</p>
             </div>
             {showRecipeSearchModal && (
-                <RecipeSearchModal onClose={() => setShowRecipeSearchModal(false)}>
+                <Modal onClose={() => setShowRecipeSearchModal(false)}>
                     <RecipeSearch dayId={dailySchedule.id} />
-                </RecipeSearchModal>
+                </Modal>
             )}
         </div>
     );

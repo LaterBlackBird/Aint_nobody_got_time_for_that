@@ -21,26 +21,27 @@ function RecipeSearch({ dayId }) {
 
     return (
         <div className="search_container">
-            <h2>Search For A Recipe</h2>
-            <form onSubmit={(e) => e.preventDefault()}>
-                <input
-                    name='searchRecipes'
-                    ref={(input) => { input && input.focus() }}
-                    type='search'
-                    placeholder='Search by name or tag'
-                    value={searchText}
-                    onChange={(e) => setSearchText(e.target.value)}
-                    className="search_input"
-                />
-            </form>
-            <div className="search_results_container">
-                {searchResultsArray &&
-                    searchResultsArray.map(result => (
-                        <SearchResultCard key={result.id} recipe={result} dayId={dayId}/>
-                    ))
-                }
+            <div className="search_info">
+                <h2 id='search_header'>Search For A Recipe</h2>
+                <form onSubmit={(e) => e.preventDefault()}>
+                    <input
+                        name='searchRecipes'
+                        ref={(input) => { input && input.focus() }}
+                        type='search'
+                        placeholder='Search by name or tag'
+                        value={searchText}
+                        onChange={(e) => setSearchText(e.target.value)}
+                        className="search_input"
+                    />
+                </form>
+                <div className="search_results_container">
+                    {searchResultsArray &&
+                        searchResultsArray.map(result => (
+                            <SearchResultCard key={result.id} recipe={result} dayId={dayId} />
+                        ))
+                    }
+                </div>
             </div>
-
         </div>
     );
 }
