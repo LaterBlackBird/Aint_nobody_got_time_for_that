@@ -61,3 +61,10 @@ def ingredients_for_recipe(recipe_id):
         query['amount'] = float(query['amount'])
 
     return {'ingredients': data}
+
+# Get tags associated with a recipe
+@recipe_routes.route('/<int:recipe_id>/tags')
+@login_required
+def get_tags_for_recipe(recipe_id):
+    tags = Tag.query.join(tag_to_recipe).join(Recipe).filter(Recipe.id == recipe_id).all()
+    return {'tags': [tag.to_dict() for tag in tags]}
