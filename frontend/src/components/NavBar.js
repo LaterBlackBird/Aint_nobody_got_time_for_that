@@ -24,6 +24,8 @@ const NavBar = () => {
         <NavLink to='/login' exact={true} activeClassName='active'>Login &nbsp;</NavLink>
         <span>&nbsp; | &nbsp;</span>
         <NavLink to='/sign-up' exact={true} activeClassName='active'>&nbsp; Sign Up </NavLink>
+        <span>&nbsp; | &nbsp; &nbsp;</span>
+        <p id='about_link' onClick={() => scrollToAbout()}>About &nbsp;</p>
       </>
     )
   } else {

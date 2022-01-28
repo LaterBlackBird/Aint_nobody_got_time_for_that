@@ -63,7 +63,7 @@ function RecipeRead({ recipe }) {
                     <div className="tag_list">
                         {tagsArray &&
                             tagsArray.map(tag => (
-                                <p className='tag button'>{tag}</p>
+                                <p className='tag button' key={tag}>{tag}</p>
                             ))}
                     </div>
                 </div>

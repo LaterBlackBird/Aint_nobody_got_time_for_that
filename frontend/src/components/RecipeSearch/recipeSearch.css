@@ -33,9 +33,8 @@
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
-  overflow: hidden;
+  overflow: auto;
   -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 90%, transparent 100%);
   height: 50%;
   padding: 5px 0;
 }
