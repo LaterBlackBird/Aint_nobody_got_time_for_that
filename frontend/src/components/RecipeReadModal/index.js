@@ -37,7 +37,9 @@ function RecipeRead({ recipe }) {
                 <div id="recipe_modal_pic_ing">
                     <div className="img_src flex_col_center">
                         <img id='food_image' src={recipe.picture} alt={recipe.name} />
-                        <Link to={{pathname: recipe.source}} target='_blank'>Source</Link>
+                        {recipe.source &&
+                            <Link to={{ pathname: recipe.source }} target='_blank'>Source</Link>
+                        }
                     </div>
                     <div className="modal_ingredients">
                         <h2>Ingredients</h2>
@@ -60,9 +62,9 @@ function RecipeRead({ recipe }) {
                     </div>
                     <div className="tag_list">
                         {tagsArray &&
-                        tagsArray.map(tag => (
-                            <span>{tag}</span>
-                        ))}
+                            tagsArray.map(tag => (
+                                <p className='tag button'>{tag}</p>
+                            ))}
                     </div>
                 </div>
             </div>
