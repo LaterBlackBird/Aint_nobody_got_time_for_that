@@ -6,7 +6,7 @@ class Ingredient(db.Model):
     __tablename__ = 'ingredients'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
+    name = db.Column(db.String(100), nullable=False, unique=True)
 
     ingredient_recipe = db.relationship('Recipe', secondary=ingredient_to_recipe, back_populates='recipe_ingredient')
 
