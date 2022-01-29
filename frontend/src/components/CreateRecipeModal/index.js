@@ -11,9 +11,10 @@ function CreateRecipe({ recipe }) {
     const [searchText, setSearchText] = useState('');
     const [searchResults, setSearchResults] = useState([])
     const [ingredientsObject, setIngredientsObject] = useState({})
+    const [lastAddedIng, setLastAddedIng] = useState({})
     const [showIngredientAdd, setShowIngredientAdd] = useState(false)
     const [ingAmount, setIngAmount] = useState(0)
-    const [ingMeasurement, setIngMeasurement] = useState(0)
+    const [ingMeasurement, setIngMeasurement] = useState()
     const [allMeasurements, setAllMeasurements] = useState([])
     const createNewRecipe = async (e) => {
         e.preventDefault();
@@ -43,12 +44,20 @@ function CreateRecipe({ recipe }) {
         getMeasurements();
     }, [])
 
-    const addIng = (ingredient) => {
-        let added = { ...ingredientsObject }
-        added[ingredient.id] = ingredient
-        setIngredientsObject(added)
+    const selectIng = (ingredient) => {
         setShowIngredientAdd(true)
+        setLastAddedIng(ingredient)
     }
+
+    const addIng = (e) => {
+        e.stopPropagation();
+        let added = { ...ingredientsObject }
+        added[lastAddedIng.id] = {id:lastAddedIng.id, name:lastAddedIng.name, 'amount': ingAmount, 'measurement': ingMeasurement}
+        setIngredientsObject(added)
+        setShowIngredientAdd(false)
+    }
+
+    console.log(ingredientsObject)
 
     return (
         <div className="recipe_container flex_col_center">
@@ -82,7 +91,7 @@ function CreateRecipe({ recipe }) {
                             <div
                                 className='flex_col_center'
                                 key={result.name}
-                                onClick={() => addIng(result)}
+                                onClick={() => selectIng(result)}
                             >
                                 {result.name}
                             </div>
@@ -90,10 +99,12 @@ function CreateRecipe({ recipe }) {
                     }
                 </div>
                 {showIngredientAdd &&
-                    <>
+                    <div className='ingredient_add_line'>
                         <input type="number"
                             value={ingAmount}
                             onChange={(e) => setIngAmount(e.target.value)}
+                            ref={(input) => { input && input.focus() }}
+                            // min={0.125}
                         />
                         <select
                             name="ingMeasurement"
@@ -105,7 +116,9 @@ function CreateRecipe({ recipe }) {
                             ))
                             }
                         </select>
-                    </>
+                        <p>{lastAddedIng.name}</p>
+                        <button onClick={(e) => addIng(e)}>Add</button>
+                    </div>
                 }
 
 

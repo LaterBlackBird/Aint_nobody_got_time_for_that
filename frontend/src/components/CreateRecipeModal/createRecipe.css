@@ -44,3 +44,10 @@
   height: 2em;
   align-content: center;
 }
+
+.ingredient_add_line {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  height: 2em;
+}
