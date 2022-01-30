@@ -4,7 +4,7 @@ import './createRecipe.css'
 
 
 
-function CreateRecipe({ recipe }) {
+function CreateRecipe({ showModal }) {
     const dispatch = useDispatch();
     const [errors, setErrors] = useState([]);
     const [newRecipeName, setNewRecipeName] = useState('')
@@ -102,9 +102,9 @@ function CreateRecipe({ recipe }) {
                     <div className='ingredient_add_line'>
                         <input type="number"
                             value={ingAmount}
-                            onChange={(e) => setIngAmount(e.target.value)}
+                            onChange={(e) => setIngAmount(Math.abs(e.target.value))}
                             ref={(input) => { input && input.focus() }}
-                            // min={0.125}
+                            min={0}
                         />
                         <select
                             name="ingMeasurement"
@@ -124,6 +124,7 @@ function CreateRecipe({ recipe }) {
 
 
             </form>
+                <button onClick={() => showModal(false)}>Close</button>
         </div>
     );
 }

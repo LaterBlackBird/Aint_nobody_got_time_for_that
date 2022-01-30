@@ -22,6 +22,10 @@ function RecipeSearch({ dayId }) {
         searchResultsArray = Object.values(searchResults);
     }
 
+    const closeModal = ()=> {
+        setShowCreateRecipeModal(false)
+    }
+
     return (
         <>
             <div className="search_container">
@@ -53,7 +57,7 @@ function RecipeSearch({ dayId }) {
             {
                 showCreateRecipeModal && (
                     <Modal onClose={() => setShowCreateRecipeModal(false)}>
-                        <CreateRecipe />
+                        <CreateRecipe showModal={setShowCreateRecipeModal}/>
                     </Modal>
                 )
             }
