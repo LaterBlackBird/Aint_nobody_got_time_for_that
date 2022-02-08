@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 import './createRecipe.css'
 
 
 
 function CreateRecipe({ showModal }) {
-    const dispatch = useDispatch();
-    const [errors, setErrors] = useState([]);
+    // const dispatch = useDispatch();
+    // const [errors, setErrors] = useState([]);
     const [newRecipeName, setNewRecipeName] = useState('')
     const [searchText, setSearchText] = useState('');
     const [searchResults, setSearchResults] = useState([])
@@ -22,14 +22,21 @@ function CreateRecipe({ showModal }) {
     }
 
     useEffect(() => {
+        const delaySearch = setTimeout(() => {
+            if (searchText) searchIngredients(searchText)
+        }, 400);
+
+
         const searchIngredients = async (searchText) => {
+            console.log('hit the server')
             const response = await fetch(`/api/ingredients/${searchText}`);
             if (response.ok) {
                 const data = await response.json();
                 setSearchResults(data.searchResults);
             }
         }
-        if (searchText) searchIngredients(searchText)
+
+        return () => clearTimeout(delaySearch);
     }, [searchText]);
 
 
@@ -57,8 +64,6 @@ function CreateRecipe({ showModal }) {
         setShowIngredientAdd(false)
     }
 
-    console.log(ingredientsObject)
-
     return (
         <div className="recipe_container flex_col_center">
             <form
@@ -68,7 +73,7 @@ function CreateRecipe({ showModal }) {
             >
                 <input
                     name='newRecipeName'
-                    ref={(input) => { input && input.focus() }}
+                    // ref={(input) => { input && input.focus() }}
                     type='text'
                     placeholder='New Recipe Name'
                     value={newRecipeName}

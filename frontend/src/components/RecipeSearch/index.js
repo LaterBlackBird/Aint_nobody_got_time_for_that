@@ -14,7 +14,11 @@ function RecipeSearch({ dayId }) {
     let searchResultsArray = [];
 
     useEffect(() => {
-        if (searchText) dispatch(searchRecipes(searchText));
+        const dealySearch = setTimeout(() => {
+            if (searchText) dispatch(searchRecipes(searchText));
+        }, 400);
+
+        return () => clearTimeout(dealySearch)
     }, [dispatch, searchText])
 
     // if there are search results, create a an array for mapping
@@ -22,9 +26,9 @@ function RecipeSearch({ dayId }) {
         searchResultsArray = Object.values(searchResults);
     }
 
-    const closeModal = ()=> {
-        setShowCreateRecipeModal(false)
-    }
+    // const closeModal = ()=> {
+    //     setShowCreateRecipeModal(false)
+    // }
 
     return (
         <>
