@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import './createRecipe.css'
 
 
@@ -16,10 +16,6 @@ function CreateRecipe({ showModal }) {
     const [ingAmount, setIngAmount] = useState(0)
     const [ingMeasurement, setIngMeasurement] = useState()
     const [allMeasurements, setAllMeasurements] = useState([])
-    const createNewRecipe = async (e) => {
-        e.preventDefault();
-        console.log('submit')
-    }
 
     useEffect(() => {
         const delaySearch = setTimeout(() => {
@@ -51,6 +47,21 @@ function CreateRecipe({ showModal }) {
         getMeasurements();
     }, [])
 
+
+    const createNewRecipe = async (e) => {
+        e.preventDefault();
+        const response = await fetch(`/api/recipes`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newRecipeName)
+        });
+        if (response.ok) {
+            // TODO;
+        }
+    }
+
     const selectIng = (ingredient) => {
         setShowIngredientAdd(true)
         setLastAddedIng(ingredient)
@@ -59,7 +70,7 @@ function CreateRecipe({ showModal }) {
     const addIng = (e) => {
         e.stopPropagation();
         let added = { ...ingredientsObject }
-        added[lastAddedIng.id] = {id:lastAddedIng.id, name:lastAddedIng.name, 'amount': ingAmount, 'measurement': ingMeasurement}
+        added[lastAddedIng.id] = { id: lastAddedIng.id, name: lastAddedIng.name, 'amount': ingAmount, 'measurement': ingMeasurement }
         setIngredientsObject(added)
         setShowIngredientAdd(false)
     }
@@ -81,56 +92,56 @@ function CreateRecipe({ showModal }) {
                     id="recipe_header"
                     maxLength={100}
                 />
-                <input
-                    name='searchIngredients'
-                    type='search'
-                    placeholder='Search for an ingredient'
-                    value={searchText}
-                    onChange={(e) => setSearchText(e.target.value)}
-                    id='ingredient_search'
-                    className="search_input"
-                />
-                <div className="ingredient_search_results">
-                    {searchResults &&
-                        searchResults.map(result => (
-                            <div
-                                className='flex_col_center'
-                                key={result.name}
-                                onClick={() => selectIng(result)}
-                            >
-                                {result.name}
-                            </div>
-                        ))
-                    }
-                </div>
-                {showIngredientAdd &&
-                    <div className='ingredient_add_line'>
-                        <input type="number"
-                            value={ingAmount}
-                            onChange={(e) => setIngAmount(Math.abs(e.target.value))}
-                            ref={(input) => { input && input.focus() }}
-                            min={0}
-                        />
-                        <select
-                            name="ingMeasurement"
-                            value={ingMeasurement}
-                            onChange={(e) => setIngMeasurement(e.target.value)}>
-                            {allMeasurements.map(measurement => (
-                                <option
-                                    value={measurement.name} key={measurement.id}>{measurement.name}</option>
-                            ))
-                            }
-                        </select>
-                        <p>{lastAddedIng.name}</p>
-                        <button onClick={(e) => addIng(e)}>Add</button>
-                    </div>
-                }
-
-
-
             </form>
-                <button onClick={() => showModal(false)}>Close</button>
-        </div>
+            {/* <input
+                name='searchIngredients'
+                type='search'
+                placeholder='Search for an ingredient'
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                id='ingredient_search'
+                className="search_input"
+            />
+            <div className="ingredient_search_results">
+                {searchResults &&
+                    searchResults.map(result => (
+                        <div
+                            className='flex_col_center'
+                            key={result.name}
+                            onClick={() => selectIng(result)}
+                        >
+                            {result.name}
+                        </div>
+                    ))
+                }
+            </div>
+            {showIngredientAdd &&
+                <div className='ingredient_add_line'>
+                    <input type="number"
+                        value={ingAmount}
+                        onChange={(e) => setIngAmount(Math.abs(e.target.value))}
+                        ref={(input) => { input && input.focus() }}
+                        min={0}
+                    />
+                    <select
+                        name="ingMeasurement"
+                        value={ingMeasurement}
+                        onChange={(e) => setIngMeasurement(e.target.value)}>
+                        {allMeasurements.map(measurement => (
+                            <option
+                                value={measurement.name} key={measurement.id}>{measurement.name}</option>
+                        ))
+                        }
+                    </select>
+                    <p>{lastAddedIng.name}</p>
+                    <button onClick={(e) => addIng(e)}>Add</button>
+                </div>
+            } */}
+
+
+
+            <button onClick={() => showModal(false)}>Close</button>
+        </div >
     );
 }
 

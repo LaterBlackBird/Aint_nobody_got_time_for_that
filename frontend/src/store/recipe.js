@@ -62,6 +62,20 @@ export const getRecipeTags = recipe_id => async (dispatch) => {
     }
 }
 
+// Create a new recipe
+export const createRecipe = recipeName => async (dispatch) => {
+    const response = await fetch(`/api/recipes`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(recipeName)
+    });
+    if (response.ok) {
+        return 'created';
+    }
+}
+
 
 // Action types
 // To help prevent errors
@@ -71,7 +85,6 @@ const ADD_SEARCHED_RECIPE = 'recipes/ADD_SEARCHED_RECIPES'
 const REMOVE_RECIPE_FROM_DAY = 'recipes/REMOVE_RECIPE_FROM_DAY'
 const RESET_STATE = 'recipes/RESET_STATE'
 const LOAD_RECIPE_TAGS = 'recipes/LOAD_RECIPE_TAGS'
-
 
 
 // Actions
