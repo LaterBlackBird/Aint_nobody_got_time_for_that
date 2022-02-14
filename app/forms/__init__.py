@@ -6,3 +6,4 @@ from .new_daily_schedule_form import NewDayForm
 from .update_daily_schedule_form import EditDayForm
 from .recipeSearchForm import RecipeSearchForm
 from .recipeCreateForm import RecipeCreateForm
+from .addIngredientToRecipeForm import AddIngToRecipeForm

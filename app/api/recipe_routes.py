@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required
 from app.models import  db, Recipe, day_to_recipe, Tag, tag_to_recipe, Ingredient, ingredient_to_recipe, Measurement
-from app.forms import RecipeSearchForm, RecipeCreateForm
+from app.forms import RecipeSearchForm, RecipeCreateForm, AddIngToRecipeForm
 from sqlalchemy import and_, or_, delete, func
 
 recipe_routes = Blueprint('recipes', __name__)
@@ -79,6 +79,28 @@ def ingredients_for_recipe(recipe_id):
         query['amount'] = float(query['amount'])
 
     return {'ingredients': data}
+
+
+
+#Add an ingredient to a recipe
+@recipe_routes.route('/<int:recipe_id>/ingredients', methods=['POST'])
+@login_required
+def add_ing_to_recipe(recipe_id):
+    print('~~~~~~~~~~~~~~~~~~~~~~', request.json)
+    form = AddIngToRecipeForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        add_ingredient = ingredient_to_recipe.insert().values(
+            recipe_id=recipe_id,
+            ingredient_id=request.json['ingredient_id'],
+            amount=request.json['ingAmount'],
+            measurement_id=request.json['ingMeasurement']
+        )
+        db.session.execute(add_ingredient)
+        db.session.commit()
+    return jsonify('added ingredient to recipe')
+
 
 
 # Get tags associated with a recipe

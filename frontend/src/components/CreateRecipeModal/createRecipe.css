@@ -31,9 +31,10 @@
     display: flex;
     flex-wrap: wrap;
     width: 80%;
-    height: 30%;
+    height: 20%;
     align-content: flex-start;
     overflow-y: auto;
+    border: 1px solid black;
 }
 
 .ingredient_search_results div {
