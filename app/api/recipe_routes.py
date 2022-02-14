@@ -1,10 +1,28 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required
 from app.models import  db, Recipe, day_to_recipe, Tag, tag_to_recipe, Ingredient, ingredient_to_recipe, Measurement
-from app.forms import RecipeSearchForm
+from app.forms import RecipeSearchForm, RecipeCreateForm
 from sqlalchemy import and_, or_, delete, func
 
 recipe_routes = Blueprint('recipes', __name__)
+
+
+#Create a new recipe by name only
+@recipe_routes.route('', methods=['POST'])
+@login_required
+def create_new_recipe():
+    form = RecipeCreateForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        new_recipe = Recipe(
+            name=form.data['newRecipeName'],
+            author=form.data['userId']
+        )
+        db.session.add(new_recipe)
+        db.session.commit()
+    return new_recipe.to_dict()
+
 
 
 # Search recipes
@@ -20,7 +38,7 @@ def recipes_search(term):
     return {'search_results': [recipe.to_dict() for recipe in recipes]}
 
 
-# Add a recipe from search
+# Add a recipe to a daily schedule from search
 @recipe_routes.route('/day_recipes', methods=['POST'])
 @login_required
 def add_searched_recipe():
@@ -61,6 +79,7 @@ def ingredients_for_recipe(recipe_id):
         query['amount'] = float(query['amount'])
 
     return {'ingredients': data}
+
 
 # Get tags associated with a recipe
 @recipe_routes.route('/<int:recipe_id>/tags')

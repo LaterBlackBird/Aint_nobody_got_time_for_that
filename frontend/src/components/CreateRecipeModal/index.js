@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import './createRecipe.css'
 
 
@@ -7,6 +7,7 @@ import './createRecipe.css'
 function CreateRecipe({ showModal }) {
     // const dispatch = useDispatch();
     // const [errors, setErrors] = useState([]);
+    const userId = useSelector(state => state.session.user.id)
     const [newRecipeName, setNewRecipeName] = useState('')
     const [searchText, setSearchText] = useState('');
     const [searchResults, setSearchResults] = useState([])
@@ -16,6 +17,8 @@ function CreateRecipe({ showModal }) {
     const [ingAmount, setIngAmount] = useState(0)
     const [ingMeasurement, setIngMeasurement] = useState()
     const [allMeasurements, setAllMeasurements] = useState([])
+
+    console.log(userId)
 
     useEffect(() => {
         const delaySearch = setTimeout(() => {
@@ -55,10 +58,10 @@ function CreateRecipe({ showModal }) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(newRecipeName)
+            body: JSON.stringify({newRecipeName, userId})
         });
         if (response.ok) {
-            // TODO;
+            console.log(response);
         }
     }
 
