@@ -12,6 +12,7 @@ function CreateRecipe({ showModal }) {
     const [newRecipeName, setNewRecipeName] = useState('');
     const [newRecipeId, setNewRecipeId] = useState();
     const [createRecipeFormVisibility, setCreateRecipeFormVisibility] = useState(true)
+    const [editRecipeNameFormVisibility, setEditRecipeNameFormVisibility] = useState(false)
 
     const [searchText, setSearchText] = useState('');
     const [searchResults, setSearchResults] = useState([]);
@@ -98,7 +99,45 @@ function CreateRecipe({ showModal }) {
             }
         }
     }
-    //form for adding a new recipe by name
+
+    //Edit the recipe name
+    const editRecipe = async (e) => {
+        e.preventDefault();
+
+        if (newRecipeName.length < 7) {
+            setNewRecipeName('');
+            setErrors(['Name must be at least 7 characters']);
+        } else {
+            setErrors([])
+            const response = await fetch(`/api/recipes/${newRecipeId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({newRecipeName})
+            });
+            if (response.ok) {
+                const data = await response.json();
+                setNewRecipeName(data.name)
+                setEditRecipeNameFormVisibility(false);
+            }
+        }
+    }
+
+    //input used for naming a recipe (used in create and edit forms)
+    const recipeNameInput =
+        <input
+            name='newRecipeName'
+            type='text'
+            placeholder={errors.length ? errors[0] : 'New Recipe Name'}
+            value={newRecipeName}
+            onChange={(e) => setNewRecipeName(e.target.value)}
+            id="recipe_header"
+            maxLength={100}
+            required
+        />
+
+    //form for creating a new recipe by name
     let newRecipeNameForm;
     if (createRecipeFormVisibility) {
         newRecipeNameForm =
@@ -107,28 +146,39 @@ function CreateRecipe({ showModal }) {
                 id='new_recipe_form'
                 className='flex_col_center'
             >
-                <input
-                    name='newRecipeName'
-                    type='text'
-                    placeholder={errors.length ? errors[0] : 'New Recipe Name'}
-                    value={newRecipeName}
-                    onChange={(e) => setNewRecipeName(e.target.value)}
-                    id="recipe_header"
-                    maxLength={100}
-                    required
-                />
+                {recipeNameInput}
+            </form>
+    }
+
+    //form for editing a new recipe by name
+    let editNameForm;
+    if (editRecipeNameFormVisibility) {
+        editNameForm =
+            <form
+                onSubmit={editRecipe}
+                id='new_recipe_form'
+                className='flex_col_center'
+            >
+                {recipeNameInput}
             </form>
     }
 
 
+    //Open the form for editing the recipe name
+    const openEditRecipeNameForm = async (e) => {
+        setCreateRecipeFormVisibility(false)
+        setEditRecipeNameFormVisibility(true)
+    }
 
-    //Set a few states from selecing an ingredient from the search results
+
+    //Set a few states from selecting an ingredient from the search results
     const selectIng = (ingredient) => {
         setShowIngredientAdd(true)
         setSelectedIng(ingredient)
     }
 
 
+    //Add an ingredient to a recipe
     const addIng = async (e) => {
         e.stopPropagation();
         let added = { recipe_id: newRecipeId, ingredient_id: selectedIng.id, name: selectedIng.name, ingAmount: ingAmount, ingMeasurement: selectedMeasurement }
@@ -155,10 +205,15 @@ function CreateRecipe({ showModal }) {
     return (
         <div className="recipe_container flex_col_center">
             {createRecipeFormVisibility && newRecipeNameForm}
+            {editRecipeNameFormVisibility && editNameForm}
+            {!createRecipeFormVisibility && !editRecipeNameFormVisibility &&
+                <div
+                    id="recipe_header"
+                    onClick={() => openEditRecipeNameForm()}>{newRecipeName}
+                </div>
+            }
             {!createRecipeFormVisibility &&
                 <>
-                    <div id="recipe_header">{newRecipeName}</div>
-
                     <input
                         name='searchIngredients'
                         type='search'
@@ -205,7 +260,7 @@ function CreateRecipe({ showModal }) {
                                 onChange={(e) => setSelectedMeasurement(e.target.value)}>
                                 {allMeasurements.map(measurement => (
                                     <option
-                                        value={measurement.id} key={measurement.id+(Math.random()*100)}>{measurement.name}
+                                        value={measurement.id} key={Math.random() * 100}>{measurement.name}
                                     </option>
                                 ))
                                 }

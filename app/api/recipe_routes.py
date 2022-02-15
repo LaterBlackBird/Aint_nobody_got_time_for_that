@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, session, request
 from flask_login import login_required
 from app.models import  db, Recipe, day_to_recipe, Tag, tag_to_recipe, Ingredient, ingredient_to_recipe, Measurement
-from app.forms import RecipeSearchForm, RecipeCreateForm, AddIngToRecipeForm
+from app.forms import RecipeSearchForm, RecipeCreateForm, AddIngToRecipeForm, RecipeEditForm
 from sqlalchemy import and_, or_, delete, func
 
 recipe_routes = Blueprint('recipes', __name__)
@@ -22,6 +22,21 @@ def create_new_recipe():
         db.session.add(new_recipe)
         db.session.commit()
     return new_recipe.to_dict()
+
+
+#Edit a recipe
+@recipe_routes.route('/<int:id>', methods=['PUT'])
+@login_required
+def edit_recipe(id):
+    recipe = Recipe.query.get(id)
+    form = RecipeEditForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        recipe.name = form.data['newRecipeName']
+        db.session.commit()
+
+    return recipe.to_dict()
 
 
 
@@ -86,7 +101,6 @@ def ingredients_for_recipe(recipe_id):
 @recipe_routes.route('/<int:recipe_id>/ingredients', methods=['POST'])
 @login_required
 def add_ing_to_recipe(recipe_id):
-    print('~~~~~~~~~~~~~~~~~~~~~~', request.json)
     form = AddIngToRecipeForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
