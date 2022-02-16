@@ -65,3 +65,40 @@
   text-align: center;
 }
 
+#additional_recipe_details{
+  height: 50%;
+  width: 80%;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#instructionsTextField{
+  height: 35%;
+  width: 100%;
+  resize: none;
+}
+
+#additional_recipe_details input{
+  text-align: center;
+  margin: 10px 0;
+}
+
+#recipePhotoInput{
+  width: 100%;
+  text-align: center;
+}
+
+#servings_div {
+  display: flex;
+  align-items: center;
+}
+
+#servings_div label{
+  font-size: 0.875em;
+}
+
+#servings_div input{
+  width: 50px;
+}

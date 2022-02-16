@@ -13,7 +13,9 @@ function RecipeSearch({ dayId }) {
     const [showCreateRecipeModal, setShowCreateRecipeModal] = useState(false)
     let searchResultsArray = [];
 
+    // Search the database when the user enters a new search term
     useEffect(() => {
+        //debounce the search action hitting the database
         const dealySearch = setTimeout(() => {
             if (searchText) dispatch(searchRecipes(searchText));
         }, 400);
@@ -21,7 +23,7 @@ function RecipeSearch({ dayId }) {
         return () => clearTimeout(dealySearch)
     }, [dispatch, searchText])
 
-    // if there are search results, create a an array for mapping
+    // if there are search results, create an array for mapping
     if (searchResults) {
         searchResultsArray = Object.values(searchResults);
     }

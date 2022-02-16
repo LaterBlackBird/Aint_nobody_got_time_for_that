@@ -25,6 +25,10 @@ function CreateRecipe({ showModal }) {
     const [ingAmount, setIngAmount] = useState('');
     const [allMeasurements, setAllMeasurements] = useState([]);
 
+    const [recipeInstructions, setRecipeInstructions] = useState('');
+    const [recipePhotoURL, setRecipePhotoURL] = useState('');
+    const [recipeSourceURL, setRecipeSourceURL] = useState('');
+    const [recipeServingSize, setRecipeServingSize] = useState('')
 
 
     //search available ingredients to choose from
@@ -110,7 +114,7 @@ function CreateRecipe({ showModal }) {
         } else {
             setErrors([])
             const response = await fetch(`/api/recipes/${newRecipeId}`, {
-                method: 'PUT',
+                method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -195,8 +199,6 @@ function CreateRecipe({ showModal }) {
                 body: JSON.stringify(added)
             });
             if (response.ok) {
-                const data = await response.json();
-                console.log(data);
                 setShowIngredientAdd(false)
             }
         }
@@ -206,7 +208,7 @@ function CreateRecipe({ showModal }) {
     // Cancel the add ingredient action
     const cancelIng = e => {
         e.stopPropagation();
-        setIngAmount();
+        setIngAmount('');
         setShowIngredientAdd(false)
     }
 
@@ -217,8 +219,24 @@ function CreateRecipe({ showModal }) {
             method: 'DELETE',
         });
         if (response.ok) {
-            console.log(await response.json())
             showModal(false);
+        }
+    }
+
+    const updateRecipeDetails = async (e) => {
+        e.preventDefault();
+
+        const response = await fetch(`/api/recipes/${newRecipeId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ recipeInstructions, recipePhotoURL, recipeSourceURL, recipeServingSize })
+        });
+        if (response.ok) {
+            // const data = await response.json();
+            // setNewRecipeName(data.name)
+            // setEditRecipeNameFormVisibility(false);
         }
     }
 
@@ -238,7 +256,7 @@ function CreateRecipe({ showModal }) {
                     <input
                         name='searchIngredients'
                         type='search'
-                        placeholder='Search for an ingredient'
+                        placeholder='To add an ingredient, search for it here'
                         value={searchText}
                         onChange={(e) => setSearchText(e.target.value)}
                         id='ingredient_search'
@@ -295,14 +313,60 @@ function CreateRecipe({ showModal }) {
                             </div>
                         </div>
                     }
+
+                    <form
+                        id='additional_recipe_details'
+                        onSubmit={(e) => updateRecipeDetails(e)}>
+                        <textarea
+                            id='instructionsTextField'
+                            placeholder='Write instructions here'
+                            name='recipe_instructions'
+                            value={recipeInstructions}
+                            onChange={(e) => setRecipeInstructions(e.target.value)}>
+                        </textarea>
+
+                        <input
+                            type="text"
+                            placeholder='URL for Recipe Photo Here'
+                            id='recipePhotoInput'
+                            name='recipe_picture'
+                            required
+                            value={recipePhotoURL}
+                            onChange={(e) => setRecipePhotoURL(e.target.value)}
+                        />
+
+                        <input
+                            type="text"
+                            placeholder='Recipe Source URL'
+                            name='recipe_source'
+                            value={recipeSourceURL}
+                            onChange={(e) => setRecipeSourceURL(e.target.value)}
+                        />
+
+                        <div id='servings_div'>
+                            <label htmlFor="recipe_servings">Servings</label>
+                            <input
+                                type="number"
+                                name='recipe_servings'
+                                value={recipeServingSize}
+                                onChange={(e) => setRecipeServingSize(e.target.value)}
+                            />
+                        </div>
+
+                        <button>Update</button>
+                    </form>
+
+
+
                 </>
             }
 
 
-
-            <button onClick={() => showModal(false)}>Close</button>
             {!createRecipeFormVisibility &&
-                <button onClick={(e) => deleteRecipe(e)}>Cancel (Delete)</button>
+                <div>
+                    <button onClick={() => showModal(false)}>Done</button>
+                    <button onClick={(e) => deleteRecipe(e)}>Cancel (Delete)</button>
+                </div>
             }
 
         </div >

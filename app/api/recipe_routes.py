@@ -24,8 +24,9 @@ def create_new_recipe():
     return new_recipe.to_dict()
 
 
+
 #Edit a recipe
-@recipe_routes.route('/<int:id>', methods=['PUT'])
+@recipe_routes.route('/<int:id>', methods=['PATCH'])
 @login_required
 def edit_recipe(id):
     recipe = Recipe.query.get(id)
@@ -33,7 +34,17 @@ def edit_recipe(id):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        recipe.name = form.data['newRecipeName']
+        if 'newRecipeName' in request.json:
+            recipe.name = request.json['newRecipeName']
+        if 'recipeInstructions' in request.json:
+            recipe.instructions = request.json['recipeInstructions']
+        if 'recipePhotoURL' in request.json:
+            recipe.picture = request.json['recipePhotoURL']
+        if 'recipeSourceURL' in request.json:
+            recipe.source = request.json['recipeSourceURL']
+        if 'recipeServingSize' in request.json:
+            recipe.servings = request.json['recipeServingSize']
+        # recipe.name = form.data['newRecipeName']
         db.session.commit()
     return recipe.to_dict()
 
@@ -63,6 +74,7 @@ def recipes_search(term):
     return {'search_results': [recipe.to_dict() for recipe in recipes]}
 
 
+
 # Add a recipe to a daily schedule from search
 @recipe_routes.route('/day_recipes', methods=['POST'])
 @login_required
@@ -73,6 +85,7 @@ def add_searched_recipe():
     db.session.execute(day_to_recipe.insert().values(day_id=dayId, recipe_id=recipeId))
     db.session.commit()
     return jsonify('added')
+
 
 
 # Remove a recipe from a daily schedule
@@ -91,6 +104,7 @@ def remove_from_day(dayId, recipeId):
     db.session.execute(remove_this)
     db.session.commit()
     return jsonify('removed')
+
 
 
 # Get ingredients associated with only one recipe
