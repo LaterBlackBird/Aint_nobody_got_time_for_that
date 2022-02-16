@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import './createRecipe.css'
 
@@ -25,10 +25,12 @@ function CreateRecipe({ showModal }) {
     const [ingAmount, setIngAmount] = useState(0);
     const [allMeasurements, setAllMeasurements] = useState([]);
 
+    const recipeNameInputRef = useRef();
+
 
     //search available ingredients to choose from
     useEffect(() => {
-        //this effectively debounces the search action
+        //this effectively debounces the search
         const delaySearch = setTimeout(() => {
             if (searchText) searchIngredients(searchText)
         }, 400);
@@ -76,8 +78,7 @@ function CreateRecipe({ showModal }) {
 
     //When a name is entered, create the new recipe in the DB by name and author
     //Then set the other fields as viewable
-    //All functions after this step are essentially editing the new recipe
-    //as the user enters new data
+    //All functions after this step are essentially editing the new recipe as the user enters new data
     const createNewRecipe = async (e) => {
         e.preventDefault();
         if (newRecipeName.length < 7) {
@@ -114,7 +115,7 @@ function CreateRecipe({ showModal }) {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({newRecipeName})
+                body: JSON.stringify({ newRecipeName })
             });
             if (response.ok) {
                 const data = await response.json();
@@ -135,6 +136,7 @@ function CreateRecipe({ showModal }) {
             id="recipe_header"
             maxLength={100}
             required
+            ref={(input) => { input && input.focus() }}
         />
 
     //form for creating a new recipe by name
@@ -165,9 +167,9 @@ function CreateRecipe({ showModal }) {
 
 
     //Open the form for editing the recipe name
-    const openEditRecipeNameForm = async (e) => {
-        setCreateRecipeFormVisibility(false)
-        setEditRecipeNameFormVisibility(true)
+    const openEditRecipeNameForm = () => {
+        setCreateRecipeFormVisibility(false);
+        setEditRecipeNameFormVisibility(true);
     }
 
 
@@ -248,11 +250,12 @@ function CreateRecipe({ showModal }) {
                     {showIngredientAdd &&
                         <div className='ingredient_add_line'>
                             <input type="number"
+                                id='ingAmount'
                                 name='ingAmount'
                                 value={ingAmount}
                                 onChange={(e) => setIngAmount(Math.abs(e.target.value))}
                                 ref={(input) => { input && input.focus() }}
-                                min={0}
+                                placeholder='0'
                             />
                             <select
                                 name="ingMeasurement"
@@ -265,7 +268,7 @@ function CreateRecipe({ showModal }) {
                                 ))
                                 }
                             </select>
-                            <p>{selectedIng.name}</p>
+                            <p id='ingName'>{selectedIng.name}</p>
                             <button onClick={(e) => addIng(e)}>Add</button>
                         </div>
                     }

@@ -28,14 +28,14 @@
   width: 80%;
 }
 
-.ingredient_search_results{
-    display: flex;
-    flex-wrap: wrap;
-    width: 80%;
-    height: 20%;
-    align-content: flex-start;
-    overflow-y: auto;
-    border: 1px solid black;
+.ingredient_search_results {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  height: 20%;
+  align-content: flex-start;
+  overflow-y: auto;
+  border-bottom: 1px solid rgba(0, 0, 0, 25%);
 }
 
 .ingredient_search_results div {
@@ -47,9 +47,24 @@
   align-content: center;
 }
 
+.ingredient_search_results div:hover {
+  cursor: pointer;
+}
+
 .ingredient_add_line {
   display: flex;
   flex-direction: row;
-  align-content: center;
+  align-items: center;
+  justify-content: space-evenly;
   height: 2em;
+  width: 80%;
+}
+
+#ingAmount {
+  width: 10%;
+  text-align: center;
+}
+
+#ingName {
+  margin: auto;
 }
