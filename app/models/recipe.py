@@ -19,7 +19,7 @@ class Recipe(db.Model):
     recipe_day = db.relationship('Day', secondary=day_to_recipe, back_populates='day_recipe')
     recipe_tag = db.relationship('Tag', secondary=tag_to_recipe, back_populates='tag_recipe')
     recipe_ingredient = db.relationship('Ingredient', secondary=ingredient_to_recipe, back_populates='ingredient_recipe')
-    recipe_measurement = db.relationship('Measurement', secondary=ingredient_to_recipe, back_populates='measurement_recipe')
+    # recipe_measurement = db.relationship('Measurement', secondary=ingredient_to_recipe, back_populates='measurement_recipe')
 
 
     def to_dict(self):

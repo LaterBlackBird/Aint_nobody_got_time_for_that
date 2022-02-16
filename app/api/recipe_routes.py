@@ -35,8 +35,18 @@ def edit_recipe(id):
     if form.validate_on_submit():
         recipe.name = form.data['newRecipeName']
         db.session.commit()
-
     return recipe.to_dict()
+
+
+
+#Delete a recipe
+@recipe_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_recipe(id):
+    recipe = Recipe.query.get(id)
+    db.session.delete(recipe)
+    db.session.commit()
+    return jsonify(f'recipe {recipe.name} deleted')
 
 
 

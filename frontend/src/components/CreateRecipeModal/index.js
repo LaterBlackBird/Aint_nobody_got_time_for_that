@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import './createRecipe.css'
 
@@ -22,10 +22,9 @@ function CreateRecipe({ showModal }) {
     const [selectedMeasurement, setSelectedMeasurement] = useState(1);
 
     const [showIngredientAdd, setShowIngredientAdd] = useState(false);
-    const [ingAmount, setIngAmount] = useState(0);
+    const [ingAmount, setIngAmount] = useState('');
     const [allMeasurements, setAllMeasurements] = useState([]);
 
-    const recipeNameInputRef = useRef();
 
 
     //search available ingredients to choose from
@@ -201,6 +200,26 @@ function CreateRecipe({ showModal }) {
                 setShowIngredientAdd(false)
             }
         }
+        setIngAmount();
+    }
+
+    // Cancel the add ingredient action
+    const cancelIng = e => {
+        e.stopPropagation();
+        setIngAmount();
+        setShowIngredientAdd(false)
+    }
+
+    // Cancel the create recipe workflow (Deletes recipe from database)
+    const deleteRecipe = async (e) => {
+        e.stopPropagation();
+        const response = await fetch(`/api/recipes/${newRecipeId}`, {
+            method: 'DELETE',
+        });
+        if (response.ok) {
+            console.log(await response.json())
+            showModal(false);
+        }
     }
 
 
@@ -256,6 +275,7 @@ function CreateRecipe({ showModal }) {
                                 onChange={(e) => setIngAmount(Math.abs(e.target.value))}
                                 ref={(input) => { input && input.focus() }}
                                 placeholder='0'
+                                min={0}
                             />
                             <select
                                 name="ingMeasurement"
@@ -269,7 +289,10 @@ function CreateRecipe({ showModal }) {
                                 }
                             </select>
                             <p id='ingName'>{selectedIng.name}</p>
-                            <button onClick={(e) => addIng(e)}>Add</button>
+                            <div>
+                                <button onClick={(e) => addIng(e)}>Add</button>
+                                <button onClick={(e) => cancelIng(e)}>Cancel</button>
+                            </div>
                         </div>
                     }
                 </>
@@ -278,6 +301,10 @@ function CreateRecipe({ showModal }) {
 
 
             <button onClick={() => showModal(false)}>Close</button>
+            {!createRecipeFormVisibility &&
+                <button onClick={(e) => deleteRecipe(e)}>Cancel (Delete)</button>
+            }
+
         </div >
     );
 }
