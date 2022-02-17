@@ -31,6 +31,8 @@ function CreateRecipe({ showModal }) {
     const [recipeServingSize, setRecipeServingSize] = useState('');
 
     const [allTags, setAllTags] = useState([]);
+    const [selectedTags, setSelectedTags] = useState({});
+
 
     //search available ingredients to choose from
     useEffect(() => {
@@ -237,6 +239,7 @@ function CreateRecipe({ showModal }) {
         }
     }
 
+    //Update or Add Recipe Attributes
     const updateRecipeDetails = async (e) => {
         e.preventDefault();
 
@@ -249,12 +252,33 @@ function CreateRecipe({ showModal }) {
         });
     }
 
-
-    const addTagToRecipe = (e) => {
-        e.preventDefault();
-        
-        console.log(`you clicked ${e.target.id}`)
+    const tagToggle = (e) => {
+        if (selectedTags[e.target.id]) removeTagToRecipe(e);
+        else addTagToRecipe(e);
+        setSelectedTags(selectedTags[e.target.id] = e.target.name)
     }
+
+    const addTagToRecipe = async (e) => {
+        e.stopPropagation();
+        const tagId = e.target.id
+
+        const response = await fetch(`/api/recipes/${newRecipeId}/tags`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({tagId})
+        });
+        if (response.ok) {
+            setShowIngredientAdd(false)
+        }
+
+        setIngAmount();
+    }
+
+    const removeTagToRecipe = async (e) => {
+        //TODO
+    };
 
     return (
         <div className="recipe_container flex_col_center">
@@ -372,14 +396,14 @@ function CreateRecipe({ showModal }) {
                     </form>
 
                     <div id='tags_container'>
-                        <h4>Tags</h4>
+                        <h4>Tags (Select All That Apply)</h4>
                         <div id='tags_list'>
                             {allTags.map(tag => (
                                 <div
-                                    id ={tag.id}
-                                    className='tag'
+                                    id={tag.id}
+                                    className='tag flex_col_center'
                                     key={tag.id}
-                                    onClick={(e)=> addTagToRecipe(e)}
+                                    onClick={(e) => tagToggle(e)}
                                 >
                                     {tag.name}
                                 </div>
@@ -391,9 +415,9 @@ function CreateRecipe({ showModal }) {
 
 
             {!createRecipeFormVisibility &&
-                <div>
+                <div id='action_buttons'>
                     <button onClick={() => showModal(false)}>Done</button>
-                    <button onClick={(e) => deleteRecipe(e)}>Cancel (Delete)</button>
+                    <button className='cancel_button' onClick={(e) => deleteRecipe(e)}>Cancel</button>
                 </div>
             }
 

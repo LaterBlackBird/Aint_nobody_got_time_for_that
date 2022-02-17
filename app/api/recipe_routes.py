@@ -121,7 +121,7 @@ def ingredients_for_recipe(recipe_id):
 
 
 
-#Add an ingredient to a recipe
+# Add an ingredient to a recipe
 @recipe_routes.route('/<int:recipe_id>/ingredients', methods=['POST'])
 @login_required
 def add_ing_to_recipe(recipe_id):
@@ -147,3 +147,25 @@ def add_ing_to_recipe(recipe_id):
 def get_tags_for_recipe(recipe_id):
     tags = Tag.query.join(tag_to_recipe).join(Recipe).filter(Recipe.id == recipe_id).all()
     return {'tags': [tag.to_dict() for tag in tags]}
+
+
+# Associate a tag to a recipe
+@recipe_routes.route('/<int:recipe_id>/tags', methods=["POST"])
+@login_required
+def associate_tag_to_recipe(recipe_id):
+    db.session.execute(tag_to_recipe.insert().values(
+        recipe_id=recipe_id,
+        tag_id=request.json['tagId']
+    ))
+    db.session.commit()
+    return {'added'}
+
+
+# Deassociate a tag to a recipe
+@recipe_routes.route('/<int:recipe_id>/tags/<int:tag_id>', methods=["DELETE"])
+@login_required
+def deassociate_tag_to_recipe(recipe_id):
+    data = Recipe.query.join(tag_to_recipe).join(Tag).filter((tag_to_recipe.c.recipe_id == recipe_id) & (tag_to_recipe.c.tag_id == tag_id)).first()
+    db.session.delete(data)
+    db.session.commit()
+    return {'removed'}

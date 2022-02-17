@@ -8,7 +8,6 @@
 
 #new_recipe_form {
   width: 100%;
-  /* height: 100%; */
 }
 
 #recipe_header {
@@ -38,9 +37,10 @@
   border-bottom: 1px solid rgba(0, 0, 0, 25%);
 }
 
-.ingredient_search_results div {
-  border: 1px solid black;
-  border-radius: 15px;
+.ingredient_search_results div,
+.tag {
+  border: 1px solid gray;
+  border-radius: 5px;
   padding: 5px;
   margin: 5px;
   height: 2em;
@@ -102,3 +102,26 @@
 #servings_div input{
   width: 50px;
 }
+
+#tags_container{
+  margin-bottom: 10px;
+}
+
+#tags_container h4{
+  margin: 5px;
+}
+
+#tags_list {
+  display: flex;
+}
+
+.tag:hover{
+  cursor: pointer;
+}
+
+
+#action_buttons {
+  margin: 10px;
+}
+
+

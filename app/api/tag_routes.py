@@ -11,3 +11,6 @@ tag_routes = Blueprint('tags', __name__)
 def send_all_tags():
     tags = Tag.query.all()
     return {"tags":[tag.to_dict() for tag in tags]}
+
+
+

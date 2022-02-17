@@ -40,6 +40,15 @@ button,
   margin: 5px;
 }
 
+button:hover,
+.button:hover{
+  cursor: pointer;
+}
+
+.cancel_button {
+  background-color: rgba(255, 0, 0, 65%);
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
