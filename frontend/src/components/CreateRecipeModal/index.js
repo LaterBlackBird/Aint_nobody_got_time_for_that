@@ -7,6 +7,7 @@ import './createRecipe.css'
 function CreateRecipe({ showModal }) {
     // const dispatch = useDispatch();
     const [errors, setErrors] = useState([]);
+    const [tagError, setTagError] = useState([]);
     const userId = useSelector(state => state.session.user.id);
 
     const [newRecipeName, setNewRecipeName] = useState('');
@@ -100,6 +101,7 @@ function CreateRecipe({ showModal }) {
     //All functions after this step are essentially editing the new recipe as the user enters new data
     const createNewRecipe = async (e) => {
         e.preventDefault();
+        let default_image = 'https://res.cloudinary.com/dd1ndszow/image/upload/v1645141194/Aint%20Nobody%20Got%20Time%20For%20That/undraw_hamburger_-8-ge6_hzfmsu.svg'
         if (newRecipeName.length < 7) {
             setNewRecipeName('');
             setErrors(['Use A Descriptive Name']);
@@ -110,7 +112,7 @@ function CreateRecipe({ showModal }) {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ newRecipeName, userId })
+                body: JSON.stringify({ newRecipeName, userId, default_image })
             });
             if (response.ok) {
                 const data = await response.json();
@@ -243,20 +245,32 @@ function CreateRecipe({ showModal }) {
     const updateRecipeDetails = async (e) => {
         e.preventDefault();
 
-        await fetch(`/api/recipes/${newRecipeId}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ recipeInstructions, recipePhotoURL, recipeSourceURL, recipeServingSize })
-        });
+        if (Object.keys(selectedTags).length === 0) {
+            setTagError(['Please select a tag'])
+        }
+
+        if (!tagError) {
+            const responce = await fetch(`/api/recipes/${newRecipeId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ recipeInstructions, recipePhotoURL, recipeSourceURL, recipeServingSize })
+            });
+            if (responce.ok) {
+                showModal(false)
+            }
+        }
     }
 
+    /******************** TAGS ******************/
+    // Toggle if a tag has been selected or not
     const tagToggle = (e) => {
         if (selectedTags[e.target.id]) removeTagToRecipe(e);
         else addTagToRecipe(e);
     }
 
+    // Add tag if not already selected
     const addTagToRecipe = async (e) => {
         e.stopPropagation();
         const tagId = e.target.id
@@ -273,6 +287,7 @@ function CreateRecipe({ showModal }) {
         }
     }
 
+    // Remove tag if it has been selected
     const removeTagToRecipe = async (e) => {
         const tagId = e.target.id
 
@@ -362,7 +377,8 @@ function CreateRecipe({ showModal }) {
 
                     <form
                         id='additional_recipe_details'
-                        onSubmit={(e) => updateRecipeDetails(e)}>
+                    // onSubmit={(e) => updateRecipeDetails(e)}
+                    >
                         <textarea
                             id='instructionsTextField'
                             placeholder='Write instructions here'
@@ -399,7 +415,7 @@ function CreateRecipe({ showModal }) {
                             />
                         </div>
 
-                        <button>Update</button>
+                        {/* <button>Update</button> */}
                     </form>
 
                     <div id='tags_container'>
@@ -418,13 +434,16 @@ function CreateRecipe({ showModal }) {
                             ))}
                         </div>
                     </div>
+                    {tagError &&
+                        <div id='tag_error'>{tagError[0]}</div>
+                    }
                 </>
             }
 
 
             {!createRecipeFormVisibility &&
                 <div id='action_buttons'>
-                    <button onClick={() => showModal(false)}>Done</button>
+                    <button onClick={(e) => updateRecipeDetails(e)}>Add</button>
                     <button className='cancel_button' onClick={(e) => deleteRecipe(e)}>Cancel</button>
                 </div>
             }

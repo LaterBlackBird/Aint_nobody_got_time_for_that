@@ -103,6 +103,10 @@
   width: 50px;
 }
 
+#tag_error{
+  color: red;
+}
+
 #tags_container{
   margin-bottom: 10px;
   width: 80%;
