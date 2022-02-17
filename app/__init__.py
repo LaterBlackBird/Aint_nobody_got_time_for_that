@@ -13,6 +13,7 @@ from .api.daily_schedule_routes import day_routes
 from .api.recipe_routes import recipe_routes
 from .api.ingredient_routes import ingredient_routes
 from .api.measurement_routes import measurement_routes
+from .api.tag_routes import tag_routes
 
 from .seeds import seed_commands
 
@@ -41,6 +42,7 @@ app.register_blueprint(day_routes, url_prefix='/api/daily_schedules')
 app.register_blueprint(recipe_routes, url_prefix='/api/recipes')
 app.register_blueprint(ingredient_routes, url_prefix='/api/ingredients')
 app.register_blueprint(measurement_routes, url_prefix='/api/measurements')
+app.register_blueprint(tag_routes, url_prefix='/api/tags')
 
 db.init_app(app)
 Migrate(app, db)

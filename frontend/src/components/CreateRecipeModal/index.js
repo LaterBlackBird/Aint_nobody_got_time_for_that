@@ -11,25 +11,26 @@ function CreateRecipe({ showModal }) {
 
     const [newRecipeName, setNewRecipeName] = useState('');
     const [newRecipeId, setNewRecipeId] = useState();
-    const [createRecipeFormVisibility, setCreateRecipeFormVisibility] = useState(true)
-    const [editRecipeNameFormVisibility, setEditRecipeNameFormVisibility] = useState(false)
+    const [createRecipeFormVisibility, setCreateRecipeFormVisibility] = useState(true);
+    const [editRecipeNameFormVisibility, setEditRecipeNameFormVisibility] = useState(false);
 
     const [searchText, setSearchText] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+
     const [ingredientsList, setIngredientsList] = useState([]);
     const [selectedIng, setSelectedIng] = useState({});
-
-    const [selectedMeasurement, setSelectedMeasurement] = useState(1);
-
     const [showIngredientAdd, setShowIngredientAdd] = useState(false);
     const [ingAmount, setIngAmount] = useState('');
+
+    const [selectedMeasurement, setSelectedMeasurement] = useState(1);
     const [allMeasurements, setAllMeasurements] = useState([]);
 
     const [recipeInstructions, setRecipeInstructions] = useState('');
     const [recipePhotoURL, setRecipePhotoURL] = useState('');
     const [recipeSourceURL, setRecipeSourceURL] = useState('');
-    const [recipeServingSize, setRecipeServingSize] = useState('')
+    const [recipeServingSize, setRecipeServingSize] = useState('');
 
+    const [allTags, setAllTags] = useState([]);
 
     //search available ingredients to choose from
     useEffect(() => {
@@ -77,6 +78,19 @@ function CreateRecipe({ showModal }) {
         if (!showIngredientAdd) getCurrentListOfIngredients();
     }, [newRecipeId, showIngredientAdd])
 
+
+    // Get all available tags when modal is loaded
+    useEffect(() => {
+        const getTags = async () => {
+            const response = await fetch(`/api/tags`, {
+            });
+            if (response.ok) {
+                const data = await response.json();
+                setAllTags(data.tags);
+            }
+        }
+        getTags();
+    }, [])
 
 
     //When a name is entered, create the new recipe in the DB by name and author
@@ -226,20 +240,21 @@ function CreateRecipe({ showModal }) {
     const updateRecipeDetails = async (e) => {
         e.preventDefault();
 
-        const response = await fetch(`/api/recipes/${newRecipeId}`, {
+        await fetch(`/api/recipes/${newRecipeId}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ recipeInstructions, recipePhotoURL, recipeSourceURL, recipeServingSize })
         });
-        if (response.ok) {
-            // const data = await response.json();
-            // setNewRecipeName(data.name)
-            // setEditRecipeNameFormVisibility(false);
-        }
     }
 
+
+    const addTagToRecipe = (e) => {
+        e.preventDefault();
+        
+        console.log(`you clicked ${e.target.id}`)
+    }
 
     return (
         <div className="recipe_container flex_col_center">
@@ -356,8 +371,21 @@ function CreateRecipe({ showModal }) {
                         <button>Update</button>
                     </form>
 
-
-
+                    <div id='tags_container'>
+                        <h4>Tags</h4>
+                        <div id='tags_list'>
+                            {allTags.map(tag => (
+                                <div
+                                    id ={tag.id}
+                                    className='tag'
+                                    key={tag.id}
+                                    onClick={(e)=> addTagToRecipe(e)}
+                                >
+                                    {tag.name}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </>
             }
 
