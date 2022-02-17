@@ -218,7 +218,7 @@ function CreateRecipe({ showModal }) {
                 setShowIngredientAdd(false)
             }
         }
-        setIngAmount();
+        setIngAmount('');
     }
 
     // Cancel the add ingredient action
@@ -255,7 +255,6 @@ function CreateRecipe({ showModal }) {
     const tagToggle = (e) => {
         if (selectedTags[e.target.id]) removeTagToRecipe(e);
         else addTagToRecipe(e);
-        setSelectedTags(selectedTags[e.target.id] = e.target.name)
     }
 
     const addTagToRecipe = async (e) => {
@@ -267,18 +266,26 @@ function CreateRecipe({ showModal }) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({tagId})
+            body: JSON.stringify({ tagId })
         });
         if (response.ok) {
-            setShowIngredientAdd(false)
+            setSelectedTags(prevState => ({ ...prevState, [tagId]: 1 }))
         }
-
-        setIngAmount();
     }
 
     const removeTagToRecipe = async (e) => {
-        //TODO
+        const tagId = e.target.id
+
+        const response = await fetch(`/api/recipes/${newRecipeId}/tags/${tagId}`, {
+            method: 'DELETE',
+        });
+        if (response.ok) {
+            let copyOfSelectedTags = { ...selectedTags };
+            delete copyOfSelectedTags[e.target.id];
+            setSelectedTags(copyOfSelectedTags);
+        }
     };
+
 
     return (
         <div className="recipe_container flex_col_center">
@@ -401,8 +408,9 @@ function CreateRecipe({ showModal }) {
                             {allTags.map(tag => (
                                 <div
                                     id={tag.id}
-                                    className='tag flex_col_center'
+                                    className={`${selectedTags[tag.id] ? 'button' : 'tag'} flex_col_center`}
                                     key={tag.id}
+                                    name={tag.name}
                                     onClick={(e) => tagToggle(e)}
                                 >
                                     {tag.name}

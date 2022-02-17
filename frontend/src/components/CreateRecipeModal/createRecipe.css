@@ -105,6 +105,7 @@
 
 #tags_container{
   margin-bottom: 10px;
+  width: 80%;
 }
 
 #tags_container h4{
@@ -113,6 +114,8 @@
 
 #tags_list {
   display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
 }
 
 .tag:hover{
@@ -123,5 +126,3 @@
 #action_buttons {
   margin: 10px;
 }
-
-

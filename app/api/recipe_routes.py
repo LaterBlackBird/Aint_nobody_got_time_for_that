@@ -158,14 +158,15 @@ def associate_tag_to_recipe(recipe_id):
         tag_id=request.json['tagId']
     ))
     db.session.commit()
-    return {'added'}
+    return jsonify('added')
 
 
 # Deassociate a tag to a recipe
 @recipe_routes.route('/<int:recipe_id>/tags/<int:tag_id>', methods=["DELETE"])
 @login_required
-def deassociate_tag_to_recipe(recipe_id):
-    data = Recipe.query.join(tag_to_recipe).join(Tag).filter((tag_to_recipe.c.recipe_id == recipe_id) & (tag_to_recipe.c.tag_id == tag_id)).first()
-    db.session.delete(data)
+def deassociate_tag_to_recipe(recipe_id, tag_id):
+    recipe = Recipe.query.join(tag_to_recipe).join(Tag).filter((tag_to_recipe.c.recipe_id == recipe_id) & (tag_to_recipe.c.tag_id == tag_id)).first()
+    tag = Tag.query.get(tag_id)
+    recipe.recipe_tag.remove(tag)
     db.session.commit()
-    return {'removed'}
+    return jsonify('removed')
