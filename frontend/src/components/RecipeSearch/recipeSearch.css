@@ -8,18 +8,25 @@
   flex-direction: column;
 }
 
-.search_info{
+.search_info {
   margin: auto;
   width: 90%;
-  height: 90%
+  height: 90%;
 }
 
-.search_header{
+.search_header {
   margin-left: 3px;
 }
 
+#create_recipe_button {
+  color: #00b0ff;
+}
 
-.search_input{
+#create_recipe_button:hover {
+  cursor: pointer;
+}
+
+.search_input {
   border: none;
   margin: 0;
   border-radius: 25px;

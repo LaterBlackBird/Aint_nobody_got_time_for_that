@@ -36,8 +36,17 @@ button,
   color: white;
   border-radius: 5px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  line-height: 2em;
   margin: 5px;
+  padding: 5px;
+}
+
+button:hover,
+.button:hover{
+  cursor: pointer;
+}
+
+.cancel_button {
+  background-color: rgba(255, 0, 0, 65%);
 }
 
 .navbar {

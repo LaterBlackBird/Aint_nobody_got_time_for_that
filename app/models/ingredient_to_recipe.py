@@ -5,7 +5,7 @@ ingredient_to_recipe = db.Table(
     'ingredient_to_recipe',
     db.Column('recipe_id',
             db.Integer,
-            db.ForeignKey('recipes.id'),
+            db.ForeignKey('recipes.id', ondelete="CASCADE"),
             primary_key=True),
     db.Column('ingredient_id',
             db.Integer,

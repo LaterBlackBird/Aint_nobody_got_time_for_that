@@ -1,0 +1,132 @@
+.recipe_container {
+  position: absolute;
+  background-color: white;
+  height: 75%;
+  width: 50%;
+  border-radius: 20px;
+}
+
+#new_recipe_form {
+  width: 100%;
+}
+
+#recipe_header {
+  border-bottom: 2px solid black;
+  padding-bottom: 10px;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0 0 0;
+  padding: 1px 0 10px 0;
+  font-size: 1.5em;
+}
+
+#ingredient_search {
+  margin-top: 0.83em;
+  width: 80%;
+}
+
+.ingredient_search_results {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  height: 20%;
+  align-content: flex-start;
+  overflow-y: auto;
+  border-bottom: 1px solid rgba(0, 0, 0, 25%);
+}
+
+.ingredient_search_results div,
+.tag {
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  height: 2em;
+  align-content: center;
+}
+
+.ingredient_search_results div:hover {
+  cursor: pointer;
+}
+
+.ingredient_add_line {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 2em;
+  width: 80%;
+}
+
+#ingAmount {
+  width: 10%;
+  text-align: center;
+}
+
+#additional_recipe_details{
+  height: 50%;
+  width: 80%;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#instructionsTextField{
+  height: 35%;
+  width: 100%;
+  resize: none;
+  border-radius: 5px;
+}
+
+#additional_recipe_details input{
+  text-align: center;
+  margin: 10px 0;
+}
+
+#recipePhotoInput{
+  width: 100%;
+  text-align: center;
+}
+
+#servings_div {
+  display: flex;
+  align-items: center;
+}
+
+#servings_div label{
+  font-size: 0.875em;
+}
+
+#servings_div input{
+  width: 50px;
+}
+
+#tag_error{
+  color: red;
+}
+
+#tags_container{
+  margin-bottom: 10px;
+  width: 80%;
+}
+
+#tags_container h4{
+  margin: 5px;
+}
+
+#tags_list {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
+}
+
+.tag:hover{
+  cursor: pointer;
+}
+
+#action_buttons {
+  margin: 10px;
+}

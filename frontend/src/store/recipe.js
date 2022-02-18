@@ -62,7 +62,6 @@ export const getRecipeTags = recipe_id => async (dispatch) => {
     }
 }
 
-
 // Action types
 // To help prevent errors
 const GET_RECIPES_BY_DAY = 'daily_schedules/GET_RECIPES_BY_DAY'
@@ -71,7 +70,6 @@ const ADD_SEARCHED_RECIPE = 'recipes/ADD_SEARCHED_RECIPES'
 const REMOVE_RECIPE_FROM_DAY = 'recipes/REMOVE_RECIPE_FROM_DAY'
 const RESET_STATE = 'recipes/RESET_STATE'
 const LOAD_RECIPE_TAGS = 'recipes/LOAD_RECIPE_TAGS'
-
 
 
 // Actions
