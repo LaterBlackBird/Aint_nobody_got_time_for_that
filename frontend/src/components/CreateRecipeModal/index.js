@@ -5,7 +5,6 @@ import './createRecipe.css'
 
 
 function CreateRecipe({ showModal }) {
-    // const dispatch = useDispatch();
     const [errors, setErrors] = useState([]);
     const [tagError, setTagError] = useState([]);
     const userId = useSelector(state => state.session.user.id);

@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getRecipeTags } from '../../store/recipe';
 import { loadIngredients } from '../../store/ingredient';
 import './recipeRead.css'
+import { clearSearchResultsState } from '../../store/recipe';
 
 
 
-function RecipeRead({ recipe }) {
+function RecipeRead({ recipe, showRecipeModal, setSearchText }) {
     const dispatch = useDispatch();
     const ingredientState = useSelector(state => state.ingredients)
     const tagsArray = useSelector(state => state.recipes.tags)
+    const userId = useSelector(state => state.session.user.id)
 
     let ingredientArray = [];
     if (ingredientState) {
@@ -24,15 +26,30 @@ function RecipeRead({ recipe }) {
 
 
 
+    const deleteRecipe = async (e) => {
+        e.stopPropagation();
+        let recipeId = recipe.id
+        const response = await fetch(`/api/recipes/${recipeId}`, {
+            method: 'DELETE',
+        });
+        if (response.ok) {
+            dispatch(clearSearchResultsState());
+            setSearchText('');
+            showRecipeModal(false);
+        }
+    }
+
+
     return (
         <div className="recipe_container flex_col_center">
             <span id='recipe_header'>
                 <h2>{recipe.name}</h2>
-                <span id='recipe_modal_edit_options'>
-                    {/* <i className="far fa-edit workspace_name_icon"></i> */}
-                    {/* <i className="far fa-trash-alt workspace_name_icon"></i> */}
-                </span>
             </span>
+            { userId === recipe.author &&
+                <p className='recipe_delete_button' onClick={(e) => deleteRecipe(e)}>
+                    Delete Recipe
+                </p>
+            }
             <div className="recipe_info flex_col_center">
                 <div id="recipe_modal_pic_ing">
                     <div className="img_src flex_col_center">
@@ -57,9 +74,11 @@ function RecipeRead({ recipe }) {
                 </div>
                 <div className="instruct_tags">
                     <h2>Instructions</h2>
+
                     <div className="instruct_block">
                         {recipe.instructions}
                     </div>
+
                     <div className="tag_list">
                         {tagsArray &&
                             tagsArray.map(tag => (
