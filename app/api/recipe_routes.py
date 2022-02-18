@@ -45,7 +45,6 @@ def edit_recipe(id):
             recipe.source = request.json['recipeSourceURL']
         if 'recipeServingSize' in request.json:
             recipe.servings = request.json['recipeServingSize']
-        # recipe.name = form.data['newRecipeName']
         db.session.commit()
     return recipe.to_dict()
 
@@ -139,6 +138,18 @@ def add_ing_to_recipe(recipe_id):
         db.session.execute(add_ingredient)
         db.session.commit()
     return jsonify('added ingredient to recipe')
+
+
+
+# Remove an ingredient from a recipe
+@recipe_routes.route('/<int:recipe_id>/ingredients/<int:ing_id>', methods=["DELETE"])
+@login_required
+def remove_ing_from_recipe(recipe_id, ing_id):
+    recipe = Recipe.query.join(ingredient_to_recipe).join(Ingredient).filter((ingredient_to_recipe.c.recipe_id == recipe_id) & (ingredient_to_recipe.c.ingredient_id == ing_id)).first()
+    ingredient = Ingredient.query.get(ing_id)
+    recipe.recipe_ingredient.remove(ingredient)
+    db.session.commit()
+    return jsonify('removed')
 
 
 
