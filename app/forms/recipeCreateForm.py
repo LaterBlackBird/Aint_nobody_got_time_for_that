@@ -6,3 +6,4 @@ from app.models import Recipe
 class RecipeCreateForm(FlaskForm):
     newRecipeName = StringField('newRecipeName')
     userId = IntegerField('userId')
+    recipePhotoURL = StringField('recipePhotoURL')

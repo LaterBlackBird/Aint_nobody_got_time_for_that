@@ -17,7 +17,8 @@ def create_new_recipe():
     if form.validate_on_submit():
         new_recipe = Recipe(
             name=form.data['newRecipeName'],
-            author=form.data['userId']
+            author=form.data['userId'],
+            picture=form.data['recipePhotoURL'],
         )
         db.session.add(new_recipe)
         db.session.commit()

@@ -78,6 +78,7 @@
   height: 35%;
   width: 100%;
   resize: none;
+  border-radius: 5px;
 }
 
 #additional_recipe_details input{
@@ -125,7 +126,6 @@
 .tag:hover{
   cursor: pointer;
 }
-
 
 #action_buttons {
   margin: 10px;

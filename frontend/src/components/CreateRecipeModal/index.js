@@ -101,10 +101,10 @@ function CreateRecipe({ showModal }) {
     //All functions after this step are essentially editing the new recipe as the user enters new data
     const createNewRecipe = async (e) => {
         e.preventDefault();
-        let default_image = 'https://res.cloudinary.com/dd1ndszow/image/upload/v1645141194/Aint%20Nobody%20Got%20Time%20For%20That/undraw_hamburger_-8-ge6_hzfmsu.svg'
+        let recipePhotoURL = 'https://res.cloudinary.com/dd1ndszow/image/upload/v1645141194/Aint%20Nobody%20Got%20Time%20For%20That/undraw_hamburger_-8-ge6_hzfmsu.svg'
         if (newRecipeName.length < 7) {
             setNewRecipeName('');
-            setErrors(['Use A Descriptive Name']);
+            setErrors(['Recipe Name Must Be More Than 7 Characters']);
         } else {
             setErrors([])
             const response = await fetch(`/api/recipes`, {
@@ -112,7 +112,7 @@ function CreateRecipe({ showModal }) {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ newRecipeName, userId, default_image })
+                body: JSON.stringify({ newRecipeName, userId, recipePhotoURL })
             });
             if (response.ok) {
                 const data = await response.json();
@@ -157,7 +157,6 @@ function CreateRecipe({ showModal }) {
             id="recipe_header"
             maxLength={100}
             required
-            ref={(input) => { input && input.focus() }}
         />
 
     //form for creating a new recipe by name
@@ -246,10 +245,10 @@ function CreateRecipe({ showModal }) {
         e.preventDefault();
 
         if (Object.keys(selectedTags).length === 0) {
-            setTagError(['Please select a tag'])
+            setTagError(['Please select at least 1 tag'])
         }
 
-        if (!tagError) {
+        if (Object.keys(selectedTags).length !== 0) {
             const responce = await fetch(`/api/recipes/${newRecipeId}`, {
                 method: 'PATCH',
                 headers: {
@@ -352,7 +351,6 @@ function CreateRecipe({ showModal }) {
                                 name='ingAmount'
                                 value={ingAmount}
                                 onChange={(e) => setIngAmount(Math.abs(e.target.value))}
-                                ref={(input) => { input && input.focus() }}
                                 placeholder='0'
                                 min={0}
                             />
