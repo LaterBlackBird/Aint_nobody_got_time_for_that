@@ -7,7 +7,7 @@ import './searchResultCard.css'
 
 
 
-function SearchResultCard({ recipe, dayId }) {
+function SearchResultCard({ recipe, dayId, setSearchText }) {
   const dispatch = useDispatch();
   const [showRecipeModal, setShowRecipeModal] = useState(false)
 
@@ -15,6 +15,9 @@ function SearchResultCard({ recipe, dayId }) {
     e.stopPropagation();
     dispatch(addSearchedRecipe({ dayId, recipe }))
   }
+
+
+
 
   return (
     <>
@@ -25,7 +28,7 @@ function SearchResultCard({ recipe, dayId }) {
       {
         showRecipeModal && (
           <Modal onClose={() => setShowRecipeModal(false)}>
-            <RecipeRead recipe={recipe} />
+            <RecipeRead recipe={recipe} showRecipeModal={setShowRecipeModal} setSearchText={setSearchText}/>
           </Modal>
         )
       }

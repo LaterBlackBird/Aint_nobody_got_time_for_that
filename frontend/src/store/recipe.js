@@ -67,6 +67,7 @@ export const getRecipeTags = recipe_id => async (dispatch) => {
 const GET_RECIPES_BY_DAY = 'daily_schedules/GET_RECIPES_BY_DAY'
 const LOAD_SEARCHED_RECIPES = 'recipes/LOAD_SEARCHED_RECIPES'
 const ADD_SEARCHED_RECIPE = 'recipes/ADD_SEARCHED_RECIPES'
+const CLEAR_SEARCH = 'recipes/CLEAR_SEARCH'
 const REMOVE_RECIPE_FROM_DAY = 'recipes/REMOVE_RECIPE_FROM_DAY'
 const RESET_STATE = 'recipes/RESET_STATE'
 const LOAD_RECIPE_TAGS = 'recipes/LOAD_RECIPE_TAGS'
@@ -91,6 +92,13 @@ const searchedRecipeToState = (recipe) => {
     return {
         type: ADD_SEARCHED_RECIPE,
         recipe
+    }
+}
+
+export const clearSearchResultsState = () => {
+    return {
+        type: CLEAR_SEARCH,
+        payload: null
     }
 }
 
@@ -134,6 +142,12 @@ export default function recipeReducer(state = { daily: {}, tags: [] }, action) {
             return {
                 ...searchState
             };
+        case CLEAR_SEARCH:
+            const clearSearchState = { ...state };
+            delete clearSearchState['searchResults'];
+            return {
+                ...clearSearchState
+            };
         case ADD_SEARCHED_RECIPE:
             const { addDayId, addRecipe } = action.recipe;
             const addSearchState = { ...state };
@@ -151,7 +165,7 @@ export default function recipeReducer(state = { daily: {}, tags: [] }, action) {
             const resetState = { daily: {} };
             return resetState;
         case LOAD_RECIPE_TAGS:
-            const addTagState = {...state};
+            const addTagState = { ...state };
             addTagState.tags = [];
             action.tags.tags.forEach(tag => {
                 addTagState.tags.push(tag.name)

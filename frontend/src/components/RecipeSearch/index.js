@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { searchRecipes } from '../../store/recipe';
+import { searchRecipes, clearSearchResultsState } from '../../store/recipe';
 import SearchResultCard from '../SearchResultCard';
 import { Modal } from '../../context/modals';
 import CreateRecipe from '../CreateRecipeModal';
@@ -28,9 +28,13 @@ function RecipeSearch({ dayId }) {
         searchResultsArray = Object.values(searchResults);
     }
 
-    // const closeModal = ()=> {
-    //     setShowCreateRecipeModal(false)
-    // }
+    // when the create option is selected, clear search field and results
+    const createOptionSelected = async () => {
+        setSearchText('');
+        dispatch(clearSearchResultsState())
+        setShowCreateRecipeModal(true);
+    }
+
 
     return (
         <>
@@ -38,23 +42,23 @@ function RecipeSearch({ dayId }) {
                 <div className="search_info">
                     <h2 id='search_header'>Search For A Recipe or
                         <span id='create_recipe_button'
-                            onClick={() => setShowCreateRecipeModal(true) }> Create Your Own</span>
+                            onClick={() => createOptionSelected()}> Create Your Own</span>
                     </h2>
-                    <form onSubmit={(e) => e.preventDefault()}>
-                        <input
-                            name='searchRecipes'
-                            ref={(input) => { input && input.focus() }}
-                            type='search'
-                            placeholder='Search by name or tag'
-                            value={searchText}
-                            onChange={(e) => setSearchText(e.target.value)}
-                            className="search_input"
-                        />
-                    </form>
+
+                    <input
+                        name='searchRecipes'
+                        ref={(input) => { input && input.focus() }}
+                        type='search'
+                        placeholder='Search by name or tag'
+                        value={searchText}
+                        onChange={(e) => setSearchText(e.target.value)}
+                        className="search_input"
+                    />
+
                     <div className="search_results_container">
                         {searchResultsArray &&
                             searchResultsArray.map(result => (
-                                <SearchResultCard key={result.id} recipe={result} dayId={dayId} />
+                                <SearchResultCard key={result.id} recipe={result} dayId={dayId} setSearchText={setSearchText}/>
                             ))
                         }
                     </div>
@@ -63,7 +67,7 @@ function RecipeSearch({ dayId }) {
             {
                 showCreateRecipeModal && (
                     <Modal onClose={() => setShowCreateRecipeModal(false)}>
-                        <CreateRecipe showModal={setShowCreateRecipeModal}/>
+                        <CreateRecipe showModal={setShowCreateRecipeModal} />
                     </Modal>
                 )
             }
