@@ -22,6 +22,7 @@ function CreateRecipe({ showModal }) {
     const [selectedIng, setSelectedIng] = useState({});
     const [showIngredientAdd, setShowIngredientAdd] = useState(false);
     const [ingAmount, setIngAmount] = useState('');
+    const [removedIng, setRemoveIng] = useState(false);
 
     const [selectedMeasurement, setSelectedMeasurement] = useState(1);
     const [allMeasurements, setAllMeasurements] = useState([]);
@@ -79,7 +80,8 @@ function CreateRecipe({ showModal }) {
             }
         }
         if (!showIngredientAdd) getCurrentListOfIngredients();
-    }, [newRecipeId, showIngredientAdd])
+        setRemoveIng(false);
+    }, [newRecipeId, showIngredientAdd, removedIng])
 
 
     // Get all available tags when modal is loaded
@@ -199,7 +201,7 @@ function CreateRecipe({ showModal }) {
         setSelectedIng(ingredient)
     }
 
-
+    /******************** INGREDIENTS ******************/
     //Add an ingredient to a recipe
     const addIng = async (e) => {
         e.stopPropagation();
@@ -229,38 +231,20 @@ function CreateRecipe({ showModal }) {
         setShowIngredientAdd(false)
     }
 
-    // Cancel the create recipe workflow (Deletes recipe from database)
-    const deleteRecipe = async (e) => {
+    // Remove an ingredient from a recipe
+    const removeIng = async (e, ingId) => {
         e.stopPropagation();
-        const response = await fetch(`/api/recipes/${newRecipeId}`, {
+
+        const response = await fetch(`/api/recipes/${newRecipeId}/ingredients/${ingId}`, {
             method: 'DELETE',
         });
         if (response.ok) {
-            showModal(false);
+            setRemoveIng(true);
         }
     }
 
-    //Update or Add Recipe Attributes
-    const updateRecipeDetails = async (e) => {
-        e.preventDefault();
 
-        if (Object.keys(selectedTags).length === 0) {
-            setTagError(['Please select at least 1 tag'])
-        }
 
-        if (Object.keys(selectedTags).length !== 0) {
-            const responce = await fetch(`/api/recipes/${newRecipeId}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ recipeInstructions, recipePhotoURL, recipeSourceURL, recipeServingSize })
-            });
-            if (responce.ok) {
-                showModal(false)
-            }
-        }
-    }
 
     /******************** TAGS ******************/
     // Toggle if a tag has been selected or not
@@ -301,6 +285,42 @@ function CreateRecipe({ showModal }) {
     };
 
 
+
+    /******************** RECIPE UPDATE OR DELETION ******************/
+    //Update or Add Recipe Attributes
+    const updateRecipeDetails = async (e) => {
+        e.preventDefault();
+
+        if (Object.keys(selectedTags).length === 0) {
+            setTagError(['Please select at least 1 tag'])
+        }
+
+        if (Object.keys(selectedTags).length !== 0) {
+            const responce = await fetch(`/api/recipes/${newRecipeId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ recipeInstructions, recipePhotoURL, recipeSourceURL, recipeServingSize })
+            });
+            if (responce.ok) {
+                showModal(false)
+            }
+        }
+    }
+
+    // Cancel the create recipe workflow (Deletes recipe from database)
+    const deleteRecipe = async (e) => {
+        e.stopPropagation();
+        const response = await fetch(`/api/recipes/${newRecipeId}`, {
+            method: 'DELETE',
+        });
+        if (response.ok) {
+            showModal(false);
+        }
+    }
+
+
     return (
         <div className="recipe_container flex_col_center">
             {createRecipeFormVisibility && newRecipeNameForm}
@@ -322,6 +342,7 @@ function CreateRecipe({ showModal }) {
                         id='ingredient_search'
                         className="search_input"
                     />
+
                     <div className="ingredient_search_results">
                         {searchResults &&
                             searchResults.map(result => (
@@ -335,15 +356,27 @@ function CreateRecipe({ showModal }) {
                             ))
                         }
                     </div>
+
                     {ingredientsList.length > 0 &&
                         ingredientsList.map(ingredient => (
-                            <li key={ingredient.id}>
-                                {ingredient.amount} &nbsp;
-                                {ingredient.measurement} &nbsp;
-                                {ingredient.name} &nbsp;
-                            </li>
+                            <div
+                                className='ingredient_list_element'
+                                key={ingredient.id}
+                            >
+                                <i
+                                    className="fas fa-times hide"
+                                    onClick={(e) => removeIng(e, ingredient.id)}
+                                >
+                                </i>
+                                <li>
+                                    {ingredient.amount} &nbsp;
+                                    {ingredient.measurement} &nbsp;
+                                    {ingredient.name} &nbsp;
+                                </li>
+                            </div>
                         ))
                     }
+
                     {showIngredientAdd &&
                         <div className='ingredient_add_line'>
                             <input type="number"
@@ -365,7 +398,9 @@ function CreateRecipe({ showModal }) {
                                 ))
                                 }
                             </select>
+
                             <p id='ingName'>{selectedIng.name}</p>
+
                             <div>
                                 <button onClick={(e) => addIng(e)}>Add</button>
                                 <button onClick={(e) => cancelIng(e)}>Cancel</button>
@@ -373,10 +408,7 @@ function CreateRecipe({ showModal }) {
                         </div>
                     }
 
-                    <form
-                        id='additional_recipe_details'
-                    // onSubmit={(e) => updateRecipeDetails(e)}
-                    >
+                    <form id='additional_recipe_details'>
                         <textarea
                             id='instructionsTextField'
                             placeholder='Write instructions here'
@@ -413,7 +445,6 @@ function CreateRecipe({ showModal }) {
                             />
                         </div>
 
-                        {/* <button>Update</button> */}
                     </form>
 
                     <div id='tags_container'>

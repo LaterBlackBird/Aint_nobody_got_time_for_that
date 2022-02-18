@@ -51,6 +51,21 @@
   cursor: pointer;
 }
 
+.ingredient_list_element{
+  display: flex;
+  align-items: center;
+}
+
+.ingredient_list_element:hover .hide{
+  color: red;
+  display: inherit;
+  margin-right: 18.5px;
+}
+
+.ingredient_list_element:hover li{
+  list-style-type: none;
+}
+
 .ingredient_add_line {
   display: flex;
   flex-direction: row;
