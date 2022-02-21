@@ -102,7 +102,7 @@ function CreateRecipe({ showModal }) {
     //All functions after this step are essentially editing the new recipe as the user enters new data
     const createNewRecipe = async (e) => {
         e.preventDefault();
-        let recipePhotoURL = 'https://res.cloudinary.com/dd1ndszow/image/upload/v1645141194/Aint%20Nobody%20Got%20Time%20For%20That/undraw_hamburger_-8-ge6_hzfmsu.svg'
+        let recipePhotoURL = 'https://res.cloudinary.com/dd1ndszow/image/upload/v1645476091/Aint%20Nobody%20Got%20Time%20For%20That/undraw_hamburger_-8-ge6_uliark.png'
         if (newRecipeName.length < 7) {
             setNewRecipeName('');
             setErrors(['Recipe Name Must Be More Than 7 Characters']);
