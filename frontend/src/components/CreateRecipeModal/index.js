@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadIngredients } from '../../store/ingredient';
+import { getRecipeTags } from '../../store/recipe';
 import './createRecipe.css'
 
 
 
-function CreateRecipe({ showModal }) {
+function CreateRecipe({ showModal, recipe }) {
+    const dispatch = useDispatch();
     const [errors, setErrors] = useState([]);
     const [tagError, setTagError] = useState([]);
     const userId = useSelector(state => state.session.user.id);
 
-    const [newRecipeName, setNewRecipeName] = useState('');
-    const [newRecipeId, setNewRecipeId] = useState();
-    const [createRecipeFormVisibility, setCreateRecipeFormVisibility] = useState(true);
-    const [editRecipeNameFormVisibility, setEditRecipeNameFormVisibility] = useState(false);
+    const [newRecipeName, setNewRecipeName] = useState(recipe ? recipe.name : '');
+    const [newRecipeId, setNewRecipeId] = useState(recipe?.id);
+    const [createRecipeFormVisibility, setCreateRecipeFormVisibility] = useState(recipe ? false : true);
+    const [editRecipeNameFormVisibility, setEditRecipeNameFormVisibility] = useState(recipe ? true : false);
 
     const [searchText, setSearchText] = useState('');
     const [searchResults, setSearchResults] = useState([]);
@@ -26,18 +29,18 @@ function CreateRecipe({ showModal }) {
     const [selectedMeasurement, setSelectedMeasurement] = useState(1);
     const [allMeasurements, setAllMeasurements] = useState([]);
 
-    const [recipeInstructions, setRecipeInstructions] = useState('');
-    const [recipePhotoURL, setRecipePhotoURL] = useState('');
-    const [recipeSourceURL, setRecipeSourceURL] = useState('');
-    const [recipeServingSize, setRecipeServingSize] = useState('');
+    const [recipeInstructions, setRecipeInstructions] = useState(recipe ? recipe.instructions : '');
+    const [recipePhotoURL, setRecipePhotoURL] = useState(recipe?.picture);
+    const [recipeSourceURL, setRecipeSourceURL] = useState(recipe? recipe.source : '');
+    const [recipeServingSize, setRecipeServingSize] = useState(recipe? recipe.servings : 1);
 
     const [allTags, setAllTags] = useState([]);
-    const [selectedTags, setSelectedTags] = useState({});
+    const [selectedTags, setSelectedTags] = useState(useSelector(state => state.recipes.tags));
 
 
     //search available ingredients to choose from
     useEffect(() => {
-        //this effectively debounces the search
+        // debounce the search
         const delaySearch = setTimeout(() => {
             if (searchText) searchIngredients(searchText)
         }, 400);
@@ -124,7 +127,7 @@ function CreateRecipe({ showModal }) {
     }
 
     //Edit the recipe name
-    const editRecipe = async (e) => {
+    const editRecipeName = async (e) => {
         e.preventDefault();
 
         if (newRecipeName.length < 7) {
@@ -178,7 +181,7 @@ function CreateRecipe({ showModal }) {
     if (editRecipeNameFormVisibility) {
         editNameForm =
             <form
-                onSubmit={editRecipe}
+                onSubmit={editRecipeName}
                 id='new_recipe_form'
                 className='flex_col_center'
             >
@@ -217,7 +220,8 @@ function CreateRecipe({ showModal }) {
                 body: JSON.stringify(added)
             });
             if (response.ok) {
-                setShowIngredientAdd(false)
+                setShowIngredientAdd(false);
+                dispatch(loadIngredients(newRecipeId));
             }
         }
         setIngAmount('');
@@ -239,6 +243,7 @@ function CreateRecipe({ showModal }) {
         });
         if (response.ok) {
             setRemoveIng(true);
+            dispatch(loadIngredients(newRecipeId));
         }
     }
 
@@ -247,13 +252,13 @@ function CreateRecipe({ showModal }) {
 
     /******************** TAGS ******************/
     // Toggle if a tag has been selected or not
-    const tagToggle = (e) => {
+    const tagToggle = (e, tagName) => {
         if (selectedTags[e.target.id]) removeTagToRecipe(e);
-        else addTagToRecipe(e);
+        else addTagToRecipe(e, tagName);
     }
 
     // Add tag if not already selected
-    const addTagToRecipe = async (e) => {
+    const addTagToRecipe = async (e, tagName) => {
         e.stopPropagation();
         const tagId = e.target.id
 
@@ -265,7 +270,8 @@ function CreateRecipe({ showModal }) {
             body: JSON.stringify({ tagId })
         });
         if (response.ok) {
-            setSelectedTags(prevState => ({ ...prevState, [tagId]: 1 }))
+            setSelectedTags(prevState => ({ ...prevState, [tagId]: tagName }))
+            dispatch(getRecipeTags(newRecipeId))
         }
     }
 
@@ -280,6 +286,7 @@ function CreateRecipe({ showModal }) {
             let copyOfSelectedTags = { ...selectedTags };
             delete copyOfSelectedTags[e.target.id];
             setSelectedTags(copyOfSelectedTags);
+            dispatch(getRecipeTags(newRecipeId))
         }
     };
 
@@ -292,9 +299,7 @@ function CreateRecipe({ showModal }) {
 
         if (Object.keys(selectedTags).length === 0) {
             setTagError(['Please select at least 1 tag'])
-        }
-
-        if (Object.keys(selectedTags).length !== 0) {
+        } else {
             const responce = await fetch(`/api/recipes/${newRecipeId}`, {
                 method: 'PATCH',
                 headers: {
@@ -455,7 +460,7 @@ function CreateRecipe({ showModal }) {
                                     className={`${selectedTags[tag.id] ? 'button' : 'tag'} flex_col_center`}
                                     key={tag.id}
                                     name={tag.name}
-                                    onClick={(e) => tagToggle(e)}
+                                    onClick={(e) => tagToggle(e, tag.name)}
                                 >
                                     {tag.name}
                                 </div>
@@ -471,8 +476,16 @@ function CreateRecipe({ showModal }) {
 
             {!createRecipeFormVisibility &&
                 <div id='action_buttons'>
-                    <button onClick={(e) => updateRecipeDetails(e)}>Add</button>
-                    <button className='cancel_button' onClick={(e) => deleteRecipe(e)}>Cancel</button>
+                    {recipe ?
+                        <>
+                            <button onClick={(e) => updateRecipeDetails(e)}>Edit</button>
+                            <button className='cancel_button' onClick={() => showModal(false)}>Cancel</button>
+                        </> :
+                        <>
+                            <button onClick={(e) => updateRecipeDetails(e)}>Add</button>
+                            <button className='cancel_button' onClick={(e) => deleteRecipe(e)}>Cancel</button>
+                        </>
+                    }
                 </div>
             }
 

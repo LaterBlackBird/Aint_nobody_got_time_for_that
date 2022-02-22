@@ -30,13 +30,20 @@
   margin: 0;
 }
 
-.recipe_delete_button {
-  color: red;
+.recipe_edit_button {
   font-size: .75em;
   margin: 5px;
 }
 
-.recipe_delete_button:hover {
+
+.recipe_delete_button {
+  color: red;
+  font-size: .75em;
+  margin: 5px 30px;
+}
+
+.recipe_delete_button:hover,
+.recipe_edit_button:hover {
   cursor: pointer;
 }
 
@@ -47,8 +54,6 @@
   display: flex;
   justify-content: space-between;
 }
-
-
 
 .img_src {
   width: 40%;

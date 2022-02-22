@@ -126,7 +126,7 @@ const loadRecipeTags = (tags) => {
 
 // Reducer
 // Replace state with database information from thunk
-export default function recipeReducer(state = { daily: {}, tags: [] }, action) {
+export default function recipeReducer(state = { daily: {}, tags: {} }, action) {
     switch (action.type) {
         case GET_RECIPES_BY_DAY:
             const updateState = { ...state };
@@ -138,7 +138,10 @@ export default function recipeReducer(state = { daily: {}, tags: [] }, action) {
             return updateState;
         case LOAD_SEARCHED_RECIPES:
             const searchState = { ...state };
-            searchState['searchResults'] = { ...action.recipes.search_results }
+            searchState['searchResults'] = {};
+            action.recipes.search_results.forEach(recipe => {
+                searchState.searchResults[recipe.id] = recipe;
+            })
             return {
                 ...searchState
             };
@@ -166,9 +169,9 @@ export default function recipeReducer(state = { daily: {}, tags: [] }, action) {
             return resetState;
         case LOAD_RECIPE_TAGS:
             const addTagState = { ...state };
-            addTagState.tags = [];
+            addTagState.tags = {};
             action.tags.tags.forEach(tag => {
-                addTagState.tags.push(tag.name)
+                addTagState.tags[tag.id]=tag.name
             })
             return addTagState
         default:
