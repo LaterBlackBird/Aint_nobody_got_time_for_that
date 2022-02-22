@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getDialySchedules } from '../../store/daily_schedule';
 import { getRecipeTags, editFlagToggle } from '../../store/recipe';
 import { loadIngredients } from '../../store/ingredient';
 import './recipeRead.css'
@@ -12,6 +13,7 @@ import CreateRecipe from '../CreateRecipeModal';
 
 function RecipeRead({ recipe, showRecipeModal, setSearchText }) {
     const dispatch = useDispatch();
+    const plan = useSelector(state => state.mealPlans.selected)
     const currentRecipe = useSelector(state => state.recipes.selected)
     const ingredientState = useSelector(state => state.ingredients);
     const assignedTags = useSelector(state => state.recipes.tags);
@@ -34,14 +36,18 @@ function RecipeRead({ recipe, showRecipeModal, setSearchText }) {
 
     const deleteRecipe = async (e) => {
         e.stopPropagation();
-        let recipeId = currentRecipe.id
-        const response = await fetch(`/api/recipes/${recipeId}`, {
-            method: 'DELETE',
-        });
-        if (response.ok) {
-            dispatch(clearSearchResultsState());
-            setSearchText('');
-            showRecipeModal(false);
+        let confirm = window.confirm('Confirm you wish delete this recipe and remove it from all daily schedules?')
+        if (confirm) {
+            let recipeId = currentRecipe.id
+            const response = await fetch(`/api/recipes/${recipeId}`, {
+                method: 'DELETE',
+            });
+            if (response.ok) {
+                dispatch(clearSearchResultsState());
+                dispatch(getDialySchedules(plan.id))
+                if (setSearchText) setSearchText('');
+                if (showRecipeModal) showRecipeModal(false);
+            }
         }
     }
 
@@ -111,7 +117,7 @@ function RecipeRead({ recipe, showRecipeModal, setSearchText }) {
             {
                 showCreateRecipeModal && (
                     <Modal onClose={() => setShowCreateRecipeModal(false)}>
-                        <CreateRecipe showModal={setShowCreateRecipeModal} recipe={recipe}/>
+                        <CreateRecipe showModal={setShowCreateRecipeModal} recipe={recipe} />
                     </Modal>
                 )
             }

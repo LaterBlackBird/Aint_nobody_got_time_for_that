@@ -31,7 +31,7 @@ function Recipe({ recipe, dayId }) {
       </div>
       {showRecipeModal && (
         <Modal onClose={() => setShowRecipeModal(false)}>
-          <RecipeRead />
+          <RecipeRead showRecipeModal={setShowRecipeModal}/>
         </Modal>
       )}
     </>

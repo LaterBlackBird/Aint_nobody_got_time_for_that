@@ -16,7 +16,8 @@ function MealPlans() {
 
 
     // Select a meal plan, create selection store
-    const selectMealPlan = (plan) => {
+    const selectMealPlan = (e, plan) => {
+        e.stopPropagation();
         dispatch(selectThisPlan(plan))
         dispatch(getDialySchedules(plan.id))
     }
@@ -63,7 +64,7 @@ function MealPlans() {
                     <p>MEAL PLANS</p>
                 </div>
                 {plansArray.map(plan => (
-                    <div className={`meal_plan_card flex_col_center ${selectedPlan && selectedPlan.id === plan.id?"selected_plan":""}`} key={plan.id} onClick={(e) => selectMealPlan(plan)}>
+                    <div className={`meal_plan_card flex_col_center ${selectedPlan && selectedPlan.id === plan.id?"selected_plan":""}`} key={plan.id} onClick={(e) => selectMealPlan(e, plan)}>
                         <p>{plan.name}</p>
                     </div>
                 ))}

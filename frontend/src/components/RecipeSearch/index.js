@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { searchRecipes, clearSearchResultsState } from '../../store/recipe';
+import { searchRecipes, clearSearchResultsState, clearPrevSelectedRecipeState } from '../../store/recipe';
 import SearchResultCard from '../SearchResultCard';
 import { Modal } from '../../context/modals';
 import CreateRecipe from '../CreateRecipeModal';
@@ -29,9 +29,10 @@ function RecipeSearch({ dayId }) {
     }
 
     // when the create option is selected, clear search field and results
-    const createOptionSelected = async () => {
+    const createOptionSelected = () => {
         setSearchText('');
         dispatch(clearSearchResultsState())
+        dispatch(clearPrevSelectedRecipeState());
         setShowCreateRecipeModal(true);
     }
 

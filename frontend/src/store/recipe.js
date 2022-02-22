@@ -71,6 +71,7 @@ const ADD_SEARCHED_RECIPE = 'recipes/ADD_SEARCHED_RECIPES'
 const CLEAR_SEARCH = 'recipes/CLEAR_SEARCH'
 const REMOVE_RECIPE_FROM_DAY = 'recipes/REMOVE_RECIPE_FROM_DAY'
 const RESET_STATE = 'recipes/RESET_STATE'
+const CLEAR_SELECTED_STATE = 'recipe/CLEAR_SELECTED_STATE'
 const LOAD_RECIPE_TAGS = 'recipes/LOAD_RECIPE_TAGS'
 const TOGGLE_EDIT_FLAG = 'recipes/TOGGLE_EDIT_FLAG'
 
@@ -120,6 +121,13 @@ const removeThisRecipe = (recipe) => {
 const resetState = () => {
     return {
         type: RESET_STATE,
+        payload: null
+    }
+}
+
+export const clearPrevSelectedRecipeState = () => {
+    return {
+        type: CLEAR_SELECTED_STATE,
         payload: null
     }
 }
@@ -186,6 +194,12 @@ export default function recipeReducer(state = { daily: {}, tags: {}, selected: {
         case RESET_STATE:
             const resetState = { daily: {} };
             return resetState;
+        case CLEAR_SELECTED_STATE:
+            const clearSelectedState = {...state};
+            clearSelectedState.selected = {};
+            clearSelectedState.tags = {};
+            clearSelectedState.editFlag = false;
+            return clearSelectedState;
         case LOAD_RECIPE_TAGS:
             const addTagState = { ...state };
             addTagState.tags = {};
