@@ -8,7 +8,7 @@ export const getDialySchedules = mealPlanId => async (dispatch) => {
     }
 }
 
-//Add a new daily schedule to the database
+// Add a new daily schedule to the database
 export const addDailySchedule = dayInfo => async (dispatch) => {
     const { planId, newDayName } = dayInfo
     const response = await fetch(`/api/daily_schedules`, {
@@ -26,7 +26,7 @@ export const addDailySchedule = dayInfo => async (dispatch) => {
 }
 
 
-//Edit a daily schedule
+// Edit a daily schedule
 export const editDailySchedule = (dailyScheduleId, editedDayName) => async (dispatch) => {
     const response = await fetch(`/api/daily_schedules/${dailyScheduleId}`, {
         method: 'PUT',
@@ -42,7 +42,7 @@ export const editDailySchedule = (dailyScheduleId, editedDayName) => async (disp
     }
 }
 
-//Delete a daily schedule
+// Delete a daily schedule
 export const deleteDailySchedule = (dayId) => async (dispatch) => {
     const response = await fetch(`/api/daily_schedules/${dayId}`, {
         method: 'DELETE',
@@ -52,7 +52,7 @@ export const deleteDailySchedule = (dayId) => async (dispatch) => {
     }
 }
 
-//Reset daily schedules
+// Reset daily schedules
 export const resetDialySchedules = () => async (dispatch) => {
     dispatch(resetAllDays());
 }
